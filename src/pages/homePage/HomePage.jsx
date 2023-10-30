@@ -1,5 +1,5 @@
 import React from "react";
-import { Hero } from "../../components/hero/Hero";
+import Hero  from "../../components/Hero";
 import { InfoBanner } from "../../components/infoBanner/InfoBanner";
 import { NewArrivals } from "../../components/newArrivals/NewArrivals";
 import { HandpickedCollections } from "../../components/handpickedCollections/HandpickedCollections";

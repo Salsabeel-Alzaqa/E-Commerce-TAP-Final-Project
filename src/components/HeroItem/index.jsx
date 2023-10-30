@@ -1,9 +1,9 @@
 import { Container,Button, Paper, Typography, Box } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useMediaQuery, useTheme } from '@mui/material'; 
 function HeroItem({ image, subtitle, title, category }) {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const containerStyle = {
       position: 'relative',
   };
@@ -28,7 +28,7 @@ function HeroItem({ image, subtitle, title, category }) {
         paddingBottom: isSmallScreen ? '1px' : '40px', 
     };
   const handleClick = () => {
-    // navigate(`/${category}`); 
+    navigate(`/category/${category}`); 
   };
   return (
     <Container maxWidth="xl">
