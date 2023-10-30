@@ -1,7 +1,10 @@
+import { RouterProvider } from "react-router-dom";
+
+import { router } from "./router/router";
 import "./App.css";
-import Hero from './components/Hero';
+
 function App() {
-  return(<><Hero /></>) 
+  return <RouterProvider router={router} />;
 }
 
 export default App;
