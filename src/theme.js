@@ -44,6 +44,11 @@ const theme = createTheme({
                         fontSize: '1.5rem',
                     },
                 },
+                h4: {
+                    '@media (max-width: 600px)': {
+                        fontSize: '1.25rem',
+                    },
+                },
             },
         },
         MuiRating: {
