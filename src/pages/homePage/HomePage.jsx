@@ -1,10 +1,10 @@
 import React from "react";
-import { Hero } from "../../components/hero/Hero";
-import { InfoBanner } from "../../components/infoBanner/InfoBanner";
-import { NewArrivals } from "../../components/newArrivals/NewArrivals";
-import { HandpickedCollections } from "../../components/handpickedCollections/HandpickedCollections";
-import { ShopByBrand } from "../../components/shopByBrand/ShopByBrand";
-import { SpotLightBanner } from "../../components/spotLightBanner/SpotLightBanner";
+import { Hero } from "../../components/Hero/Hero";
+import { InfoBanner } from "../../components/InfoBanner/InfoBanner";
+import { NewArrivals } from "../../components/NewArrivals/NewArrivals";
+import { HandpickedCollections } from "../../components/HandpickedCollections/HandpickedCollections";
+import { ShopByBrand } from "../../components/ShopByBrand/ShopByBrand";
+import { SpotLightBanner } from "../../components/SpotLightBanner/SpotLightBanner";
 
 export const HomePage = () => {
   return (
