@@ -35,7 +35,9 @@ export const RootLayout = () => {
   return (
     <ThemeProvider theme={theme}>
       <Header />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
       <Footer />
     </ThemeProvider>
   );
