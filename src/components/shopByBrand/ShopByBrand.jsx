@@ -1,5 +1,4 @@
 import React from "react";
-//test 
 import { MockShopByBrand } from '../../assets/data/data';
 import Title from "../Title/Title";
 import { Grid } from '@mui/material';
@@ -17,6 +16,8 @@ export const ShopByBrand = () => {
     </Grid>
   </>)
 };
+
+
 const BrandItem = ({ brandImage, brandName }) => {
   return (
     <>

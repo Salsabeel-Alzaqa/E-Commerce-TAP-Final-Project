@@ -4,7 +4,7 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
-import { HomePage } from "../pages/homePage/HomePage";
+import { HomePage } from "../pages/HomePage/HomePage";
 import { RootLayout } from "../layouts/RootLayout";
 
 export const router = createBrowserRouter(
