@@ -1,33 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
+import { Typography } from "@mui/material";
+import ProductDefault from "../../assets/images/ProductDefault.jpg";
 
 export const HandpickedCard = (props) => {
+  const [image, setImage] = useState(null);
+
+  const loadImage = async (imageName) => {
+    try {
+      let cardImage = await import(`../../assets/images/${imageName}`);
+      setImage(cardImage.default);
+    } catch {
+      setImage(ProductDefault);
+    }
+  };
+
+  useEffect(() => {
+    loadImage(props.itemData.image);
+  }, [props.itemData.image]);
+
   return (
-    <Card>
-      <CardMedia
-        component="img"
-        height="200"
-        image={props.item.image}
-        alt={props.item.category}
-      >
+    <Card sx={{ maxWidth: 380 }}>
+      <div style={{ position: "relative" }}>
+        <CardMedia
+          sx={{ height: 260, position: "relative" }}
+          component="img"
+          image={image}
+          alt={props.itemData.category}
+        />
         <Typography
-          variant="h5"
-          component="div"
-          style={{
+          fontWeight={600}
+          fontSize={24}
+          sx={{
             position: "absolute",
-            bottom: 0,
-            left: 0,
-            backgroundColor: "black",
-            color: "white",
-            padding: "8px",
+            bottom: 5,
+            left: 20,
           }}
         >
-          {props.item.category}
+          {props.itemData.category}
         </Typography>
-      </CardMedia>
+      </div>
     </Card>
   );
 };
