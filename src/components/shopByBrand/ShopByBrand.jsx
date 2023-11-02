@@ -6,13 +6,13 @@ import { styled } from '@mui/system';
 import { useQueryParam } from "../../hooks/useQueryParam";
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
+const StyledPaper = styled(Paper)(({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   height: '168px',
   width: '168px',
-  raduis: '16px',
+  radius: '16px', 
   backgroundColor: '#F1F1F1',
   transition: 'transform 0.2s',
   '&:hover': {
