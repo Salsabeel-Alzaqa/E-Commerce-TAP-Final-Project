@@ -34,6 +34,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '8px',
+          cursor: 'pointer',
         },
       },
     },
@@ -46,7 +47,7 @@ const theme = createTheme({
         },
         h4: {
           '@media (max-width: 600px)': {
-            fontSize: '1.25rem',
+            fontSize: '1rem',
           },
         },
         h3: {
