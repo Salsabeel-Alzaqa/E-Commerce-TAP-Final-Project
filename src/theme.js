@@ -66,6 +66,14 @@ const theme = createTheme({
         },
       },
     },
+    MuiInputBase: { 
+      styleOverrides: {
+        root: {
+          backgroundColor: '#F1F1F1', 
+          borderRadius: '4px'
+        },
+      },
+    },
     // Add more components with custom style here
   },
 });

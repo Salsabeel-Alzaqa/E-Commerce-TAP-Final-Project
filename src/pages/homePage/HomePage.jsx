@@ -6,6 +6,7 @@ import { SpotLightBanner } from "../../components/SpotLightBanner/SpotLightBanne
 import { ShopByBrand } from "../../components/ShopByBrand/ShopByBrand";
 
 export const HomePage = () => {
+
   return (
     <>
       <Hero />

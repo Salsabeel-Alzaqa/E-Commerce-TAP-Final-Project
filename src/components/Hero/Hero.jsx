@@ -6,18 +6,20 @@ export const Hero = () => {
   const carouselSettings = {
     navButtonsProps: {
       style: {
-        display: "none"
-      }
+        display: "none",
+      },
     },
     indicatorIconButtonProps: {
       style: {
-        display: "none"
-      }
-    }
+        display: "none",
+      },
+    },
   };
   return (
     <Carousel {...carouselSettings}>
-      {heroItems.map((item, index) => <HeroItem key={index} {...item} />)}
+      {heroItems.map((item, index) => (
+        <HeroItem key={index} {...item} />
+      ))}
     </Carousel>
   );
 }
