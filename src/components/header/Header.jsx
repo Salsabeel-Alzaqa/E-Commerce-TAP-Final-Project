@@ -95,8 +95,8 @@ export const Header = () => {
   );
 
   return (
-    <Box sx={{ flexGrow: 1, backgroundColor: "white" }}>
-      <AppBar position="static" elevation={0}>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static" elevation={0} sx={{ backgroundColor: "white" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
