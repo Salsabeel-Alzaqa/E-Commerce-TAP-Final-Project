@@ -6,10 +6,16 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-export const ProductCard = ({ image, title, color, price }) => {
+import ProductImage from "../../assets/images/image.png";
+
+export const ProductCard = (props) => {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia sx={{ height: 140 }} image={image} title={title} />
+      <CardMedia
+        sx={{ height: 260 }}
+        image={ProductImage}
+        title={props.itemData.name_product}
+      />
       <CardContent>
         <Box
           sx={{
@@ -20,19 +26,37 @@ export const ProductCard = ({ image, title, color, price }) => {
         >
           <Typography
             gutterBottom
-            variant="h6"
+            variant="none"
             component="div"
-            sx={{ marginLeft: 1 }}
+            sx={{
+              fontSize: "16px",
+              fontWeight: "500",
+            }}
           >
-            {title}
+            {props.itemData.name_product}
           </Typography>
-          <FavoriteBorderIcon sx={{ fontSize: 30, color: "primary" }} />
+          <FavoriteBorderIcon sx={{ fontSize: 25, color: "primary" }} />
         </Box>
-        <Typography variant="body2" color="text.secondary">
-          {color}
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{
+            fontSize: "14px",
+            mb: "5px",
+          }}
+        >
+          {props.itemData.short_description}
         </Typography>
-        <Typography gutterBottom variant="h6" component="div">
-          {price}
+        <Typography
+          gutterBottom
+          variant="none"
+          component="div"
+          sx={{
+            fontSize: "16px",
+            fontWeight: "500",
+          }}
+        >
+          {props.itemData.price}
         </Typography>
       </CardContent>
     </Card>
