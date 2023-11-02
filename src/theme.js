@@ -34,6 +34,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '8px',
+          cursor: 'pointer',
         },
       },
     },

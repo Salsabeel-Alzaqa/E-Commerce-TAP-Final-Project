@@ -14,7 +14,7 @@ export const MockShopByBrand =
   [
     { 'brandImage': zaraImage, 'brandName': 'zara' },
     { 'brandImage': dandgImage, 'brandName': 'dandg' },
-    { 'brandImage': handmImage, 'brandName': 'h&m' },
+    { 'brandImage': handmImage, 'brandName': 'handm' },
     { 'brandImage': chanelImage, 'brandName': 'chanel' },
     { 'brandImage': pradaImage, 'brandName': 'prada' },
     { 'brandImage': bibaImage, 'brandName': 'biba' }
