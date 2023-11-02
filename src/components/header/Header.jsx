@@ -19,6 +19,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 
 import { pages } from "../../assets/data/pages";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
+import { SearchBox } from "../SearchBox/SearchBox";
 
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -188,8 +189,9 @@ export const Header = () => {
                 </Button>
               ))}
             </Box>
-            {/* <Box sx={{ flexGrow: 1 }} /> */}
-            {/* Search component here TODO */}
+            <Box sx={{ flexGrow: 1 }}>
+              <SearchBox />
+            </Box>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton
                 size="large"
