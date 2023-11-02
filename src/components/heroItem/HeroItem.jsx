@@ -13,7 +13,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   top: '7%',
   right: 0,
   width: '55%',
-  height: '65%',
+  height: '70%',
   padding: '16px',
   backgroundColor: 'rgba(222, 222, 222, 0.7)',
 }));

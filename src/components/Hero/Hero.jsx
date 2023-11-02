@@ -1,8 +1,8 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
-import HeroItem from '../heroItem/HeroItem';
+import HeroItem from '../HeroItem/HeroItem';
 import { heroItems } from '../../assets/data/data';
-const Hero = () => {
+export const Hero = () => {
   const carouselSettings = {
     navButtonsProps: {
       style: {
@@ -21,5 +21,3 @@ const Hero = () => {
     </Carousel>
   );
 }
-
-export default Hero;
