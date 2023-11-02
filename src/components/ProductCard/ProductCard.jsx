@@ -10,7 +10,7 @@ import ProductImage from "../../assets/images/image.png";
 
 export const ProductCard = (props) => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 380, boxShadow: "none" }}>
       <CardMedia
         sx={{ height: 260 }}
         image={ProductImage}
