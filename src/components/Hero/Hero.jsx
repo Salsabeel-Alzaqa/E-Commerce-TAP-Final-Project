@@ -1,7 +1,7 @@
-import React from "react";
-import Carousel from "react-material-ui-carousel";
-import HeroItem from "../heroItem/HeroItem";
-import { heroItems } from "../../assets/data/data";
+import React from 'react';
+import Carousel from 'react-material-ui-carousel';
+import HeroItem from '../HeroItem/HeroItem';
+import { heroItems } from '../../assets/data/data';
 export const Hero = () => {
   const carouselSettings = {
     navButtonsProps: {
