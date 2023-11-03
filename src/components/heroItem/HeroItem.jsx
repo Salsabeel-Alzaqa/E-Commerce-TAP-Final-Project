@@ -1,19 +1,19 @@
 import { Container, Button, Paper, Typography, Box } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { useNavigate } from 'react-router-dom';
-import { useMediaQuery, useTheme } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import { styled } from '@mui/system'; 
 
-const StyledBox = styled(Box)(({ theme }) => ({
+const StyledBox = styled(Box)(({
   position: 'relative',
 }));
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
+const StyledPaper = styled(Paper)(({
   position: 'absolute',
   top: '7%',
   right: 0,
   width: '55%',
-  height: '70%',
+  height: '75%',
   padding: '16px',
   backgroundColor: 'rgba(222, 222, 222, 0.7)',
 }));
@@ -24,9 +24,8 @@ const StyledSubtitle = styled(Typography)(({ theme }) => ({
   paddingLeft: '20px',
   [theme.breakpoints.down('md')]: {
     width: '100%',
-    paddingBottom: '1px',
+    paddingBottom: '10px',
     paddingLeft: '1px',
-    fontSize: '1.25rem',
   },
 }));
 
@@ -35,15 +34,12 @@ const StyledTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 'bold',
   [theme.breakpoints.down('md')]: {
     padding: '1px',
-    fontSize: '1.5rem',
   },
 }));
 
 function HeroItem({ image, subtitle, title, category }) {
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const isSmallScreen = useMediaQuery('(max-width:700px)');
   const handleClick = () => {
     navigate(`/category/${category}`);
   };

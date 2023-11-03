@@ -43,7 +43,6 @@ const BrandItem = ({ brandImage, brandName }) => {
     const searchValue = searchParams.get('search') || '';
     navigate(`/search?search=${searchValue}&brand=${brandName}`);
   };
-  console.log(query);
   return (
     <StyledPaper onClick={handlebrand}>
       <img src={brandImage} alt='brand' style={{ maxWidth: '100%', maxHeight: '100%' }} />

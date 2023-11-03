@@ -41,13 +41,25 @@ const theme = createTheme({
     MuiTypography: {
       styleOverrides: {
         h2: {
-          '@media (max-width: 600px)': {
-            fontSize: '1.5rem',
+          '@media (max-width: 1280px)': {
+            fontSize: '2.4rem',
+          },
+          '@media (max-width: 680px)': {
+            fontSize: '1.25rem',
+          },
+          '@media (max-width: 400px)': {
+            fontSize: '1rem',
           },
         },
         h4: {
-          '@media (max-width: 600px)': {
-            fontSize: '1rem',
+          '@media (max-width: 1280px)': {
+            fontSize: '1.7rem',
+          },
+          '@media (max-width: 680px)': {
+            fontSize: '0.9rem',
+          },
+          '@media (max-width: 400px)': {
+            fontSize: '0.7rem',
           },
         },
         h3: {
@@ -67,10 +79,10 @@ const theme = createTheme({
         },
       },
     },
-    MuiInputBase: { 
+    MuiInputBase: {
       styleOverrides: {
         root: {
-          backgroundColor: '#F1F1F1', 
+          backgroundColor: '#F1F1F1',
           borderRadius: '4px'
         },
       },
