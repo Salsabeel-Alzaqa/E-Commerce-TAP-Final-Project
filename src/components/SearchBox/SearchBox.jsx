@@ -1,17 +1,20 @@
 import React from 'react';
 import { InputBase, IconButton, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useNavigate , useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useQueryParam } from '../../hooks/useQueryParam';
 
 export const SearchBox = () => {
     const [query, setQuery] = useQueryParam('search', '');
-    let location = useLocation().search;
     const navigate = useNavigate();
     const handleSearch = () => {
-        const brandParams = new URLSearchParams(location);
-        const brandValue = brandParams.get('brand') || '';
-        navigate(`/search?search=${query}&brand=${brandValue}`);
+        if (query !== '')
+        {
+           navigate(`/search?search=${query}`);
+        }
+        else {
+            return;
+        }
     };
     const handleInputChange = (event) => {
         setQuery(event.target.value);
