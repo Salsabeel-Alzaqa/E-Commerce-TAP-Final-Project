@@ -32,7 +32,7 @@ const newArrivalsItems = [
 
 export const NewArrivals = () => {
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="l">
       <Paper variant="none">
         <Box
           display="flex"
