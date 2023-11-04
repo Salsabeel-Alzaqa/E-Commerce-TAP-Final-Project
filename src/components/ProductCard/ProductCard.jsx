@@ -12,11 +12,11 @@ export const ProductCard = (props) => {
   return (
     <Card sx={{ maxWidth: 380, boxShadow: "none" }}>
       <CardMedia
-        sx={{ height: 260 }}
+        sx={{ height: 300, borderRadius: "8px" }}
         image={ProductImage}
         title={props.itemData.name_product}
       />
-      <CardContent>
+      <CardContent sx={{ px: 0 }}>
         <Box
           sx={{
             display: "flex",

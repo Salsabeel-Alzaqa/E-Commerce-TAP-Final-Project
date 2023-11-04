@@ -20,6 +20,19 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { pages } from "../../assets/data/pages";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { SearchBox } from "../SearchBox/SearchBox";
+import { Link } from "react-router-dom";
+import styled from "@emotion/styled";
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  &:focus,
+  &:hover,
+  &visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
 
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -98,13 +111,9 @@ export const Header = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" elevation={0} sx={{ backgroundColor: "white" }}>
-        <Container maxWidth="l">
+        <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              href="#app-bar-with-responsive-menu"
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
@@ -112,10 +121,15 @@ export const Header = () => {
                 fontWeight: 700,
                 letterSpacing: ".3rem",
                 color: "primary",
-                textDecoration: "none",
               }}
             >
-              <Logo />
+              <StyledLink
+                to={{
+                  pathname: `/`,
+                }}
+              >
+                <Logo />
+              </StyledLink>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
@@ -146,20 +160,23 @@ export const Header = () => {
                   display: { xs: "block", md: "none" },
                 }}
               >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography color="black" textAlign="center">
-                      {page}
-                    </Typography>
-                  </MenuItem>
+                {pages.map((category, index) => (
+                  <StyledLink
+                    key={index}
+                    to={{
+                      pathname: `/category/${category}`,
+                    }}
+                  >
+                    <MenuItem onClick={handleCloseNavMenu}>
+                      <Typography color="black" textAlign="center">
+                        {category}
+                      </Typography>
+                    </MenuItem>
+                  </StyledLink>
                 ))}
               </Menu>
             </Box>
             <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href="#app-bar-with-responsive-menu"
               sx={{
                 mr: 2,
                 display: { xs: "flex", md: "none" },
@@ -171,22 +188,34 @@ export const Header = () => {
                 textDecoration: "none",
               }}
             >
-              <Logo />
+              <StyledLink
+                to={{
+                  pathname: `/`,
+                }}
+              >
+                <Logo />
+              </StyledLink>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    my: 2,
-                    color: "black",
-                    textTransform: "none",
-                    display: "block",
+              {pages.map((category, index) => (
+                <StyledLink
+                  key={index}
+                  to={{
+                    pathname: `/category/${category}`,
                   }}
                 >
-                  {page}
-                </Button>
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      my: 2,
+                      color: "black",
+                      textTransform: "none",
+                      display: "block",
+                    }}
+                  >
+                    {category}
+                  </Button>
+                </StyledLink>
               ))}
             </Box>
             <Box sx={{ flexGrow: 1 }}>

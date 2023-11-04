@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Grid, Typography, useTheme } from "@mui/material";
 import { HandpickedCard } from "../HandpickedCard/HandpickedCard";
+import { Link } from "react-router-dom";
 
 const handpickedCollectionsData = [
   {
@@ -25,7 +26,7 @@ export const HandpickedCollections = () => {
   const theme = useTheme();
   return (
     <Container
-      maxWidth="l"
+      maxWidth="xl"
       sx={{
         pt: 3,
         pb: 6,
@@ -35,10 +36,16 @@ export const HandpickedCollections = () => {
       <Typography variant="h3" component="div" pb={2} color={"white"}>
         Handpicked collections
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={3}>
         {handpickedCollectionsData.map((item, index) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-            <HandpickedCard itemData={item} />
+            <Link
+              to={{
+                pathname: `/category/${item.category}`,
+              }}
+            >
+              <HandpickedCard itemData={item} />
+            </Link>
           </Grid>
         ))}
       </Grid>

@@ -24,7 +24,7 @@ export const HandpickedCard = (props) => {
     <Card sx={{ maxWidth: 380 }}>
       <div style={{ position: "relative" }}>
         <CardMedia
-          sx={{ height: 260, position: "relative" }}
+          sx={{ height: 300, position: "relative" }}
           component="img"
           image={image}
           alt={props.itemData.category}
