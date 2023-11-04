@@ -1,6 +1,6 @@
 import React from "react";
 import { MockShopByBrand } from '../../assets/data/data';
-import Title from "../Title/Title";
+import { Title } from "../Title/Title";
 import { Grid , Paper , Container} from '@mui/material';
 import { styled } from '@mui/system'; 
 import { useQueryParam } from "../../hooks/useQueryParam";

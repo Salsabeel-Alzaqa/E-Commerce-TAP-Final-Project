@@ -2,7 +2,6 @@ import React from "react";
 import {
   Grid,
   Paper,
-  Typography,
   Box,
   Button,
   Container,
@@ -11,6 +10,7 @@ import {
 import { ProductCard } from "../ProductCard/ProductCard";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Link } from "react-router-dom";
+import { Title } from '../Title/Title'
 import styled from "@emotion/styled";
 
 const newArrivalsItems = [
@@ -62,9 +62,7 @@ export const NewArrivals = () => {
           alignItems="center"
           py={2}
         >
-          <Typography variant="h3" component="div">
-            New Arrivals
-          </Typography>
+          <Title text={'New Arrivals'} />
           <StyledLink
             to={{
               pathname: `/search`,
