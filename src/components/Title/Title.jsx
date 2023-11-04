@@ -1,12 +1,10 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 
-const Title = ({ text }) => {
+export const Title = ({ text, color}) => {
     return (
-        <Typography variant="h3" component="div" py={3}>
+        <Typography variant="h3" component="div" color={color} py={3}>
             {text}
         </Typography>
     )
 }
-
-export default Title;
