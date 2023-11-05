@@ -12,31 +12,34 @@ import { ProductCard } from "../ProductCard/ProductCard";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
-
 const newArrivalsItems = [
   {
-    image_url: "../images/image.png ",
+    id_product:1,
+    image_url: "image.png",
     name_product: "Grande",
     short_description: "Blossom Pouch",
-    price: "$39.49",
+    price: "39.49",
   },
   {
-    image_url: "../images/image.png ",
+    id_product:2,
+    image_url: "image2.png",
     name_product: "Coach",
     short_description: "Blossom Pouch",
-    price: "$39.49",
+    price: "39.49",
   },
   {
-    image_url: "../images/image.png ",
+    id_product:3,
+    image_url: "image3.png",
     name_product: "Remus",
     short_description: "Blossom Pouch",
-    price: "$39.49",
+    price: "39.49",
   },
   {
-    image_url: "../images/image.png",
+    id_product:4,
+    image_url: "image.png",
     name_product: "Boujee",
     short_description: "Blossom Pouch",
-    price: "$39.49",
+    price: "39.49",
   },
 ];
 
@@ -87,13 +90,7 @@ export const NewArrivals = () => {
         <Grid container spacing={3}>
           {newArrivalsItems.map((item, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-              <StyledLink
-                to={{
-                  pathname: `/product/${item.name_product}`,
-                }}
-              >
-                <ProductCard itemData={item} />
-              </StyledLink>
+              <ProductCard {...item} newArrival={true} />
             </Grid>
           ))}
         </Grid>
