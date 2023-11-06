@@ -53,7 +53,7 @@ export const ProductCard = ({name_product,id_product,short_description,price,ima
     navigate(`/product/${id_product}`);
   }
   return (
-    <Card sx={{ maxWidth: 380, boxShadow: "none" }}>
+    <Card sx={{ maxWidth: '100%', boxShadow: "none" }}>
       <StyledCardMedia image={image} title={name_product}>
         <Overlay className="overlay">
           <ButtonStyled variant="contained" onClick={handleProduct}>
