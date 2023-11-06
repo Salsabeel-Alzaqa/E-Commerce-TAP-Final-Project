@@ -22,7 +22,7 @@ export const ProductPrice = ({ discount, price, size }) => {
              <Typography gutterBottom variant="none" color="red"  sx={{ fontSize: { size }, fontWeight: "400"}}>
               {discount}% OFF</Typography>
           </Stack> 
-          : <Typography gutterBottom variant="none" sx={{ fontSize: { size }, fontWeight: "500" }}>{price}</Typography>
+          : <Typography gutterBottom variant="none" sx={{ fontSize: { size }, fontWeight: "500" }}>${price}</Typography>
       }
     </>
   )
