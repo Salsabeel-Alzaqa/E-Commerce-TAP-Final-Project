@@ -5,7 +5,7 @@ export const ProductPrice = ({ discount, price, size }) => {
   const [priceAfter, setPriceAfter] = useState(0);
   useEffect(() => {
     if (discount && discount !== 0) {
-      const discounted = (Number(price) * discount) / 100;
+      const discounted = (Number(price) * Number(discount)) / 100;
       const discountedPrice = Number(price) - discounted;
       setPriceAfter(discountedPrice);
     }

@@ -1,5 +1,6 @@
 import React from "react";
+import Breadcrumb from "../../components/Breadcrumbs/Breadcrumbs";
 
 export const ProductPage = () => {
-  return <div>ProductPage</div>;
+  return (<><Breadcrumb /></>);
 };
