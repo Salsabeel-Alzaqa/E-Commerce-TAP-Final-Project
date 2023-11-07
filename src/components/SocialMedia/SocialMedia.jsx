@@ -10,7 +10,7 @@ import {
 
 export const SocialMedia = () => {
   return (
-    <Grid item xs={12} sm={4} sx={{ padding: 1 }}>
+    <>
       <Link href="https://www.facebook.com/" color="inherit">
         <FacebookOutlined />
       </Link>
@@ -27,6 +27,6 @@ export const SocialMedia = () => {
       <Link href="https://www.youtube.com/" color="inherit" sx={{ padding: 1 }}>
         <YouTube />
       </Link>
-    </Grid>
+    </>
   );
 };
