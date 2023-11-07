@@ -23,10 +23,11 @@ const handpickedCollectionsData = [
   },
 ];
 
-export const HandpickedCollections = () => {
+export const HandpickedCollections = (props) => {
   const theme = useTheme();
   return (
     <Container
+      ref={props.innerRef}
       maxWidth="xl"
       sx={{
         pt: 3,
@@ -34,7 +35,7 @@ export const HandpickedCollections = () => {
         backgroundColor: theme.palette.primary.main,
       }}
     >
-      <Title text={'Handpicked collections'} color={"white"}/>
+      <Title text={"Handpicked collections"} color={"white"} />
       <Grid container spacing={3}>
         {handpickedCollectionsData.map((item, index) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>

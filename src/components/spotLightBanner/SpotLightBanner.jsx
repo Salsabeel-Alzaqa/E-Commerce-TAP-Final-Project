@@ -20,13 +20,13 @@ const SpotLightBannerData = [
   },
 ];
 
-export const SpotLightBanner = () => {
+export const SpotLightBanner = (props) => {
   const theme = useTheme();
 
   return (
-    <Container maxWidth="xl" sx={{ my: 10 }}>
+    <Container maxWidth="xl" sx={{ my: 10 }} ref={props.innerRef}>
       <Card>
-        <div style={{ position: "relative" }}>
+        <Box sx={{ position: "relative" }}>
           <CardMedia
             sx={{
               height: 400,
@@ -71,7 +71,7 @@ export const SpotLightBanner = () => {
           >
             Makeup Accessories from Top Brands
           </Typography>
-        </div>
+        </Box>
       </Card>
       <Box
         display="flex"
