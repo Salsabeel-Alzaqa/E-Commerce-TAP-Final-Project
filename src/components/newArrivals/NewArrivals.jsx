@@ -1,57 +1,41 @@
 import React from "react";
-import {
-  Grid,
-  Paper,
-  Box,
-  Button,
-  Container,
-  useTheme,
-} from "@mui/material";
+import { Grid, Paper, Box, Button, Container, useTheme } from "@mui/material";
 import { ProductCard } from "../ProductCard/ProductCard";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Link } from "react-router-dom";
-import { Title } from '../Title/Title'
-import styled from "@emotion/styled";
-
+import { Title } from '../Title/Title';
+import { useQueryParam } from "../../hooks/useQueryParam";
 const newArrivalsItems = [
   {
-    image_url: "../images/image.png ",
+    id_product:1,
+    image_url: "image.png",
     name_product: "Grande",
     short_description: "Blossom Pouch",
-    price: "$39.49",
+    price: "39.49",
   },
   {
-    image_url: "../images/image.png ",
+    id_product:2,
+    image_url: "image2.png",
     name_product: "Coach",
     short_description: "Blossom Pouch",
-    price: "$39.49",
+    price: "39.49",
   },
   {
-    image_url: "../images/image.png ",
+    id_product:3,
+    image_url: "image3.png",
     name_product: "Remus",
     short_description: "Blossom Pouch",
-    price: "$39.49",
+    price: "39.49",
   },
   {
-    image_url: "../images/image.png",
+    id_product:4,
+    image_url: "image.png",
     name_product: "Boujee",
     short_description: "Blossom Pouch",
-    price: "$39.49",
+    price: "39.49",
   },
 ];
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  &:focus,
-  &:hover,
-  &visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-  }
-`;
-
 export const NewArrivals = () => {
+  const {handleMoveToListingPage} = useQueryParam('newArrival');
   const theme = useTheme();
   return (
     <Container maxWidth="xl">
@@ -63,10 +47,9 @@ export const NewArrivals = () => {
           py={2}
         >
           <Title text={'New Arrivals'} />
-          <StyledLink
-            to={{
-              pathname: `/search`,
-            }}
+          <Box
+            onClick={() =>handleMoveToListingPage(true)}
+
           >
             <Button
               variant="none"
@@ -79,19 +62,13 @@ export const NewArrivals = () => {
             >
               View All
             </Button>
-          </StyledLink>
+          </Box>
         </Box>
 
         <Grid container spacing={3}>
           {newArrivalsItems.map((item, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-              <StyledLink
-                to={{
-                  pathname: `/product/${item.name_product}`,
-                }}
-              >
-                <ProductCard itemData={item} />
-              </StyledLink>
+              <ProductCard {...item} newArrival={true} />
             </Grid>
           ))}
         </Grid>
