@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
-import { Typography, Container, Box } from "@mui/material";
+import { Typography, Container, Box, useTheme } from "@mui/material";
 import { SpotLightCard } from "../SpotLightCard/SpotLightCard";
 import MakeupImage from "../../assets/images/makeup-image.png";
 
@@ -21,18 +21,26 @@ const SpotLightBannerData = [
 ];
 
 export const SpotLightBanner = () => {
+  const theme = useTheme();
+
   return (
     <Container maxWidth="xl" sx={{ my: 10 }}>
       <Card>
         <div style={{ position: "relative" }}>
           <CardMedia
-            sx={{ height: 400, position: "relative" }}
+            sx={{
+              height: 400,
+              position: "relative",
+              [theme.breakpoints.down("sm")]: {
+                height: 250,
+              },
+            }}
             component="img"
             image={MakeupImage}
           />
           <Typography
             fontWeight={400}
-            fontSize={30}
+            fontSize={{ xs: 20, sm: 30 }}
             lineHeight={20}
             sx={{
               position: "absolute",
@@ -46,7 +54,7 @@ export const SpotLightBanner = () => {
           </Typography>
           <Typography
             fontWeight={700}
-            fontSize={52}
+            fontSize={{ xs: 32, sm: 52 }}
             sx={{
               position: "absolute",
               bottom: 0,
@@ -55,6 +63,10 @@ export const SpotLightBanner = () => {
               width: 618,
               height: 316,
               paddingTop: 5,
+              [theme.breakpoints.down("sm")]: {
+                height: 220,
+                width: 350,
+              },
             }}
           >
             Makeup Accessories from Top Brands
@@ -66,6 +78,7 @@ export const SpotLightBanner = () => {
         gap={4}
         justifyContent={"space-between"}
         marginTop={5}
+        flexDirection={{ xs: "column", sm: "row" }}
       >
         {SpotLightBannerData.map((item, index) => (
           <SpotLightCard key={index} cardData={item} />
