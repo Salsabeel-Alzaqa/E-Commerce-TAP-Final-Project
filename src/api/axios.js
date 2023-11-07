@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const Client = axios.create({
+const apiClient = axios.create({
   baseURL: 'https://tap-backend-final-3-otnz.onrender.com/api/'
 });
 
-Client.interceptors.request.use(
+apiClient.interceptors.request.use(
   (config) => {
     return config;
   },
@@ -13,7 +13,7 @@ Client.interceptors.request.use(
   }
 );
 
-Client.interceptors.response.use(
+apiClient.interceptors.response.use(
   (response) => {
     return response;
   },
@@ -22,4 +22,4 @@ Client.interceptors.response.use(
   }
 );
 
-export default Client;
+export default apiClient;

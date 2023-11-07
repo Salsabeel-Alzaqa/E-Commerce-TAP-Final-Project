@@ -1,17 +1,9 @@
 import React from "react";
-import {
-  Grid,
-  Paper,
-  Box,
-  Button,
-  Container,
-  useTheme,
-} from "@mui/material";
+import { Grid, Paper, Box, Button, Container, useTheme } from "@mui/material";
 import { ProductCard } from "../ProductCard/ProductCard";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Link } from "react-router-dom";
-import { Title } from '../Title/Title'
-import styled from "@emotion/styled";
+import { Title } from '../Title/Title';
+import { useQueryParam } from "../../hooks/useQueryParam";
 const newArrivalsItems = [
   {
     id_product:1,
@@ -42,19 +34,8 @@ const newArrivalsItems = [
     price: "39.49",
   },
 ];
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  &:focus,
-  &:hover,
-  &visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-  }
-`;
-
 export const NewArrivals = () => {
+  const {handleMoveToListingPage} = useQueryParam('newArrival');
   const theme = useTheme();
   return (
     <Container maxWidth="xl">
@@ -66,10 +47,9 @@ export const NewArrivals = () => {
           py={2}
         >
           <Title text={'New Arrivals'} />
-          <StyledLink
-            to={{
-              pathname: `/search`,
-            }}
+          <Box
+            onClick={() =>handleMoveToListingPage(true)}
+
           >
             <Button
               variant="none"
@@ -82,7 +62,7 @@ export const NewArrivals = () => {
             >
               View All
             </Button>
-          </StyledLink>
+          </Box>
         </Box>
 
         <Grid container spacing={3}>

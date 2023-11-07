@@ -1,25 +1,18 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { InputBase, IconButton, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useNavigate , useLocation } from 'react-router-dom';
+// import { useNavigate , useLocation } from 'react-router-dom';
 import { useQueryParam } from '../../hooks/useQueryParam';
 
 export const SearchBox = () => {
-    const [query, setQuery] = useQueryParam('search', '');
-    let location = useLocation().search;
-    const navigate = useNavigate();
-    const handleSearch = () => {
-        if (query === '') return;
-        const brandValue = new URLSearchParams(location).get('brand') || '';
-        const searchParams = `search=${query}${brandValue ? `&brand=${brandValue}` : ''}`;
-        navigate(`/search?${searchParams}`);
-    };
+    const [input, setInput] = useState('');
+    const {handleMoveToListingPage} = useQueryParam('search');
     const handleInputChange = (event) => {
-        setQuery(event.target.value);
+        setInput(event.target.value);
     };
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
-            handleSearch();
+            handleMoveToListingPage(input);
         }
     };
     return (
@@ -27,12 +20,12 @@ export const SearchBox = () => {
             <InputBase
                 fullWidth
                 size="medium"
-                value={query}
+                value={input}
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
                 startAdornment={
                     <InputAdornment position="start">
-                        <IconButton onClick={handleSearch}>
+                        <IconButton onClick={() => handleMoveToListingPage(input)}>
                             <SearchIcon />
                         </IconButton>
                     </InputAdornment>

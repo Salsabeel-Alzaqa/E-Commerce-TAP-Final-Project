@@ -59,8 +59,8 @@ export const ProductCard = ({name,id,short_description,price,image_url,newArriva
           {short_description}
         </Typography>
         {newArrival ? null : <Stack direction="row" spacing={2}>
-          <Rating name="text-feedback" value={rate} readOnly precision={0.5} />
-          <Typography variant="caption" color="primary">{ratingCount} Ratings</Typography>
+          <Rating name="text-feedback" value={Number(rate)} readOnly precision={0.5} />
+          <Typography variant="caption" color="primary" pt={0.5}>{ratingCount} Ratings</Typography>
         </Stack>}
         {newArrival ? <ProductPrice price={price} size={"16px"} /> : <ProductPrice price={price}  size={"16px"} discount={discount}/>}
       </CardContent>
