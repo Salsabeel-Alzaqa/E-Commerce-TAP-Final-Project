@@ -14,7 +14,7 @@ export const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route exact path="/" element={<HomePage />}></Route>
       <Route path="/listing" element={<Listing />}></Route>
-      <Route path="/product/:producId" element={<ProductPage />}></Route>
+      <Route path="/product/:id" element={<ProductPage />}></Route>
     </Route>
   )
 );
