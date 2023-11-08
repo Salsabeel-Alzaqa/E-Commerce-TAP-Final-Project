@@ -5,7 +5,7 @@ export const Loading = ({num}) => {
         <Grid container spacing={3}>
             {Array.from({ length: num }).map((_,index) => (
                 <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                    <Skeleton variant="rectangular" width={'100%'} height={412} />
+                    <Skeleton variant="rectangular" width={'100%'} height={300} />
                 </Grid>
             ))}
         </Grid>

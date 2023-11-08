@@ -5,11 +5,10 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import MoreIcon from "@mui/icons-material/MoreVert";
-import { useQueryParam } from "../../hooks/useQueryParam";
 import { pages } from "../../assets/data/pages";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { SearchBox } from "../SearchBox/SearchBox";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
 const StyledLink = styled(Link)`
@@ -27,9 +26,8 @@ export const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  
+  const navigate = useNavigate();
   const mobileMenuId = "primary-search-account-menu-mobile";
-  const {handleMoveToListingPage} = useQueryParam('category');
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -153,7 +151,7 @@ export const Header = () => {
                 {pages.map((category, index) => (
                   <Box
                     key={index}
-                    onClick={() => {handleMoveToListingPage(category)}}
+                    onClick={() => {navigate(`/listing?category=${category}`)}}
                   >
                     <MenuItem onClick={handleCloseNavMenu}>
                       <Typography color="black" textAlign="center">
@@ -188,7 +186,7 @@ export const Header = () => {
               {pages.map((category, index) => (
                 <Box
                     key={index}
-                    onClick={() => {handleMoveToListingPage(category)}}
+                    onClick={() => {navigate(`/listing?category=${category}`)}}
                   >
                   <Button
                     onClick={handleCloseNavMenu}
