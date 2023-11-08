@@ -9,8 +9,8 @@ import { ProductReviews } from "./partials/ProductReviews";
 import { RelatedProducts } from "./partials/RelatedProducts";
 
 export const ProductPage = () => {
-  const { productId } = useParams();
   const [selectedTab, setSelectedTab] = useState(0);
+  const { id } = useParams();
 
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
@@ -18,19 +18,20 @@ export const ProductPage = () => {
   const TabsItems = [
     {
       'label': 'Product Description',
-      'content': <ProductDescription productId={productId} />
+      'content': <ProductDescription productId={id} />
     },
     {
       'label': 'Related Products',
-      'content': <RelatedProducts productId={productId}/>
+      'content': <RelatedProducts productId={id} />
     },
     {
       'label': 'Ratings and Reviews',
-      'content': <ProductReviews productId={productId}/>
+      'content': <ProductReviews productId={id} />
     }
   ]
+  console.log('Product ID:', id);
   const { useProductDetails } = useDataActions();
-  const { data: product, isLoading, isError } = useProductDetails({ productId });
+  const { data: product, isLoading, isError } = useProductDetails(id);
   const breadcrumbItems = [
     <StyledLink key="2">
       Handbags
