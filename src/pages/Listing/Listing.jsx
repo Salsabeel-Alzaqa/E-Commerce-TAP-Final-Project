@@ -12,11 +12,16 @@ export const Listing = () => {
     const { useProducts } = useDataActions();
     const { search } = useLocation();
     const [currentPage, setCurrentPage] = useState(1);
-    const handlePageChange = (value) => {
+    const handlePageChange = (event,value) => {
         setCurrentPage(value);
     };
-    const handleNextChange = () => {
-        setCurrentPage((prev) => prev + 1);
+    const handleNextChange = (event) => {
+        if (currentPage !== products.pagination.totalPages) {
+            setCurrentPage((prev) => prev + 1);
+        }
+        else {
+            setCurrentPage(1);
+        }
     };
   const searchParams = new URLSearchParams(search);
     const searchValue = searchParams.get('search') || '';
