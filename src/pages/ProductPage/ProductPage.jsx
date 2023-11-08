@@ -7,7 +7,6 @@ import { ProductInfo } from "../../components/ProductInfo/ProductInfo";
 import { ProductDescription } from "./partials/ProductDescription";
 import { ProductReviews } from "./partials/ProductReviews";
 import { RelatedProducts } from "./partials/RelatedProducts";
-
 export const ProductPage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();

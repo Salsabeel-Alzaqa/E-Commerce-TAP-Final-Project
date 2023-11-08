@@ -33,8 +33,8 @@ const theme = createTheme({
     MuiPaginationItem: {
       styleOverrides: {
         page: {
-          width: '42px',
-          height: '28px',
+          width: "42px",
+          height: "28px",
           borderRadius: "8px",
         },
       },
@@ -99,10 +99,10 @@ const theme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
-          '&.Mui-selected': {
+          "&.Mui-selected": {
             backgroundColor: "#1B4B66",
             borderRadius: "8px",
-            color: 'white',
+            color: "white",
           },
         },
       },
@@ -110,12 +110,13 @@ const theme = createTheme({
     MuiTabs: {
       styleOverrides: {
         root: {
-          backgroundColor: '#F1F1F1',
+          backgroundColor: "#F1F1F1",
           borderRadius: "8px",
-          padding:'8px',
+          padding: "8px",
         },
       },
     },
+
     // Add more components with custom style here
   },
 });
