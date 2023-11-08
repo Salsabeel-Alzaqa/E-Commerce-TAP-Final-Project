@@ -1,9 +1,10 @@
 import React from 'react'
+import { Box } from '@mui/material';
 
-export const ProductDescription = () => {
+export const ProductDescription = ({ description }) => {
   return (
-    <div>
-      description
-    </div>
+    <Box width={'80%'} mb={10}>
+      {description}
+    </Box>
   )
 }
