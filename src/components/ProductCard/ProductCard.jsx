@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Rating,Typography,CardContent,CardMedia,Card,Stack} from "@mui/material";
+import { Box, Button, Rating, Typography, CardContent, CardMedia, Card, Stack, Chip } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { styled } from '@mui/system';
 import { useNavigate } from "react-router-dom";
@@ -25,6 +25,7 @@ const Overlay = styled("div")(({
   display: "none",
   justifyContent: "center",
   alignItems: "center",
+  zIndex:2,
 }));
 
 const ButtonStyled = styled(Button)(({ 
@@ -33,8 +34,16 @@ const ButtonStyled = styled(Button)(({
   padding: "10px 20px",
   borderRadius: "4px",
 }));
-
-export const ProductCard = ({name,id,short_description,price,image_url,newArrival,rate,discount,ratingCount}) => {
+const CustomChip = styled(Chip)(({
+  backgroundColor: "#FF8C4B",
+  borderRadius: "4px",
+  color: "white", 
+  position: "absolute",
+  top: 8,
+  right: 8,
+  zIndex: 1,
+}));
+export const ProductCard = ({name,id,short_description,price,image_url,lessInfo,rate,discount,ratingCount,chipLabel}) => {
   const navigate = useNavigate();
   const handleProduct = () => {
     navigate(`/product/${id}`);
@@ -42,6 +51,11 @@ export const ProductCard = ({name,id,short_description,price,image_url,newArriva
   return (
     <Card sx={{ width: '100%', boxShadow: "none" }}>
       <StyledCardMedia image={image_url} title={name}>
+        {chipLabel && (
+        <CustomChip
+          label={chipLabel}
+        />
+      )}
         <Overlay className="overlay">
           <ButtonStyled variant="contained" onClick={handleProduct}>
             See Product
@@ -58,11 +72,11 @@ export const ProductCard = ({name,id,short_description,price,image_url,newArriva
         <Typography variant="body2" color="text.secondary" sx={{fontSize: "14px",mb: "5px"}}>
           {short_description}
         </Typography>
-        {newArrival ? null : <Stack direction="row" spacing={2}>
+        {lessInfo ? null : <Stack direction="row" spacing={2}>
           <Rating name="text-feedback" value={Number(rate)} readOnly precision={0.5} />
           <Typography variant="caption" color="primary" pt={0.5}>{ratingCount} Ratings</Typography>
         </Stack>}
-        {newArrival ? <ProductPrice price={price} size={"16px"} /> : <ProductPrice price={price}  size={"16px"} discount={discount}/>}
+        {lessInfo ? <ProductPrice price={price} size={"16px"} /> : <ProductPrice price={price}  size={"16px"} discount={discount}/>}
       </CardContent>
     </Card>
   );

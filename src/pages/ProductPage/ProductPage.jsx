@@ -11,35 +11,38 @@ import { RelatedProducts } from "./partials/RelatedProducts";
 export const ProductPage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
-
+  const { useProductDetails } = useDataActions();
+  const { data: product, isLoading, isError } = useProductDetails(id,'');
+  let TabsItems;
+  let breadcrumbItems;
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
-  const TabsItems = [
-    {
-      'label': 'Product Description',
-      'content': <ProductDescription productId={id} />
-    },
-    {
-      'label': 'Related Products',
-      'content': <RelatedProducts productId={id} />
-    },
-    {
-      'label': 'Ratings and Reviews',
-      'content': <ProductReviews productId={id} />
-    }
-  ]
-  const { useProductDetails } = useDataActions();
-  const { data: product, isLoading, isError } = useProductDetails(id);
-  const breadcrumbItems = [
-    <StyledLink key="2">
-      Handbags
-    </StyledLink>,
-    <Typography underline="hover" key="3">
-      Label
-    </Typography>
-  ];
   if (isError) return <p>Error ...</p>;
+  if (product) {
+    TabsItems = [
+      {
+        'label': 'Product Description',
+        'content': <ProductDescription description={product.product.description} />
+      },
+      {
+        'label': 'Related Products',
+        'content': <RelatedProducts />
+      },
+      {
+        'label': 'Ratings and Reviews',
+        'content': <ProductReviews productDescription={product.product.short_description} productName={product.product.name} productRating={product.product.rate} />
+      }
+    ];
+    breadcrumbItems = [
+      <StyledLink key="2">
+        Handbags
+      </StyledLink>,
+      <Typography underline="hover" key="3">
+        {product.product.name}
+      </Typography>
+    ];
+  }
   return (
     <Container maxWidth="xl">
       <Box mt={3}>
@@ -55,7 +58,7 @@ export const ProductPage = () => {
             isLoading ? (Array.from({ length: 6 }).map((_, index) => (
               <Box key={index} mb={4}>
                 <Skeleton animation="wave" width={'100%'} height={'40px'} /></Box>)))
-              : (<ProductInfo {...product} />)
+              : (<ProductInfo {...product.product} />)
           }
         </Grid>
       </Grid>

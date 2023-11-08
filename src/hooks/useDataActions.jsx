@@ -8,10 +8,10 @@ export function useDataActions() {
       staleTime: Infinity,
     });
   }
-  function useProductDetails(id) {
+  function useProductDetails(id,filter) {
     return useQuery({
-      queryKey: ['product','get',id],
-      queryFn: async () => await apiClient.get(`/v1/products/${id}`).then((res) => res.data),
+      queryKey: ['product','get',id,filter],
+      queryFn: async () => await apiClient.get(`/v1/products/${id}/${filter}`).then((res) => res.data),
       staleTime: 600000,
     });
   }
