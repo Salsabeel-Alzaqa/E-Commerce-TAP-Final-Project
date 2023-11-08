@@ -1,0 +1,8 @@
+.image-gallery-slide .image-gallery-image {
+  object-fit: fill;
+  border-radius: 16px;
+}
+
+.image-gallery-thumbnail .image-gallery-thumbnail-image {
+  border-radius: 8px;
+}
