@@ -2,10 +2,10 @@ import React from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { SocialMedia } from "../SocialMedia/SocialMedia";
 import { Location } from "../Location/Location";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Footer = (props) => {
   const categories = [
@@ -17,6 +17,7 @@ export const Footer = (props) => {
     "Eye Wear",
     "Jewellery",
   ];
+  const navigate = useNavigate();
 
   const products = ["Featured", "Trendy", "Brands"];
 
@@ -40,28 +41,30 @@ export const Footer = (props) => {
                 >
                   Shop by Category
                 </Typography>
-                {categories.map((item, index) => (
-                  <Link
+                {categories.map((category, index) => (
+                  <Button
                     key={index}
-                    to={{
-                      pathname: `/category/${item.toLowerCase()}`,
+                    onClick={() => {
+                      navigate(`/listing?category=${category}`);
                     }}
-                    style={{
-                      textDecoration: "none",
-                      color: "#B6B6B6",
+                    sx={{
                       display: "block",
-                      fontSize: 16,
-                      fontWeight: 500,
-                      marginBottom: 8,
                     }}
                   >
-                    {item}
-                  </Link>
+                    <Typography
+                      sx={{
+                        color: "#B6B6B6",
+                        fontSize: 16,
+                        textTransform: "none",
+                      }}
+                    >
+                      {category}
+                    </Typography>
+                  </Button>
                 ))}
               </Grid>
               <Grid item xs={6}>
                 <Typography
-                  variant="h6"
                   color="white"
                   gutterBottom
                   sx={{
@@ -82,7 +85,7 @@ export const Footer = (props) => {
                       display: "block",
                       fontSize: 16,
                       fontWeight: 500,
-                      marginBottom: 8,
+                      marginBottom: 10,
                     }}
                   >
                     {item}

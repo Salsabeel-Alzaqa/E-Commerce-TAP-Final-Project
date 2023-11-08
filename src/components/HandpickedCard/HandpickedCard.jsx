@@ -21,7 +21,7 @@ export const HandpickedCard = (props) => {
   }, [props.itemData.image]);
 
   return (
-    <Card sx={{ maxWidth: 380 }}>
+    <Card sx={{ width: '100% '}}>
       <div style={{ position: "relative" }}>
         <CardMedia
           sx={{ height: 300, position: "relative" }}

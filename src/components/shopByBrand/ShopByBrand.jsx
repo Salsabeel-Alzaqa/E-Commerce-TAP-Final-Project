@@ -4,7 +4,6 @@ import { Title } from "../Title/Title";
 import { Grid, Paper, Container } from "@mui/material";
 import { styled } from "@mui/system";
 import { useQueryParam } from "../../hooks/useQueryParam";
-import { useNavigate, useLocation } from "react-router-dom";
 
 const StyledPaper = styled(Paper)({
   display: "flex",
@@ -36,17 +35,9 @@ export const ShopByBrand = (props) => {
   );
 };
 const BrandItem = ({ brandImage, brandName }) => {
-  const [query, setQuery] = useQueryParam("brand", "");
-  let location = useLocation().search;
-  const navigate = useNavigate();
-  const handlebrand = () => {
-    setQuery(brandName);
-    const searchParams = new URLSearchParams(location);
-    const searchValue = searchParams.get("search") || "";
-    navigate(`/search?search=${searchValue}&brand=${brandName}`);
-  };
+  const { handleMoveToListingPage } = useQueryParam("brand");
   return (
-    <StyledPaper onClick={handlebrand}>
+    <StyledPaper onClick={() => handleMoveToListingPage(brandName)}>
       <img
         src={brandImage}
         alt="brand"

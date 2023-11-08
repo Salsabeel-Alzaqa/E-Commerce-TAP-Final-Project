@@ -1,26 +1,14 @@
 import * as React from "react";
-
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import {AppBar, Box ,Toolbar ,IconButton , Typography ,Menu , Container , Button ,MenuItem ,Badge } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-
-import MenuItem from "@mui/material/MenuItem";
-import Badge from "@mui/material/Badge";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import MoreIcon from "@mui/icons-material/MoreVert";
-
 import { pages } from "../../assets/data/pages";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { SearchBox } from "../SearchBox/SearchBox";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
 const StyledLink = styled(Link)`
@@ -38,8 +26,8 @@ export const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const navigate = useNavigate();
   const mobileMenuId = "primary-search-account-menu-mobile";
-
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -161,18 +149,16 @@ export const Header = () => {
                 }}
               >
                 {pages.map((category, index) => (
-                  <StyledLink
+                  <Box
                     key={index}
-                    to={{
-                      pathname: `/category/${category}`,
-                    }}
+                    onClick={() => {navigate(`/listing?category=${category}`)}}
                   >
                     <MenuItem onClick={handleCloseNavMenu}>
                       <Typography color="black" textAlign="center">
                         {category}
                       </Typography>
                     </MenuItem>
-                  </StyledLink>
+                  </Box>
                 ))}
               </Menu>
             </Box>
@@ -198,12 +184,10 @@ export const Header = () => {
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((category, index) => (
-                <StyledLink
-                  key={index}
-                  to={{
-                    pathname: `/category/${category}`,
-                  }}
-                >
+                <Box
+                    key={index}
+                    onClick={() => {navigate(`/listing?category=${category}`)}}
+                  >
                   <Button
                     onClick={handleCloseNavMenu}
                     sx={{
@@ -215,7 +199,7 @@ export const Header = () => {
                   >
                     {category}
                   </Button>
-                </StyledLink>
+                </Box>
               ))}
             </Box>
             <Box sx={{ flexGrow: 1 }}>
