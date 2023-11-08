@@ -29,7 +29,6 @@ export const ProductPage = () => {
       'content': <ProductReviews productId={id} />
     }
   ]
-  console.log('Product ID:', id);
   const { useProductDetails } = useDataActions();
   const { data: product, isLoading, isError } = useProductDetails(id);
   const breadcrumbItems = [
