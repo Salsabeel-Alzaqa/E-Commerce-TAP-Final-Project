@@ -103,13 +103,16 @@ const theme = createTheme({
             backgroundColor: "#1B4B66",
             borderRadius: "8px",
             color: 'white',
-            indicator: {
-              display: 'none !important',
-            },
           },
-          '&:hover': {
-            backgroundColor: '#F1F1F1',
-          },
+        },
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#F1F1F1',
+          borderRadius: "8px",
+          padding:'8px',
         },
       },
     },

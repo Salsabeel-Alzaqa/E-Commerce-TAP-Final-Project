@@ -59,20 +59,19 @@ export const ProductPage = () => {
           }
         </Grid>
       </Grid>
-      <Box my={3}>
-        <Tabs value={selectedTab} onChange={handleTabChange}>
-         {TabsItems.map((tab, index) => (
-          <Tab label={tab.label} key={index} />
-        ))}
-        </Tabs>
-        {TabsItems.map((tab, index) => (
-        selectedTab === index && (
-          <Box key={index} mt={3}>
-            {tab.content}
-          </Box>
-        )
-      ))}
-      </Box>
+      {isLoading ? (<></>)
+        : (<Box my={3}>
+          <Tabs value={selectedTab} onChange={handleTabChange} TabIndicatorProps={{ style: { display: "none" } }}>
+            {TabsItems.map((tab, index) => (
+              <Tab label={tab.label} key={index} />))}
+          </Tabs>
+          {TabsItems.map((tab, index) => (
+            selectedTab === index && (
+              <Box key={index} mt={3}>
+                {tab.content}
+              </Box>)))}
+        </Box>)
+      }
     </Container>
   );
 }
