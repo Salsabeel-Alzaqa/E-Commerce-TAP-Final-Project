@@ -3,7 +3,7 @@ import { Breadcrumbs, Link } from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { styled } from '@mui/system'; 
 
-const StyledLink = styled(Link)(({ theme }) => ({
+export const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
   color: theme.palette.primary,
   fontWeight:'bold',
