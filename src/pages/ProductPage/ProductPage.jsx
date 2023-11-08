@@ -7,6 +7,7 @@ import { ProductInfo } from "../../components/ProductInfo/ProductInfo";
 import { ProductDescription } from "./partials/ProductDescription";
 import { ProductReviews } from "./partials/ProductReviews";
 import { RelatedProducts } from "./partials/RelatedProducts";
+import { ProductImagesGalary } from "../../components/ProductImagesGalary/ProductImagesGalary";
 export const ProductPage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
@@ -50,7 +51,7 @@ export const ProductPage = () => {
       <Grid container spacing={1} mt={0.5}>
         <Grid item xs={12} sm={6} md={4} lg={6}>
           {isLoading ? (<Skeleton variant="rectangular" width={'100%'} height={412} />) :
-            (<>{/* farah you can add your carousel here */}</>)}
+            (<ProductImagesGalary images={product.product.image_url} />)}
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={6}>
           {
