@@ -30,6 +30,15 @@ const theme = createTheme({
         },
       },
     },
+    MuiPaginationItem: {
+      styleOverrides: {
+        page: {
+          width: '42px', 
+          height:'28px',
+          borderRadius: "8px",
+        },
+      },
+    },
     MuiPaper: {
       styleOverrides: {
         root: {
