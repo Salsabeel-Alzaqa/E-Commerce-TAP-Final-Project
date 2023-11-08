@@ -5,8 +5,15 @@ export function useDataActions() {
     return useQuery({
       queryKey: ['product','list',filters],
       queryFn: async () => await apiClient.get(`/v1/products?${filters.categoryValue ? `&category=${filters.categoryValue}` : ''}${filters.brandValue ? `&brand=${filters.brandValue}` : ''}${filters.searchValue ? `&search_term=${filters.searchValue}` : ''}${filters.newArrival === true ? `new_arrival=true` : ''}&&page=${filters.currentPage}`).then((res) => res.data),
-      staleTime: 6000,
+      staleTime: Infinity,
     });
   }
-  return { useProducts };
+   function useNewArrivalsProducts() {
+    return useQuery({
+      queryKey: ['arrivalproduct','list'],
+      queryFn: async () => await apiClient.get('/v1/products?new_arrival=true&page=1&per_page=4').then((res) => res.data),
+      staleTime: Infinity,
+    });
+  }
+  return { useProducts , useNewArrivalsProducts }
 }

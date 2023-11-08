@@ -1,7 +1,6 @@
 import React , {useState} from 'react';
 import { InputBase, IconButton, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-// import { useNavigate , useLocation } from 'react-router-dom';
 import { useQueryParam } from '../../hooks/useQueryParam';
 
 export const SearchBox = () => {
@@ -12,6 +11,7 @@ export const SearchBox = () => {
     };
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
+            if (input === '') return;
             handleMoveToListingPage(input);
         }
     };
@@ -25,7 +25,7 @@ export const SearchBox = () => {
                 onKeyPress={handleKeyPress}
                 startAdornment={
                     <InputAdornment position="start">
-                        <IconButton onClick={() => handleMoveToListingPage(input)}>
+                        <IconButton onClick={() => { if (input === '') return; handleMoveToListingPage(input); } }>
                             <SearchIcon />
                         </IconButton>
                     </InputAdornment>
