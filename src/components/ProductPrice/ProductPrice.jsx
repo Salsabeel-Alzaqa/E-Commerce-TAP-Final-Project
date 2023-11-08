@@ -5,7 +5,7 @@ export const ProductPrice = ({ discount, price, size }) => {
   const [priceAfter, setPriceAfter] = useState(0);
   useEffect(() => {
     if (discount && discount !== 0) {
-      const discounted = (Number(price) * discount) / 100;
+      const discounted = (Number(price) * Number(discount)) / 100;
       const discountedPrice = Number(price) - discounted;
       setPriceAfter(discountedPrice);
     }
@@ -22,7 +22,7 @@ export const ProductPrice = ({ discount, price, size }) => {
              <Typography gutterBottom variant="none" color="red"  sx={{ fontSize: { size }, fontWeight: "400"}}>
               {discount}% OFF</Typography>
           </Stack> 
-          : <Typography gutterBottom variant="none" sx={{ fontSize: { size }, fontWeight: "500" }}>{price}</Typography>
+          : <Typography gutterBottom variant="none" sx={{ fontSize: { size }, fontWeight: "500" }}>${price}</Typography>
       }
     </>
   )

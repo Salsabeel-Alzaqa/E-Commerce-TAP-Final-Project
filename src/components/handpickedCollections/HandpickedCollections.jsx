@@ -1,29 +1,34 @@
 import React from "react";
-import { Container, Grid, useTheme } from "@mui/material";
+import { Container, Grid, useTheme , Box} from "@mui/material";
 import { HandpickedCard } from "../HandpickedCard/HandpickedCard";
 import { Title } from "../Title/Title";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const handpickedCollectionsData = [
   {
     image: "PersonalCare.png",
     category: "Personal Care",
+    path : 'personal care',
   },
   {
     image: "Handbags.png",
     category: "Handbags",
+    path : 'Handbags',
   },
   {
     image: "WristWatches.png",
     category: "Wrist Watches",
+    path : 'Watches',
   },
   {
     image: "SunGlasses.png",
     category: "Sun Glasses",
+    path : 'Eye Wear',
   },
 ];
 
 export const HandpickedCollections = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   return (
     <Container
@@ -38,13 +43,11 @@ export const HandpickedCollections = () => {
       <Grid container spacing={3}>
         {handpickedCollectionsData.map((item, index) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-            <Link
-              to={{
-                pathname: `/category/${item.category}`,
-              }}
+            <Box
+              onClick={() => {navigate(`/listing?category=${item.path}`)}}
             >
               <HandpickedCard itemData={item} />
-            </Link>
+            </Box>
           </Grid>
         ))}
       </Grid>

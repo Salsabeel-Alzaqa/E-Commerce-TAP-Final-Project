@@ -1,23 +1,44 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation , useNavigate } from 'react-router-dom';
 
-export function useQueryParam(paramName, initialValue) {
+export function useQueryParam(paramName) {
     let location = useLocation().search;
-    const initialParams = new URLSearchParams(location);
-    const initialParamValue = initialParams.get(paramName) || initialValue;
-    const [paramValue, setParamValue] = useState(initialParamValue);
+    const navigate = useNavigate();
+    const handleMoveToListingPage = (paramValue) => {
+        const searchParams = new URLSearchParams(location);
+        let searchValue;
+        let categoryValue;
+        let brandValue;
+        let arrivalValue;
 
-    // Update URL
-    useEffect(() => {
-        const newURL = new URL(window.location);
-        const searchParams = newURL.searchParams;
-        searchParams.set(paramName, paramValue);
-        window.history.pushState({}, '', newURL);
-    }, [paramValue, paramName]);
-
-    const updateParamValue = (value) => {
-        setParamValue(value);
-    };
-
-    return [paramValue, updateParamValue];
+        if (paramName === 'search') {
+            searchValue = paramValue;
+            categoryValue = searchParams.get('category') || '';
+            brandValue = searchParams.get('brand') || '';
+            arrivalValue = searchParams.get('newArrival') || false;
+        }
+        else if (paramName === 'category')
+        {
+            searchValue = searchParams.get('search') || '';;
+            categoryValue = paramValue;
+            brandValue = searchParams.get('brand') || '';
+            arrivalValue = searchParams.get('newArrival') || false;
+        }
+        else if (paramName === 'brand')
+        {
+            searchValue = searchParams.get('search') || '';;
+            categoryValue = searchParams.get('category') || '';
+            brandValue = paramValue;
+            arrivalValue = searchParams.get('newArrival') || false;
+        }
+        else if (paramName === 'newArrival')
+        {
+            searchValue = searchParams.get('search') || '';;
+            categoryValue = searchParams.get('category') || '';
+            brandValue = searchParams.get('brand') || '';
+            arrivalValue = paramValue;
+        }
+    const result = `${searchValue ? `search=${searchValue}` : ''}${brandValue ? `&brand=${brandValue}` : ''}${categoryValue ? `&category=${categoryValue}` : ''}${arrivalValue === true ? `&newArrival=true` : ''}`;
+    navigate(`/listing?${result}`);
+  };
+    return { handleMoveToListingPage };
 }

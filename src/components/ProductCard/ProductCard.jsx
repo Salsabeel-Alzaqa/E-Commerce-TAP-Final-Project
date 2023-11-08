@@ -1,10 +1,9 @@
-import React, {useEffect,useState} from "react";
+import React from "react";
 import { Box, Button, Rating,Typography,CardContent,CardMedia,Card,Stack} from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { styled } from '@mui/system';
 import { useNavigate } from "react-router-dom";
 import { ProductPrice } from "../ProductPrice/ProductPrice";
-import ProductDefault from "../../assets/images/ProductDefault.jpg";
 const StyledCardMedia = styled(CardMedia)(({ 
   height: 300,
   borderRadius: "8px",
@@ -35,26 +34,14 @@ const ButtonStyled = styled(Button)(({
   borderRadius: "4px",
 }));
 
-export const ProductCard = ({name_product,id_product,short_description,price,image_url,newArrival,rate,discount,rateCount}) => {
+export const ProductCard = ({name,id,short_description,price,image_url,newArrival,rate,discount,ratingCount}) => {
   const navigate = useNavigate();
-  const [image, setImage] = useState(null);
-  const loadImage = async (imageName) => {
-    try {
-      let cardImage = await import(`../../assets/images/${imageName}`);
-      setImage(cardImage.default);
-    } catch {
-      setImage(ProductDefault);
-    }
-  };
-  useEffect(() => {
-    loadImage(image_url);
-  }, [image_url]);
   const handleProduct = () => {
-    navigate(`/product/${id_product}`);
+    navigate(`/product/${id}`);
   }
   return (
-    <Card sx={{ maxWidth: '100%', boxShadow: "none" }}>
-      <StyledCardMedia image={image} title={name_product}>
+    <Card sx={{ width: '100%', boxShadow: "none" }}>
+      <StyledCardMedia image={image_url} title={name}>
         <Overlay className="overlay">
           <ButtonStyled variant="contained" onClick={handleProduct}>
             See Product
@@ -64,7 +51,7 @@ export const ProductCard = ({name_product,id_product,short_description,price,ima
       <CardContent sx={{ px: 0 }}>
         <Box sx={{ display: "flex",justifyContent: "space-between",alignItems: "center",}}>
           <Typography gutterBottom variant="none" component="div" sx={{fontSize: "16px",fontWeight: "500",}}>
-            {name_product}
+            {name}
           </Typography>
           <FavoriteBorderIcon sx={{ fontSize: 25, color: "primary" }} />
         </Box>
@@ -72,8 +59,8 @@ export const ProductCard = ({name_product,id_product,short_description,price,ima
           {short_description}
         </Typography>
         {newArrival ? null : <Stack direction="row" spacing={2}>
-          <Rating name="text-feedback" value={rate} readOnly precision={0.5} />
-          <Typography variant="caption" color="primary">{rateCount} Ratings</Typography>
+          <Rating name="text-feedback" value={Number(rate)} readOnly precision={0.5} />
+          <Typography variant="caption" color="primary" pt={0.5}>{ratingCount} Ratings</Typography>
         </Stack>}
         {newArrival ? <ProductPrice price={price} size={"16px"} /> : <ProductPrice price={price}  size={"16px"} discount={discount}/>}
       </CardContent>
