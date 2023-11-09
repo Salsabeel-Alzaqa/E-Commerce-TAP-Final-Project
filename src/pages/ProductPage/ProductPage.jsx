@@ -48,12 +48,12 @@ export const ProductPage = () => {
       <Box mt={3}>
         <Breadcrumb items={breadcrumbItems} />
       </Box>
-      <Grid container spacing={1} mt={0.5}>
-        <Grid item xs={12} sm={6} md={4} lg={6}>
+      <Grid container spacing={2} mt={0.5}>
+        <Grid item xs={12} sm={12} md={6} lg={6}>
           {isLoading ? (<Skeleton variant="rectangular" width={'100%'} height={412} />) :
             (<ProductImagesGalary images={product.product.image_url} />)}
         </Grid>
-        <Grid item xs={12} sm={6} md={4} lg={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6}>
           {
             isLoading ? (Array.from({ length: 6 }).map((_, index) => (
               <Box key={index} mb={4}>
@@ -63,7 +63,7 @@ export const ProductPage = () => {
         </Grid>
       </Grid>
       {isLoading ? (<></>)
-        : (<Box my={3}>
+        : (<Box my={4}>
           <Tabs value={selectedTab} onChange={handleTabChange} TabIndicatorProps={{ style: { display: "none" } }}>
             {TabsItems.map((tab, index) => (
               <Tab label={tab.label} key={index} />))}
