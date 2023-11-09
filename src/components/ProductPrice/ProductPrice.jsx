@@ -1,5 +1,5 @@
 import React, { useState ,useEffect } from "react";
-import { Typography, Stack } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 export const ProductPrice = ({ discount, price, size }) => {
   const [priceAfter, setPriceAfter] = useState(0);
@@ -14,15 +14,15 @@ export const ProductPrice = ({ discount, price, size }) => {
     <>
       {
         discount && discount !== 0 ?
-          <Stack direction="row" spacing={2}>
-            <Typography gutterBottom variant="none"  sx={{ fontSize: { size }, fontWeight: "500" }}>
+          <Box flexDirection="row" display='flex' alignItems={'center'} justifyContent={'flex-start'} gap={2}>
+            <Typography gutterBottom variant={size}  sx={{ fontWeight: "700" }}>
               ${priceAfter}</Typography>
-            <Typography gutterBottom variant="none" color="text.secondary"  sx={{ fontSize: { size }, fontWeight: "200",textDecoration: "line-through" }}>
+            <Typography gutterBottom variant={size} color="text.secondary"  sx={{ fontSize: { size }, fontWeight: "700",textDecoration: "line-through" }}>
               ${price}</Typography>
-             <Typography gutterBottom variant="none" color="red"  sx={{ fontSize: { size }, fontWeight: "400"}}>
+             <Typography gutterBottom color="red"  sx={{ fontSize:'16px', fontWeight: "400"}}>
               {discount}% OFF</Typography>
-          </Stack> 
-          : <Typography gutterBottom variant="none" sx={{ fontSize: { size }, fontWeight: "500" }}>${price}</Typography>
+          </Box> 
+          : <Typography gutterBottom variant={size} sx={{ fontSize: { size }, fontWeight: "500" }}>${price}</Typography>
       }
     </>
   )

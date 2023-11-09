@@ -44,7 +44,7 @@ export const Listing = () => {
                     <Title text={arrivalValue ? 'new arrivals' : categoryValue ? categoryValue : brandValue ? brandValue : searchValue} color={'primary'} />
                 </Box>
                 {isLoading ? (
-                    <Loading num={12} />
+                    <Box mb={5}><Loading num={12} /></Box>
                 ) : products.results.length === 0 ? (
                     <Box sx={{ display: "flex", justifyContent: "center" }} mt={5}>
                         <Typography variant="h4" align="center">
@@ -59,7 +59,7 @@ export const Listing = () => {
                             </Grid>
                         ))}
                     </Grid>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 5 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', my: 5 }}>
                         <Stack direction="row" spacing={2}>
                             <Box sx={{ bgcolor: '#F1F1F1', borderRadius: 5 , height:'36px',display: 'flex', justifyContent: 'center',alignItems:'center'}} px={1}>
                                 <Pagination count={products.pagination.totalPages} page={currentPage} onChange={handlePageChange} shape="rounded" color="primary"

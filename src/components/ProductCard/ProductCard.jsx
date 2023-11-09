@@ -76,7 +76,7 @@ export const ProductCard = ({name,id,short_description,price,image_url,lessInfo,
           <Rating name="text-feedback" value={Number(rate)} readOnly precision={0.5} />
           <Typography variant="caption" color="primary" pt={0.5}>{ratingCount} Ratings</Typography>
         </Stack>}
-        {lessInfo ? <ProductPrice price={price} size={"16px"} /> : <ProductPrice price={price}  size={"16px"} discount={discount}/>}
+        {lessInfo ? <ProductPrice price={price} size={"body1"} /> : <ProductPrice price={price}  size={'body1'} discount={discount}/>}
       </CardContent>
     </Card>
   );
