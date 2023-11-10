@@ -46,7 +46,7 @@ export const HandpickedCollections = (props) => {
           <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
             <Box
               onClick={() => {
-                navigate(`/listing?category=${item.path}`);
+                navigate(`/listing?category=${item.path}&handpicked=true`);
               }}
             >
               <HandpickedCard itemData={item} />

@@ -1,18 +1,14 @@
-import React , {useState} from 'react';
+import React from 'react';
 import { InputBase, IconButton, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import { useQueryParam } from '../../hooks/useQueryParam';
+import { useSearchParam } from '../../hooks/useSearchParam';
 
-export const SearchBox = () => {
-    const [input, setInput] = useState('');
-    const {handleMoveToListingPage} = useQueryParam('search');
-    const handleInputChange = (event) => {
-        setInput(event.target.value);
-    };
+export const SearchBox = ({ input, onInputChange }) => {
+    const { handleMoveToListingPage } = useSearchParam(input);
     const handleKeyPress = (event) => {
         if (event.key === 'Enter') {
             if (input === '') return;
-            handleMoveToListingPage(input);
+            handleMoveToListingPage();
         }
     };
     return (
@@ -21,11 +17,11 @@ export const SearchBox = () => {
                 fullWidth
                 size="medium"
                 value={input}
-                onChange={handleInputChange}
+                onChange={onInputChange}
                 onKeyPress={handleKeyPress}
                 startAdornment={
                     <InputAdornment position="start">
-                        <IconButton onClick={() => { if (input === '') return; handleMoveToListingPage(input); } }>
+                        <IconButton onClick={() => { if (input === '') return; handleMoveToListingPage(); }}>
                             <SearchIcon />
                         </IconButton>
                     </InputAdornment>
