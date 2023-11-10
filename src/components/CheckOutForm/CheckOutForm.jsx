@@ -29,7 +29,6 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
       "background-color",
       "box-shadow",
     ]),
-    // Use the system font instead of the default Roboto font.
     fontFamily: [
       "-apple-system",
       "BlinkMacSystemFont",
@@ -67,54 +66,53 @@ export const CheckOutForm = () => {
           noValidate
           sx={{
             display: "grid",
-            // gridTemplateColumns: { sm: "3fr 1fr" },
             gap: 2,
           }}
         >
           <Box sx={{ display: "flex", gap: 6 }}>
             <FormControl variant="standard" sx={{ width: "50%" }}>
               <InputLabel shrink htmlFor="bootstrap-input">
-                Full Name
-              </InputLabel>
-              <BootstrapInput placeholder="Enter Name" id="bootstrap-input" />
-            </FormControl>
-            <FormControl variant="standard" sx={{ width: "50%" }}>
-              <InputLabel shrink htmlFor="bootstrap-input">
-                Mobile Number
-              </InputLabel>
-              <BootstrapInput placeholder="Enter Number" id="bootstrap-input" />
-            </FormControl>
-          </Box>
-          <Box sx={{ display: "flex", gap: 6 }}>
-            <FormControl variant="standard" sx={{ width: "50%" }}>
-              <InputLabel shrink htmlFor="bootstrap-input">
-                Street Address
+                First Name
               </InputLabel>
               <BootstrapInput
-                placeholder="Enter Address"
+                placeholder="Enter First Name"
                 id="bootstrap-input"
               />
             </FormControl>
             <FormControl variant="standard" sx={{ width: "50%" }}>
               <InputLabel shrink htmlFor="bootstrap-input">
-                State
+                Last Name
               </InputLabel>
-              <BootstrapInput placeholder="Enter State" id="bootstrap-input" />
+              <BootstrapInput
+                placeholder="Enter Last Name"
+                id="bootstrap-input"
+              />
             </FormControl>
           </Box>
           <Box sx={{ display: "flex", gap: 6 }}>
             <FormControl variant="standard" sx={{ width: "50%" }}>
               <InputLabel shrink htmlFor="bootstrap-input">
-                City
+                Mobile Number
               </InputLabel>
-              <BootstrapInput placeholder="Enter City" id="bootstrap-input" />
+              <BootstrapInput
+                placeholder="Enter Mobile Number"
+                id="bootstrap-input"
+              />
             </FormControl>
             <FormControl variant="standard" sx={{ width: "50%" }}>
               <InputLabel shrink htmlFor="bootstrap-input">
-                Pin Code
+                Email
+              </InputLabel>
+              <BootstrapInput placeholder="Enter Email" id="bootstrap-input" />
+            </FormControl>
+          </Box>
+          <Box sx={{ display: "flex", gap: 6 }}>
+            <FormControl variant="standard" sx={{ width: "50%" }}>
+              <InputLabel shrink htmlFor="bootstrap-input">
+                Location
               </InputLabel>
               <BootstrapInput
-                placeholder="Enter Pin Code"
+                placeholder="Enter Location"
                 id="bootstrap-input"
               />
             </FormControl>
