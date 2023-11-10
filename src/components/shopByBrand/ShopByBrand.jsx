@@ -3,7 +3,7 @@ import { MockShopByBrand } from "../../assets/data/data";
 import { Title } from "../Title/Title";
 import { Grid, Paper, Container } from "@mui/material";
 import { styled } from "@mui/system";
-import { useQueryParam } from "../../hooks/useQueryParam";
+import { useNavigate } from 'react-router-dom';
 
 const StyledPaper = styled(Paper)({
   display: "flex",
@@ -35,9 +35,9 @@ export const ShopByBrand = (props) => {
   );
 };
 const BrandItem = ({ brandImage, brandName }) => {
-  const { handleMoveToListingPage } = useQueryParam("brand");
+  const navigate = useNavigate();
   return (
-    <StyledPaper onClick={() => handleMoveToListingPage(brandName)}>
+    <StyledPaper onClick={() => navigate(`/listing?&barnd=${brandName}`)}>
       <img
         src={brandImage}
         alt="brand"

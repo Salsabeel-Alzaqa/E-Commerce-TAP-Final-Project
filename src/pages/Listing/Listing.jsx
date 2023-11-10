@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import HeroItem from '../../components/HeroItem/HeroItem';
 import { Container, Box, Grid ,Typography , Pagination , Chip , Stack} from '@mui/material';
 import heroImage from '../../assets/images/listingHero.png';
+import searchImage from '../../assets/images/art.png';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumbs';
 import { Title } from '../../components/Title/Title';
 import { Loading } from '../../components/Loading/Loading';
@@ -23,12 +24,13 @@ export const Listing = () => {
             setCurrentPage(1);
         }
     };
-  const searchParams = new URLSearchParams(search);
+    const searchParams = new URLSearchParams(search);
     const searchValue = searchParams.get('search') || '';
     const brandValue = searchParams.get('brand') || '';
     const categoryValue = searchParams.get('category') || '';
     const arrivalValue = searchParams.get('newArrival') || '';
-    const { data: products, isLoading, isError } = useProducts({ searchValue , brandValue , categoryValue,arrivalValue , currentPage })
+    const handpickedValue = searchParams.get('handpicked') || '';
+    const { data: products, isLoading, isError } = useProducts({ searchValue , brandValue , categoryValue,arrivalValue , handpickedValue,currentPage })
     if (isError) return <p>Error ...</p>;
     const breadcrumbItems = [
         <Typography underline="hover" key="2">
@@ -40,15 +42,16 @@ export const Listing = () => {
             <HeroItem image={heroImage} />
             <Container maxWidth="xl">
                 <Box mt={5}>
-                    <Breadcrumb items={ breadcrumbItems } />
+                    <Breadcrumb items={breadcrumbItems} />
                     <Title text={arrivalValue ? 'new arrivals' : categoryValue ? categoryValue : brandValue ? brandValue : searchValue} color={'primary'} />
                 </Box>
                 {isLoading ? (
                     <Box mb={5}><Loading num={12} /></Box>
                 ) : products.results.length === 0 ? (
-                    <Box sx={{ display: "flex", justifyContent: "center" }} mt={5}>
-                        <Typography variant="h4" align="center">
-                            There is nothing to show :(
+                    <Box sx={{ display: "flex", justifyContent: "center", flexDirection: 'column', alignItems: 'center' }} my={5}>
+                        <img src={searchImage} alt="search fail" width="50%" />
+                        <Typography variant="h4">
+                            We coudn’t find what you’re looking for. Try something else.
                         </Typography>
                     </Box>
                 ) : (<>
@@ -61,13 +64,13 @@ export const Listing = () => {
                     </Grid>
                     <Box sx={{ display: 'flex', justifyContent: 'center', my: 5 }}>
                         <Stack direction="row" spacing={2}>
-                            <Box sx={{ bgcolor: '#F1F1F1', borderRadius: 5 , height:'36px',display: 'flex', justifyContent: 'center',alignItems:'center'}} px={1}>
+                            <Box sx={{ bgcolor: '#F1F1F1', borderRadius: 5, height: '36px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} px={1}>
                                 <Pagination count={products.pagination.totalPages} page={currentPage} onChange={handlePageChange} shape="rounded" color="primary"
                                     hidePrevButton
                                     hideNextButton
                                 />
                             </Box>
-                            <Chip label="Next" onClick={handleNextChange} color='secondary' sx={{width: '67px',height: '36px' }}/>
+                            <Chip label="Next" onClick={handleNextChange} color='secondary' sx={{ width: '67px', height: '36px' }} />
                         </Stack>
                     </Box>
                 </>

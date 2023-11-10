@@ -13,11 +13,11 @@ export const mockData = [
 export const MockShopByBrand =
   [
     { 'brandImage': zaraImage, 'brandName': 'zara' },
-    { 'brandImage': dandgImage, 'brandName': 'dandg' },
-    { 'brandImage': handmImage, 'brandName': 'handm' },
-    { 'brandImage': chanelImage, 'brandName': 'chanel' },
-    { 'brandImage': pradaImage, 'brandName': 'prada' },
-    { 'brandImage': bibaImage, 'brandName': 'biba' }
+    { 'brandImage': dandgImage, 'brandName': 'Dolce&Gabbana' },
+    { 'brandImage': handmImage, 'brandName': 'H&M' },
+    { 'brandImage': chanelImage, 'brandName': 'Chanel' },
+    { 'brandImage': pradaImage, 'brandName': 'Prada' },
+    { 'brandImage': bibaImage, 'brandName': 'BIBA' }
   ];
 export const heroItems = [
     {

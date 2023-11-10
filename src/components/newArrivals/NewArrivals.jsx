@@ -4,10 +4,11 @@ import { ProductCard } from "../ProductCard/ProductCard";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import {Loading } from '../Loading/Loading';
 import { Title } from '../Title/Title';
-import { useQueryParam } from "../../hooks/useQueryParam";
 import { useDataActions } from '../../hooks/useDataActions';
+import { useNavigate } from 'react-router-dom';
+
 export const NewArrivals = () => {
-  const { handleMoveToListingPage } = useQueryParam('newArrival');
+  const navigate = useNavigate();
   const { useNewArrivalsProducts } = useDataActions();
   const { data: products, isLoading, isError } = useNewArrivalsProducts()
   const theme = useTheme();
@@ -22,10 +23,11 @@ export const NewArrivals = () => {
           py={2}
         >
           <Title text={'New Arrivals'} />
-          <Box onClick={() => handleMoveToListingPage(true)}>
+          <Box>
             <Button
               variant="none"
               endIcon={<ArrowForwardIosIcon />}
+              onClick={() => navigate(`/listing?&newArrival=true`)}
               sx={{
                 fontSize: "14px",
                 fontWeight: "600",

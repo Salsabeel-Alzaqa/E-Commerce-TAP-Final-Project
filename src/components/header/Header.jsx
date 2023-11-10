@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {AppBar, Box ,Toolbar ,IconButton , Typography ,Menu , Container , Button ,MenuItem ,Badge } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -23,8 +23,9 @@ const StyledLink = styled(Link)`
 `;
 
 export const Header = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [input, setInput] = useState('');
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const navigate = useNavigate();
   const mobileMenuId = "primary-search-account-menu-mobile";
@@ -44,7 +45,14 @@ export const Header = () => {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const handleClearSearchAndNavigate = (page) => {
+    setInput('');
+    navigate(`/listing?&category=${page}`);
+  };
 
+  const handleInputChange = (event) => {
+    setInput(event.target.value); 
+  };
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -115,6 +123,7 @@ export const Header = () => {
                 to={{
                   pathname: `/`,
                 }}
+                onClick={() => setInput('')}
               >
                 <Logo />
               </StyledLink>
@@ -151,7 +160,7 @@ export const Header = () => {
                 {pages.map((category, index) => (
                   <Box
                     key={index}
-                    onClick={() => {navigate(`/listing?category=${category}`)}}
+                    onClick={() =>handleClearSearchAndNavigate(category)}
                   >
                     <MenuItem onClick={handleCloseNavMenu}>
                       <Typography color="black" textAlign="center">
@@ -178,6 +187,7 @@ export const Header = () => {
                 to={{
                   pathname: `/`,
                 }}
+                onClick={() => setInput('')}
               >
                 <Logo />
               </StyledLink>
@@ -186,7 +196,7 @@ export const Header = () => {
               {pages.map((category, index) => (
                 <Box
                     key={index}
-                    onClick={() => {navigate(`/listing?category=${category}`)}}
+                    onClick={() => handleClearSearchAndNavigate(category)}
                   >
                   <Button
                     onClick={handleCloseNavMenu}
@@ -203,7 +213,7 @@ export const Header = () => {
               ))}
             </Box>
             <Box sx={{ flexGrow: 1 }}>
-              <SearchBox />
+              <SearchBox input={input} onInputChange={handleInputChange}/>
             </Box>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton
