@@ -1,8 +1,8 @@
 import { Container, Button, Paper, Typography, Box } from '@mui/material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import { useQueryParam } from "../../hooks/useQueryParam";
 import { useMediaQuery } from '@mui/material';
 import { styled } from '@mui/system'; 
+import { useNavigate } from 'react-router-dom';
 
 const StyledBox = styled(Box)(({
   position: 'relative',
@@ -38,7 +38,7 @@ const StyledTitle = styled(Typography)(({ theme }) => ({
 }));
 
 function HeroItem({ image, subtitle, title, category }) {
-  const {handleMoveToListingPage} = useQueryParam('category');
+  const navigate = useNavigate();
   const isSmallScreen = useMediaQuery('(max-width:700px)');
   return (
     <Container maxWidth="xl">
@@ -56,7 +56,7 @@ function HeroItem({ image, subtitle, title, category }) {
               <></>
             ) : (
               <Box pl={2}>
-                <Button variant="contained" color="primary" onClick={() =>handleMoveToListingPage(category)}>
+                <Button variant="contained" color="primary" onClick={() =>navigate(`/listing?&category=${category}`)}>
                   <ArrowRightAltIcon />
                   See More
                 </Button>
