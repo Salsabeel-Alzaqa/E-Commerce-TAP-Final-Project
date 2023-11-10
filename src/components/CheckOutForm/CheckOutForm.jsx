@@ -9,8 +9,12 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useForm, Controller } from "react-hook-form";
+import apiClient from "../../api/axios";
+import { useMutation } from "react-query";
+import Button from "@mui/material/Button";
 
-const BootstrapInput = styled(InputBase)(({ theme }) => ({
+const FormInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
     marginTop: theme.spacing(3),
   },
@@ -48,7 +52,37 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export const CheckOutForm = () => {
+export const CheckOutForm = (props) => {
+  const { register, handleSubmit, setValue } = useForm();
+  const [countryCode, setCountryCode] = React.useState("");
+  const [phoneNumber, setPhoneNumber] = React.useState("");
+
+  React.useEffect(() => {
+    setValue?.("phone_number", countryCode + phoneNumber);
+  }, [phoneNumber, countryCode, setValue]);
+
+  const createAddress = async () => {
+    try {
+      const apiUrl = `https://tap-backend-final-3-otnz.onrender.com/api/v1/order/${props.orderid}/address`;
+      await apiClient.post(apiUrl);
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+  const { isLoading, isError, error, mutate } = useMutation(createAddress);
+
+  const onSubmit = async (data) => {
+    console.log("data", data);
+    mutate(data);
+  };
+
+  if (isLoading) {
+    console.log("loading"); //todo
+  }
+  if (isError) {
+    console.error(error);
+  }
+
   return (
     <Accordion variant="none">
       <AccordionSummary
@@ -62,6 +96,7 @@ export const CheckOutForm = () => {
       </AccordionSummary>
       <AccordionDetails>
         <Box
+          onSubmit={handleSubmit(onSubmit)}
           component="form"
           noValidate
           sx={{
@@ -71,52 +106,85 @@ export const CheckOutForm = () => {
         >
           <Box sx={{ display: "flex", gap: 6 }}>
             <FormControl variant="standard" sx={{ width: "50%" }}>
-              <InputLabel shrink htmlFor="bootstrap-input">
+              <InputLabel shrink htmlFor="first_name-input">
                 First Name
               </InputLabel>
-              <BootstrapInput
+              <FormInput
+                {...register("first_name")}
                 placeholder="Enter First Name"
-                id="bootstrap-input"
+                id="first_name-input"
               />
             </FormControl>
             <FormControl variant="standard" sx={{ width: "50%" }}>
-              <InputLabel shrink htmlFor="bootstrap-input">
+              <InputLabel shrink htmlFor="lastname-input">
                 Last Name
               </InputLabel>
-              <BootstrapInput
+              <FormInput
+                {...register("lastname")}
                 placeholder="Enter Last Name"
-                id="bootstrap-input"
+                id="lastname-input"
               />
             </FormControl>
           </Box>
+
           <Box sx={{ display: "flex", gap: 6 }}>
-            <FormControl variant="standard" sx={{ width: "50%" }}>
-              <InputLabel shrink htmlFor="bootstrap-input">
+            <Box
+              sx={{ display: "flex", flexDirection: "column", width: "50%" }}
+            >
+              <InputLabel shrink htmlFor="phone_number-input">
                 Mobile Number
               </InputLabel>
-              <BootstrapInput
-                placeholder="Enter Mobile Number"
-                id="bootstrap-input"
-              />
-            </FormControl>
+              <Box sx={{ display: "flex", gap: 1, marginTop: "6px" }}>
+                <FormControl variant="standard" sx={{ width: "20%" }}>
+                  <FormInput
+                    placeholder="+11"
+                    id="phone-number-input"
+                    value={countryCode}
+                    onChange={(event) => setCountryCode(event.target.value)}
+                  />
+                </FormControl>
+                <FormControl variant="standard" sx={{ width: "80%" }}>
+                  <FormInput
+                    placeholder="Enter Phone Number"
+                    id="phone-number-input"
+                    value={phoneNumber}
+                    onChange={(event) => setPhoneNumber(event.target.value)}
+                  />
+                </FormControl>
+              </Box>
+            </Box>
             <FormControl variant="standard" sx={{ width: "50%" }}>
-              <InputLabel shrink htmlFor="bootstrap-input">
+              <InputLabel shrink htmlFor="email-input">
                 Email
               </InputLabel>
-              <BootstrapInput placeholder="Enter Email" id="bootstrap-input" />
+              <FormInput
+                placeholder="Enter Email"
+                id="email-input"
+                {...register("email")}
+              />
             </FormControl>
           </Box>
           <Box sx={{ display: "flex", gap: 6 }}>
             <FormControl variant="standard" sx={{ width: "50%" }}>
-              <InputLabel shrink htmlFor="bootstrap-input">
+              <InputLabel shrink htmlFor="location-input">
                 Location
               </InputLabel>
-              <BootstrapInput
+              <FormInput
                 placeholder="Enter Location"
-                id="bootstrap-input"
+                id="location-input"
+                {...register("location")}
               />
             </FormControl>
+            <FormControl variant="standard" sx={{ width: "50%" }}></FormControl>
           </Box>
+          <Button
+            variant="contained"
+            size="large"
+            type="submit"
+            sx={{ width: "30%", marginLeft: "auto", marginTop: "30px" }}
+          >
+            Place Order
+          </Button>
         </Box>
       </AccordionDetails>
     </Accordion>
