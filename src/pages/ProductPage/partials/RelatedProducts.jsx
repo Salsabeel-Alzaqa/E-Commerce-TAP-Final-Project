@@ -33,10 +33,10 @@ export const RelatedProducts = () => {
       </Box>
       {isLoading ? <Loading num={4} /> :
         isSmallScreen ? (<Carousel showDots={false} removeArrowOnDeviceType={["tablet", "mobile"]} responsive={responsive} infinite={true}>
-          {products.map((product, index) => (
+          {products.products.map((product, index) => (
             <Box key={index} mr={1}><ProductCard {...product} chipLabel={'Trending'} lessInfo={true} /></Box>
         ))}
-        </Carousel>) : (<Grid container spacing={2} mb={10}>{products.map((product, index) => (
+        </Carousel>) : (<Grid container spacing={2} mb={10}>{products.products.map((product, index) => (
           <Grid item md={4} lg={3} key={index}>
             <ProductCard {...product} chipLabel={'Trending'} lessInfo={true} />
           </Grid>
