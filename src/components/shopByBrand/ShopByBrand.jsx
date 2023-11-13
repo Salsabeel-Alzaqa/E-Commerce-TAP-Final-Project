@@ -37,7 +37,7 @@ export const ShopByBrand = (props) => {
 const BrandItem = ({ brandImage, brandName }) => {
   const navigate = useNavigate();
   return (
-    <StyledPaper onClick={() => navigate(`/listing?&barnd=${brandName}`)}>
+    <StyledPaper onClick={() => navigate(`/listing?&brand=${brandName}`)}>
       <img
         src={brandImage}
         alt="brand"
