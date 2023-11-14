@@ -23,7 +23,7 @@ export const ProductPage = () => {
     TabsItems = [
       {
         'label': 'Product Description',
-        'content': <ProductDescription description={product.product.description} />
+        'content': <ProductDescription description={product.description} />
       },
       {
         'label': 'Related Products',
@@ -31,7 +31,7 @@ export const ProductPage = () => {
       },
       {
         'label': 'Ratings and Reviews',
-        'content': <ProductReviews productDescription={product.product.short_description} productName={product.product.name} productRating={product.product.rate} />
+        'content': <ProductReviews productDescription={product.short_description} productName={product.name} productRating={product.rate} />
       }
     ];
     breadcrumbItems = [
@@ -39,7 +39,7 @@ export const ProductPage = () => {
         Handbags
       </StyledLink>,
       <Typography underline="hover" key="3">
-        {product.product.name}
+        {product.name}
       </Typography>
     ];
   }
@@ -51,14 +51,14 @@ export const ProductPage = () => {
       <Grid container spacing={2} mt={0.5}>
         <Grid item xs={12} sm={12} md={6} lg={6}>
           {isLoading ? (<Skeleton variant="rectangular" width={'100%'} height={412} />) :
-            (<ProductImagesGalary images={product.product.image_url} />)}
+            (<ProductImagesGalary images={product.image_url} />)}
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6}>
           {
             isLoading ? (Array.from({ length: 6 }).map((_, index) => (
               <Box key={index} mb={4}>
                 <Skeleton animation="wave" width={'100%'} height={'40px'} /></Box>)))
-              : (<ProductInfo {...product.product} />)
+              : (<ProductInfo {...product} />)
           }
         </Grid>
       </Grid>
