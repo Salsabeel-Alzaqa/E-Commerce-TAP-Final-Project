@@ -17,6 +17,9 @@ const StyledPaper = styled(Paper)({
   "&:hover": {
     transform: "scale(1.1)",
   },
+  "@media (max-width: 680px)": {
+    width: "100%",
+  },
 });
 export const ShopByBrand = (props) => {
   return (
