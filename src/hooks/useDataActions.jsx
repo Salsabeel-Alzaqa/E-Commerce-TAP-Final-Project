@@ -43,11 +43,7 @@ export function useDataActions() {
 
   function useCreateAddress() {
     return useMutation({
-      mutationFn: async (data) =>
-        await apiClient.post(
-          `https://tap-backend-final-3-otnz.onrender.com/api/v1/addresses`,
-          data
-        ),
+      mutationFn: async (data) => await apiClient.post(`v1/addresses`, data),
       staleTime: Infinity,
     });
   }
@@ -56,10 +52,17 @@ export function useDataActions() {
     return useQuery({
       queryKey: ["cartData", "list"],
       queryFn: async () =>
+        await apiClient.get("v1/orders/in_progress").then((res) => res.data),
+      staleTime: Infinity,
+    });
+  }
+
+  function useCartOrderDetails() {
+    return useQuery({
+      queryKey: ["orderDetails", "orderId"],
+      queryFn: async (orderId) =>
         await apiClient
-          .get(
-            "https://tap-backend-final-3-otnz.onrender.com/api/v1/orders?status=in_cart"
-          )
+          .get(`v1/orders/${orderId}/orderitems`)
           .then((res) => res.data),
       staleTime: Infinity,
     });
@@ -68,10 +71,7 @@ export function useDataActions() {
   function useUpdateCartItems(orderId) {
     return useMutation({
       mutationFn: async (data) =>
-        await apiClient.put(
-          `https://tap-backend-final-3-otnz.onrender.com/api/v1/orders/${orderId}`,
-          data
-        ),
+        await apiClient.put(`v1/orders/${orderId}`, data),
       staleTime: Infinity,
     });
   }
@@ -79,9 +79,7 @@ export function useDataActions() {
   function useRemoveCartItem(props) {
     return useMutation({
       mutationFn: async (orderItemId) =>
-        await apiClient.delete(
-          `https://tap-backend-final-3-otnz.onrender.com/api/orders/order_items/${orderItemId}`
-        ),
+        await apiClient.delete(`orders/order_items/${orderItemId}`),
       onSuccess: (data, itemId) => {
         props.setCartItems((prevCartItems) =>
           prevCartItems.filter((item) => item.id !== itemId)
@@ -100,5 +98,6 @@ export function useDataActions() {
     useCartItems,
     useUpdateCartItems,
     useRemoveCartItem,
+    useCartOrderDetails,
   };
 }

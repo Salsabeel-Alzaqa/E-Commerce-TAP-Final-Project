@@ -77,10 +77,10 @@ export const CheckOutForm = (props) => {
   };
 
   if (isLoading) {
-    <Loading />;
+    return <Typography>Loading ... </Typography>;
   }
   if (isError) {
-    console.error(error);
+    return <Typography>Error</Typography>;
   }
 
   return (

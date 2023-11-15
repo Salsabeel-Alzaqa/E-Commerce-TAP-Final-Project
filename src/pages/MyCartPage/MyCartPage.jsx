@@ -4,10 +4,11 @@ import Breadcrumb from "../../components/Breadcrumbs/Breadcrumbs";
 import { Title } from "../../components/Title/Title";
 import { ProductsCart } from "../../components/ProductsCart/ProductsCart";
 import { OrderSummary } from "../../components/OrderSummary/OrderSummary";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CardImage from "../../assets/images/image2.png";
 import { useNavigate } from "react-router-dom";
 import { useDataActions } from "../../hooks/useDataActions";
+import { Loading } from "../../components/Loading/Loading";
 
 const mockupData = [
   {
@@ -31,30 +32,26 @@ const mockupData = [
 ];
 
 export const MyCartPage = () => {
-  // const { useCartItems } = useDataActions();
-  // const { data: cartData, isLoading, isError } = useCartItems();
+  const { useCartItems } = useDataActions();
+  const {
+    data: cartData,
+    isLoading: isLoadingCartItems,
+    isError: isErrorCartItems,
+  } = useCartItems();
   // console.log("cartData", cartData);
 
   const breadcrumbItems = [<Typography>My Cart</Typography>];
-  const [cartItems, setCartItems] = useState(mockupData);
+  const [cartItems, setCartItems] = useState(cartData);
   const { useUpdateCartItems } = useDataActions();
-  const { isLoading, isError, error, mutate } = useUpdateCartItems();
-
-  const [total, setTotal] = useState(0);
-  useEffect(() => {
-    const newTotal = cartItems.reduce((acc, item) => acc + item.subtotal, 0);
-    setTotal(newTotal);
-  }, [cartItems]);
+  const { isLoading, isError, mutate } = useUpdateCartItems();
 
   const navigate = useNavigate();
   const handleProceedToCheckOut = () => {
-    const preparedItemsData = cartItems.map((item, index) => {
+    const preparedItemsData = cartItems.map((item) => {
       return { id: item.name_product, quantity: item.quantity };
     });
-    console.log("preparedItemsData", preparedItemsData);
-    const payload = { addressId: 1, orderItems: preparedItemsData };
 
-    mutate(payload);
+    mutate({ addressId: 1, orderItems: preparedItemsData });
 
     navigate(`/checkoutpage`);
   };
@@ -63,34 +60,54 @@ export const MyCartPage = () => {
     navigate(`/listing?&category=${page}`);
   };
 
+  if (isErrorCartItems) {
+    return <Typography>Error</Typography>;
+  }
+
   return (
     <Container maxWidth="xl">
       <Breadcrumb items={breadcrumbItems} />
       <Title text={"My Cart"} color={"primary"} />
-      <Box sx={{ display: "flex", gap: 15 }}>
-        <ProductsCart cartItems={cartItems} setCartItems={setCartItems} />
-        <Box>
-          <OrderSummary total={total} />
-          <Stack direction="row" spacing={3} sx={{ width: "100%", mt: 2 }}>
-            <Button
-              variant="contained"
-              fullWidth
-              sx={{ textTransform: "none" }}
-              onClick={handleProceedToCheckOut}
-            >
-              Proceed to Checkout
-            </Button>
-            <Button
-              variant="outlined"
-              fullWidth
-              sx={{ textTransform: "none" }}
-              onClick={() => handleContinueShopping("handbag")}
-            >
-              Continue Shopping
-            </Button>
-          </Stack>
-        </Box>
-      </Box>
+      {isLoadingCartItems ? (
+        <Box mb={2}>Loading ...</Box>
+      ) : (
+        <>
+          {cartItems?.length ? (
+            <Box sx={{ display: "flex", gap: 15 }}>
+              <ProductsCart cartItems={cartItems} setCartItems={setCartItems} />
+              <Box>
+                <OrderSummary orderId={cartItems[0].orderId} />
+                <Stack
+                  direction="row"
+                  spacing={3}
+                  sx={{ width: "100%", mt: 2 }}
+                >
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    sx={{ textTransform: "none" }}
+                    onClick={handleProceedToCheckOut}
+                  >
+                    Proceed to Checkout
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    fullWidth
+                    sx={{ textTransform: "none" }}
+                    onClick={() => handleContinueShopping("handbag")}
+                  >
+                    Continue Shopping
+                  </Button>
+                </Stack>
+              </Box>
+            </Box>
+          ) : (
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Typography>Cart is empty</Typography>
+            </Box>
+          )}
+        </>
+      )}
     </Container>
   );
 };
