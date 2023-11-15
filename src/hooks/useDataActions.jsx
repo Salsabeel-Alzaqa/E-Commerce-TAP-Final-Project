@@ -1,6 +1,7 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import apiClient from "../api/axios";
 export function useDataActions() {
+  const queryClient = useQueryClient();
   function useProducts(filters) {
     return useQuery({
       queryKey: ["product", "list", filters],
@@ -40,12 +41,53 @@ export function useDataActions() {
     });
   }
 
-  function useCreateAddress(props) {
+  function useCreateAddress() {
     return useMutation({
-      queryFn: async () =>
+      mutationFn: async (data) =>
         await apiClient.post(
-          `https://tap-backend-final-3-otnz.onrender.com/api/v1/order/${props.orderid}/address`
+          `https://tap-backend-final-3-otnz.onrender.com/api/v1/addresses`,
+          data
         ),
+      staleTime: Infinity,
+    });
+  }
+
+  function useCartItems() {
+    return useQuery({
+      queryKey: ["cartData", "list"],
+      queryFn: async () =>
+        await apiClient
+          .get(
+            "https://tap-backend-final-3-otnz.onrender.com/api/v1/orders?status=in_cart"
+          )
+          .then((res) => res.data),
+      staleTime: Infinity,
+    });
+  }
+
+  function useUpdateCartItems(orderId) {
+    return useMutation({
+      mutationFn: async (data) =>
+        await apiClient.put(
+          `https://tap-backend-final-3-otnz.onrender.com/api/v1/orders/${orderId}`,
+          data
+        ),
+      staleTime: Infinity,
+    });
+  }
+
+  function useRemoveCartItem(props) {
+    return useMutation({
+      mutationFn: async (orderItemId) =>
+        await apiClient.delete(
+          `https://tap-backend-final-3-otnz.onrender.com/api/orders/order_items/${orderItemId}`
+        ),
+      onSuccess: (data, itemId) => {
+        props.setCartItems((prevCartItems) =>
+          prevCartItems.filter((item) => item.id !== itemId)
+        );
+        queryClient.invalidateQueries(["cartData", "list"]);
+      },
       staleTime: Infinity,
     });
   }
@@ -55,5 +97,8 @@ export function useDataActions() {
     useNewArrivalsProducts,
     useProductDetails,
     useCreateAddress,
+    useCartItems,
+    useUpdateCartItems,
+    useRemoveCartItem,
   };
 }

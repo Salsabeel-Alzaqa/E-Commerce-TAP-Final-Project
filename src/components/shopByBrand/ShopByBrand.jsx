@@ -3,7 +3,7 @@ import { MockShopByBrand } from "../../assets/data/data";
 import { Title } from "../Title/Title";
 import { Grid, Paper, Container } from "@mui/material";
 import { styled } from "@mui/system";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const StyledPaper = styled(Paper)({
   display: "flex",
@@ -37,7 +37,7 @@ export const ShopByBrand = (props) => {
 const BrandItem = ({ brandImage, brandName }) => {
   const navigate = useNavigate();
   return (
-    <StyledPaper onClick={() => navigate(`/listing?&barnd=${brandName}`)}>
+    <StyledPaper onClick={() => navigate(`/listing?&brand=${brandName}`)}>
       <img
         src={brandImage}
         alt="brand"

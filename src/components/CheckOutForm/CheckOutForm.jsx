@@ -14,6 +14,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";
 import { useDataActions } from "../../hooks/useDataActions";
+import { Loading } from "../Loading/Loading";
 
 const FormInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -76,7 +77,7 @@ export const CheckOutForm = (props) => {
   };
 
   if (isLoading) {
-    console.log("loading"); //todo
+    <Loading />;
   }
   if (isError) {
     console.error(error);

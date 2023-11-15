@@ -9,8 +9,17 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { ProductCartCard } from "../ProductCartCard/ProductCartCard";
 import { Button } from "@mui/material";
+import { useDataActions } from "../../hooks/useDataActions";
 
 export const ProductsCart = (props) => {
+  const { useRemoveCartItem } = useDataActions();
+  const { isLoading, isError, error, mutate } = useRemoveCartItem();
+
+  const handleRemoveItem = (itemId) => {
+    mutate(itemId);
+    props.cartItems.filter((item) => item.id !== itemId);
+  };
+
   return (
     <TableContainer component={Paper} variant="none" sx={{ maxWidth: 800 }}>
       <Table aria-label="simple table">
@@ -61,6 +70,7 @@ export const ProductsCart = (props) => {
                     aria-label="remove"
                     color="error"
                     sx={{ textTransform: "none", textDecoration: "underline" }}
+                    onClick={() => handleRemoveItem(item.id)}
                   >
                     Remove
                   </Button>

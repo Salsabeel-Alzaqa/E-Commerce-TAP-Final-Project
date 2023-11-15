@@ -7,9 +7,11 @@ import { OrderSummary } from "../../components/OrderSummary/OrderSummary";
 import { useState, useEffect } from "react";
 import CardImage from "../../assets/images/image2.png";
 import { useNavigate } from "react-router-dom";
+import { useDataActions } from "../../hooks/useDataActions";
 
 const mockupData = [
   {
+    id: 1,
     name_product: "Coach",
     short_description: "Leather Coach Bag",
     image_url: CardImage,
@@ -18,6 +20,7 @@ const mockupData = [
     subtotal: 50,
   },
   {
+    id: 2,
     name_product: "Bag",
     short_description: "Leather Coach Bag",
     image_url: CardImage,
@@ -28,8 +31,15 @@ const mockupData = [
 ];
 
 export const MyCartPage = () => {
+  // const { useCartItems } = useDataActions();
+  // const { data: cartData, isLoading, isError } = useCartItems();
+  // console.log("cartData", cartData);
+
   const breadcrumbItems = [<Typography>My Cart</Typography>];
   const [cartItems, setCartItems] = useState(mockupData);
+  const { useUpdateCartItems } = useDataActions();
+  const { isLoading, isError, error, mutate } = useUpdateCartItems();
+
   const [total, setTotal] = useState(0);
   useEffect(() => {
     const newTotal = cartItems.reduce((acc, item) => acc + item.subtotal, 0);
@@ -38,6 +48,14 @@ export const MyCartPage = () => {
 
   const navigate = useNavigate();
   const handleProceedToCheckOut = () => {
+    const preparedItemsData = cartItems.map((item, index) => {
+      return { id: item.name_product, quantity: item.quantity };
+    });
+    console.log("preparedItemsData", preparedItemsData);
+    const payload = { addressId: 1, orderItems: preparedItemsData };
+
+    mutate(payload);
+
     navigate(`/checkoutpage`);
   };
 
