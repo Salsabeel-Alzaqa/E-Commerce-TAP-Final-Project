@@ -1,11 +1,19 @@
 import * as React from "react";
 import { alpha, styled } from "@mui/material/styles";
-import { InputBase, Box, InputLabel, FormControl, Accordion, AccordionSummary, AccordionDetails, Typography } from "@mui/material";
+import {
+  InputBase,
+  Box,
+  InputLabel,
+  FormControl,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useForm } from "react-hook-form";
-import apiClient from "../../api/axios";
-import { useMutation } from "react-query";
 import Button from "@mui/material/Button";
+import { useDataActions } from "../../hooks/useDataActions";
 
 const FormInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -46,7 +54,12 @@ const FormInput = styled(InputBase)(({ theme }) => ({
 }));
 
 export const CheckOutForm = (props) => {
-  const { register, handleSubmit, setValue } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
   const [countryCode, setCountryCode] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
 
@@ -54,15 +67,8 @@ export const CheckOutForm = (props) => {
     setValue?.("phone_number", countryCode + phoneNumber);
   }, [phoneNumber, countryCode, setValue]);
 
-  const createAddress = async () => {
-    try {
-      const apiUrl = `https://tap-backend-final-3-otnz.onrender.com/api/v1/order/${props.orderid}/address`;
-      await apiClient.post(apiUrl);
-    } catch (error) {
-      console.log("Error", error);
-    }
-  };
-  const { isLoading, isError, error, mutate } = useMutation(createAddress);
+  const { useCreateAddress } = useDataActions();
+  const { isLoading, isError, error, mutate } = useCreateAddress();
 
   const onSubmit = async (data) => {
     console.log("data", data);
@@ -103,20 +109,32 @@ export const CheckOutForm = (props) => {
                 First Name
               </InputLabel>
               <FormInput
-                {...register("first_name")}
+                {...register("first_name", {
+                  required: true,
+                })}
+                aria-invalid={errors.first_name ? "true" : "false"}
                 placeholder="Enter First Name"
                 id="first_name-input"
               />
+              {errors.first_name?.type === "required" && (
+                <Typography color="error">First name is required</Typography>
+              )}
             </FormControl>
             <FormControl variant="standard" sx={{ width: "50%" }}>
               <InputLabel shrink htmlFor="lastname-input">
                 Last Name
               </InputLabel>
               <FormInput
-                {...register("lastname")}
+                {...register("lastname", {
+                  required: true,
+                })}
+                aria-invalid={errors.lastname ? "true" : "false"}
                 placeholder="Enter Last Name"
                 id="lastname-input"
               />
+              {errors.lastname?.type === "required" && (
+                <Typography color="error">Last Name is required</Typography>
+              )}
             </FormControl>
           </Box>
 
@@ -153,8 +171,18 @@ export const CheckOutForm = (props) => {
               <FormInput
                 placeholder="Enter Email"
                 id="email-input"
-                {...register("email")}
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                    message: "Invalid email address",
+                  },
+                })}
+                aria-invalid={errors.email ? "true" : "false"}
               />
+              {errors.email && (
+                <Typography color="error">{errors.email.message}</Typography>
+              )}
             </FormControl>
           </Box>
           <Box sx={{ display: "flex", gap: 6 }}>
@@ -165,8 +193,14 @@ export const CheckOutForm = (props) => {
               <FormInput
                 placeholder="Enter Location"
                 id="location-input"
-                {...register("location")}
+                {...register("location", {
+                  required: true,
+                })}
+                aria-invalid={errors.location ? "true" : "false"}
               />
+              {errors.location?.type === "required" && (
+                <Typography color="error">location is required</Typography>
+              )}
             </FormControl>
             <FormControl variant="standard" sx={{ width: "50%" }}></FormControl>
           </Box>
