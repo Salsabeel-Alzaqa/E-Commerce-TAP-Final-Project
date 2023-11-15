@@ -4,11 +4,22 @@ import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/material";
 
-export const OrderSummary = () => {
+export const OrderSummary = ({
+  title = "Order Summary",
+  total = 0,
+  discount = 0,
+  fee = 0,
+}) => {
+  const totalAmount = Number(total) || 0;
+  const discountAmount = Number(discount) || 0;
+  const feeAmount = Number(fee) || 0;
+
+  const subTotal = totalAmount - discountAmount + feeAmount;
+
   return (
     <Paper variant="none" sx={{ marginTop: 4 }}>
       <Typography gutterBottom sx={{ fontSize: "20px", fontWeight: "600" }}>
-        Order Summary
+        {title}
       </Typography>
       <Divider />
       <Box
@@ -19,10 +30,10 @@ export const OrderSummary = () => {
         }}
       >
         <Typography variant="subtitle1" gutterBottom>
-          Sub total
+          Subtotal
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          50$
+          ${totalAmount.toFixed(2)}
         </Typography>
       </Box>
 
@@ -31,7 +42,7 @@ export const OrderSummary = () => {
           Discount
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          -$13.40
+          -${discountAmount.toFixed(2)}
         </Typography>
       </Box>
 
@@ -40,7 +51,7 @@ export const OrderSummary = () => {
           Delivery Fee
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          -$0.00
+          -${feeAmount.toFixed(2)}
         </Typography>
       </Box>
 
@@ -55,7 +66,7 @@ export const OrderSummary = () => {
           Grand Total
         </Typography>
         <Typography variant="subtitle1" gutterBottom>
-          $106.29
+          ${subTotal.toFixed(2)}
         </Typography>
       </Box>
     </Paper>

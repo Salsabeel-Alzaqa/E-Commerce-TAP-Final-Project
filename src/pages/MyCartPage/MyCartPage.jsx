@@ -4,8 +4,9 @@ import Breadcrumb from "../../components/Breadcrumbs/Breadcrumbs";
 import { Title } from "../../components/Title/Title";
 import { ProductsCart } from "../../components/ProductsCart/ProductsCart";
 import { OrderSummary } from "../../components/OrderSummary/OrderSummary";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CardImage from "../../assets/images/image2.png";
+import { useNavigate } from "react-router-dom";
 
 const mockupData = [
   {
@@ -29,6 +30,20 @@ const mockupData = [
 export const MyCartPage = () => {
   const breadcrumbItems = [<Typography>My Cart</Typography>];
   const [cartItems, setCartItems] = useState(mockupData);
+  const [total, setTotal] = useState(0);
+  useEffect(() => {
+    const newTotal = cartItems.reduce((acc, item) => acc + item.subtotal, 0);
+    setTotal(newTotal);
+  }, [cartItems]);
+
+  const navigate = useNavigate();
+  const handleProceedToCheckOut = () => {
+    navigate(`/checkoutpage`);
+  };
+
+  const handleContinueShopping = (page) => {
+    navigate(`/listing?&category=${page}`);
+  };
 
   return (
     <Container maxWidth="xl">
@@ -37,16 +52,22 @@ export const MyCartPage = () => {
       <Box sx={{ display: "flex", gap: 15 }}>
         <ProductsCart cartItems={cartItems} setCartItems={setCartItems} />
         <Box>
-          <OrderSummary />
+          <OrderSummary total={total} />
           <Stack direction="row" spacing={3} sx={{ width: "100%", mt: 2 }}>
             <Button
               variant="contained"
               fullWidth
               sx={{ textTransform: "none" }}
+              onClick={handleProceedToCheckOut}
             >
               Proceed to Checkout
             </Button>
-            <Button variant="outlined" fullWidth sx={{ textTransform: "none" }}>
+            <Button
+              variant="outlined"
+              fullWidth
+              sx={{ textTransform: "none" }}
+              onClick={() => handleContinueShopping("handbag")}
+            >
               Continue Shopping
             </Button>
           </Stack>

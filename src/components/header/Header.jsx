@@ -1,5 +1,16 @@
 import React, { useState } from "react";
-import {AppBar, Box ,Toolbar ,IconButton , Typography ,Menu , Container , Button ,MenuItem ,Badge } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Button,
+  MenuItem,
+  Badge,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -8,7 +19,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { pages } from "../../assets/data/pages";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { SearchBox } from "../SearchBox/SearchBox";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
 const StyledLink = styled(Link)`
@@ -25,10 +36,13 @@ const StyledLink = styled(Link)`
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const navigate = useNavigate();
   const mobileMenuId = "primary-search-account-menu-mobile";
+  const handleCartClick = () => {
+    navigate(`/cartpage`);
+  };
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -46,12 +60,12 @@ export const Header = () => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
   const handleClearSearchAndNavigate = (page) => {
-    setInput('');
+    setInput("");
     navigate(`/listing?&category=${page}`);
   };
 
   const handleInputChange = (event) => {
-    setInput(event.target.value); 
+    setInput(event.target.value);
   };
   const renderMobileMenu = (
     <Menu
@@ -123,7 +137,7 @@ export const Header = () => {
                 to={{
                   pathname: `/`,
                 }}
-                onClick={() => setInput('')}
+                onClick={() => setInput("")}
               >
                 <Logo />
               </StyledLink>
@@ -160,7 +174,7 @@ export const Header = () => {
                 {pages.map((category, index) => (
                   <Box
                     key={index}
-                    onClick={() =>handleClearSearchAndNavigate(category)}
+                    onClick={() => handleClearSearchAndNavigate(category)}
                   >
                     <MenuItem onClick={handleCloseNavMenu}>
                       <Typography color="black" textAlign="center">
@@ -187,7 +201,7 @@ export const Header = () => {
                 to={{
                   pathname: `/`,
                 }}
-                onClick={() => setInput('')}
+                onClick={() => setInput("")}
               >
                 <Logo />
               </StyledLink>
@@ -195,9 +209,9 @@ export const Header = () => {
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((category, index) => (
                 <Box
-                    key={index}
-                    onClick={() => handleClearSearchAndNavigate(category)}
-                  >
+                  key={index}
+                  onClick={() => handleClearSearchAndNavigate(category)}
+                >
                   <Button
                     onClick={handleCloseNavMenu}
                     sx={{
@@ -213,7 +227,7 @@ export const Header = () => {
               ))}
             </Box>
             <Box sx={{ flexGrow: 1 }}>
-              <SearchBox input={input} onInputChange={handleInputChange}/>
+              <SearchBox input={input} onInputChange={handleInputChange} />
             </Box>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton
@@ -235,6 +249,7 @@ export const Header = () => {
                 edge="end"
                 aria-label="account of current user"
                 aria-haspopup="true"
+                onClick={handleCartClick}
               >
                 <LocalMallIcon color="primary" />
               </IconButton>
