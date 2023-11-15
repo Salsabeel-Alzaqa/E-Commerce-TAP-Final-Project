@@ -13,7 +13,7 @@ export const ProductPrice = ({ discount, price, size }) => {
   return (
     <>
       {
-        discount && discount !== 0 ?
+        discount && discount !== '0' ?
           <Box flexDirection="row" display='flex' alignItems={'center'} justifyContent={'flex-start'} gap={2}>
             <Typography gutterBottom variant={size}  sx={{ fontWeight: "700" }}>
               ${priceAfter}</Typography>

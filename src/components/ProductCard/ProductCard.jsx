@@ -43,7 +43,8 @@ const CustomChip = styled(Chip)(({
   right: 8,
   zIndex: 1,
 }));
-export const ProductCard = ({name,id,short_description,price,image_url,lessInfo,rate,discount,ratingCount,chipLabel}) => {
+export const ProductCard = ({ name, id, short_description, price, image_url, lessInfo, rate, discount, ratingCount, chipLabel }) => {
+  const isAuthenticated = localStorage.getItem('token');
   const navigate = useNavigate();
   const handleProduct = () => {
     navigate(`/product/${id}`);
@@ -67,7 +68,7 @@ export const ProductCard = ({name,id,short_description,price,image_url,lessInfo,
           <Typography gutterBottom variant="none" component="div" sx={{fontSize: "16px",fontWeight: "500",}}>
             {name}
           </Typography>
-          <FavoriteBorderIcon sx={{ fontSize: 25, color: "primary" }} />
+          {isAuthenticated && <FavoriteBorderIcon sx={{ fontSize: 25, color: "primary" }} />}
         </Box>
         <Typography variant="body2" color="text.secondary" sx={{fontSize: "14px",mb: "5px"}}>
           {short_description}
