@@ -28,7 +28,7 @@ export const ProductCartCard = (props) => {
         component="img"
         alt={props.item.name_product}
         height="120"
-        image={props.item.image_url}
+        image={props.item.image}
       />
       <CardContent sx={{ fontSize: "16px", fontWeight: "500" }}>
         <Typography component="div">{props.item.name_product}</Typography>
@@ -39,10 +39,14 @@ export const ProductCartCard = (props) => {
           direction="row"
           sx={{ marginTop: 1, width: "73px", height: "30px" }}
         >
-          <QuantityButton
-            value={props.item.quantity}
-            onChange={handleQuantityChange}
-          />
+          {props.inMyCart ? (
+            <QuantityButton
+              value={props.item.quantity}
+              onChange={handleQuantityChange}
+            />
+          ) : (
+            <Typography>Qy{props.item.quantity}</Typography>
+          )}
         </Stack>
       </CardContent>
     </Card>

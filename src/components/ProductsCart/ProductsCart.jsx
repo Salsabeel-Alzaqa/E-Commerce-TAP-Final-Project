@@ -43,6 +43,7 @@ export const ProductsCart = (props) => {
                   <ProductCartCard
                     setCartItems={props.setCartItems}
                     item={item}
+                    inMyCart={true}
                   />
                 </TableCell>
                 <TableCell
@@ -61,7 +62,7 @@ export const ProductsCart = (props) => {
                   align="right"
                   sx={{ border: "none", paddingBottom: 0 }}
                 >
-                  ${item.subtotal}
+                  ${item.sub_total}
                 </TableCell>
               </TableRow>
               <TableRow>

@@ -4,15 +4,14 @@ import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/material";
 import { useDataActions } from "../../hooks/useDataActions";
-import { Loading } from "../Loading/Loading";
 
-export const OrderSummary = ({ orderId }) => {
+export const OrderSummary = ({ orderID }) => {
   const { useCartOrderDetails } = useDataActions();
   const {
     data: orderDetails,
     isLoading,
     isError,
-  } = useCartOrderDetails(orderId);
+  } = useCartOrderDetails(orderID);
 
   if (isError) {
     return <Typography>Error</Typography>;

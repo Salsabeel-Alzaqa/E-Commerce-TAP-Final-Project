@@ -58,22 +58,20 @@ export const CheckOutForm = (props) => {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm();
-  const [countryCode, setCountryCode] = React.useState("");
-  const [phoneNumber, setPhoneNumber] = React.useState("");
-
-  React.useEffect(() => {
-    setValue?.("phone_number", countryCode + phoneNumber);
-  }, [phoneNumber, countryCode, setValue]);
 
   const { useCreateAddress } = useDataActions();
-  const { isLoading, isError, error, mutate } = useCreateAddress();
+  const { isLoading, isError, mutate } = useCreateAddress();
 
   const onSubmit = async (data) => {
-    console.log("data", data);
-    mutate(data);
+    mutate({
+      first_name: data.first_name,
+      lastname: data.lastname,
+      email: data.email,
+      phone_number: data.countryCode + data.phoneNumber,
+      location: data.location,
+    });
   };
 
   if (isLoading) {
@@ -84,7 +82,7 @@ export const CheckOutForm = (props) => {
   }
 
   return (
-    <Accordion variant="none">
+    <Accordion variant="none" defaultExpanded="true">
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -149,18 +147,20 @@ export const CheckOutForm = (props) => {
               <Box sx={{ display: "flex", gap: 1, marginTop: "6px" }}>
                 <FormControl variant="standard" sx={{ width: "20%" }}>
                   <FormInput
+                    {...register("countryCode", {
+                      required: true,
+                    })}
                     placeholder="+11"
                     id="phone-number-input"
-                    value={countryCode}
-                    onChange={(event) => setCountryCode(event.target.value)}
                   />
                 </FormControl>
                 <FormControl variant="standard" sx={{ width: "80%" }}>
                   <FormInput
+                    {...register("phoneNumber", {
+                      required: true,
+                    })}
                     placeholder="Enter Phone Number"
                     id="phone-number-input"
-                    value={phoneNumber}
-                    onChange={(event) => setPhoneNumber(event.target.value)}
                   />
                 </FormControl>
               </Box>

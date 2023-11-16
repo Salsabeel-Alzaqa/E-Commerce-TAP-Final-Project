@@ -10,6 +10,7 @@ import {
   Button,
   MenuItem,
   Badge,
+  Popover,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -20,6 +21,7 @@ import { pages } from "../../assets/data/pages";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { SearchBox } from "../SearchBox/SearchBox";
 import { Link, useNavigate } from "react-router-dom";
+import { UserItems } from "../UserItems/UserItems";
 import styled from "@emotion/styled";
 
 const StyledLink = styled(Link)`
@@ -67,6 +69,17 @@ export const Header = () => {
   const handleInputChange = (event) => {
     setInput(event.target.value);
   };
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -95,12 +108,27 @@ export const Header = () => {
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
-          color="inherit"
+          onClick={handleClick}
         >
           <Badge badgeContent={17} color="error">
-            <PersonOutlineIcon />
+            <PersonOutlineIcon color="primary" />
           </Badge>
         </IconButton>
+        <Popover
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          <UserItems />
+        </Popover>
         <p>Profile</p>
       </MenuItem>
       <MenuItem>
@@ -239,11 +267,30 @@ export const Header = () => {
                   <FavoriteBorderIcon color="primary" />
                 </Badge>
               </IconButton>
-              <IconButton size="large" aria-label="show 17 new notifications">
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                onClick={handleClick}
+              >
                 <Badge badgeContent={17} color="error">
                   <PersonOutlineIcon color="primary" />
                 </Badge>
               </IconButton>
+              <Popover
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+              >
+                <UserItems />
+              </Popover>
               <IconButton
                 size="large"
                 edge="end"

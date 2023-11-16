@@ -1,7 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery, QueryClient } from "react-query";
 import apiClient from "../api/axios";
 export function useDataActions() {
-  const queryClient = useQueryClient();
+  const queryClient = new QueryClient();
   function useProducts(filters) {
     return useQuery({
       queryKey: ["product", "list", filters],
@@ -40,6 +40,14 @@ export function useDataActions() {
       staleTime: Infinity,
     });
   }
+  function useCartProducts() {
+    return useQuery({
+      queryKey: ["cart", "list"],
+      queryFn: async () =>
+        await apiClient.get("v1/orders/in_progress").then((res) => res.data),
+      staleTime: 100,
+    });
+  }
 
   function useCreateAddress() {
     return useMutation({
@@ -52,26 +60,29 @@ export function useDataActions() {
     return useQuery({
       queryKey: ["cartData", "list"],
       queryFn: async () =>
-        await apiClient.get("v1/orders/in_progress").then((res) => res.data),
+        await apiClient
+          .get("v1/orders/in_progress")
+          .then((res) => res?.data?.data),
       staleTime: Infinity,
     });
   }
 
-  function useCartOrderDetails() {
+  function useCartOrderDetails(orderID) {
     return useQuery({
-      queryKey: ["orderDetails", "orderId"],
-      queryFn: async (orderId) =>
+      queryKey: ["orderDetails", orderID],
+      queryFn: async () =>
         await apiClient
-          .get(`v1/orders/${orderId}/orderitems`)
+          .get(`v1/orders/${orderID}/orderitems`)
           .then((res) => res.data),
       staleTime: Infinity,
     });
   }
 
-  function useUpdateCartItems(orderId) {
+  function useUpdateCartItems(orderID) {
+    console.log("ORDERIDDD", orderID);
     return useMutation({
       mutationFn: async (data) =>
-        await apiClient.put(`v1/orders/${orderId}`, data),
+        await apiClient.put(`v1/orders/${data.orderID}`, data.data),
       staleTime: Infinity,
     });
   }
@@ -90,14 +101,29 @@ export function useDataActions() {
     });
   }
 
+  const useAddToCart = (id, quantity) => {
+    return useMutation({
+      mutationFn: async () =>
+        await apiClient
+          .post(`v1/products/${id}/add_to_cart`, {
+            orderItemQuantity: quantity,
+          })
+          .then((res) => res.data),
+      onSuccess: () => {
+        queryClient.invalidateQueries(["cart", "list"]);
+      },
+    });
+  };
   return {
     useProducts,
     useNewArrivalsProducts,
     useProductDetails,
+    useAddToCart,
+    useCartProducts,
     useCreateAddress,
     useCartItems,
-    useUpdateCartItems,
     useRemoveCartItem,
     useCartOrderDetails,
+    useUpdateCartItems,
   };
 }
