@@ -26,7 +26,7 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
   const { data: products, isLoading, isError, refetch } = useCartProducts();
   
   useEffect(() => {
-    if (products) {
+    if (products && products.data !== null) {
       setIsInCart(products.data.some(product => product.productID === id));
     }
   }, [products, id]);
