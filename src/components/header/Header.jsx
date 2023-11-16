@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {AppBar, Box ,Toolbar ,IconButton , Typography ,Menu , Container , Button ,MenuItem ,Badge } from "@mui/material";
+import {AppBar, Box ,Toolbar ,IconButton , Typography ,Menu , Container , Button ,MenuItem ,Badge , Popover } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -8,7 +8,8 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { pages } from "../../assets/data/pages";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { SearchBox } from "../SearchBox/SearchBox";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserItems } from "../UserItems/UserItems";
 import styled from "@emotion/styled";
 
 const StyledLink = styled(Link)`
@@ -51,8 +52,19 @@ export const Header = () => {
   };
 
   const handleInputChange = (event) => {
-    setInput(event.target.value); 
+    setInput(event.target.value);
   };
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -79,14 +91,29 @@ export const Header = () => {
       </MenuItem>
       <MenuItem>
         <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <PersonOutlineIcon />
-          </Badge>
-        </IconButton>
+                size="large"
+                aria-label="show 17 new notifications"
+                onClick={handleClick}
+              >
+                <Badge badgeContent={17} color="error">
+                  <PersonOutlineIcon color="primary" />
+                </Badge>
+              </IconButton>
+              <Popover
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+              >
+                <UserItems />
+              </Popover>
         <p>Profile</p>
       </MenuItem>
       <MenuItem>
@@ -160,7 +187,7 @@ export const Header = () => {
                 {pages.map((category, index) => (
                   <Box
                     key={index}
-                    onClick={() =>handleClearSearchAndNavigate(category)}
+                    onClick={() => handleClearSearchAndNavigate(category)}
                   >
                     <MenuItem onClick={handleCloseNavMenu}>
                       <Typography color="black" textAlign="center">
@@ -195,9 +222,9 @@ export const Header = () => {
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((category, index) => (
                 <Box
-                    key={index}
-                    onClick={() => handleClearSearchAndNavigate(category)}
-                  >
+                  key={index}
+                  onClick={() => handleClearSearchAndNavigate(category)}
+                >
                   <Button
                     onClick={handleCloseNavMenu}
                     sx={{
@@ -213,7 +240,7 @@ export const Header = () => {
               ))}
             </Box>
             <Box sx={{ flexGrow: 1 }}>
-              <SearchBox input={input} onInputChange={handleInputChange}/>
+              <SearchBox input={input} onInputChange={handleInputChange} />
             </Box>
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton
@@ -225,11 +252,30 @@ export const Header = () => {
                   <FavoriteBorderIcon color="primary" />
                 </Badge>
               </IconButton>
-              <IconButton size="large" aria-label="show 17 new notifications">
+              <IconButton
+                size="large"
+                aria-label="show 17 new notifications"
+                onClick={handleClick}
+              >
                 <Badge badgeContent={17} color="error">
                   <PersonOutlineIcon color="primary" />
                 </Badge>
               </IconButton>
+              <Popover
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+              >
+                <UserItems />
+              </Popover>
               <IconButton
                 size="large"
                 edge="end"

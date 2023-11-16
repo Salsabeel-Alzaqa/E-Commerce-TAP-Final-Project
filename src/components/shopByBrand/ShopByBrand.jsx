@@ -17,6 +17,9 @@ const StyledPaper = styled(Paper)({
   "&:hover": {
     transform: "scale(1.1)",
   },
+  "@media (max-width: 680px)": {
+    width: "100%",
+  },
 });
 export const ShopByBrand = (props) => {
   return (
@@ -37,7 +40,7 @@ export const ShopByBrand = (props) => {
 const BrandItem = ({ brandImage, brandName }) => {
   const navigate = useNavigate();
   return (
-    <StyledPaper onClick={() => navigate(`/listing?&barnd=${brandName}`)}>
+    <StyledPaper onClick={() => navigate(`/listing?&brand=${brandName}`)}>
       <img
         src={brandImage}
         alt="brand"
