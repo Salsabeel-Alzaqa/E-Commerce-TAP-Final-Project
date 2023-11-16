@@ -13,7 +13,7 @@ export function useDataActions() {
     return useQuery({
       queryKey: ['product', 'get', id, filter],
       queryFn: async () => await apiClient.get(`/v1/products/${id}/${filter}`).then((res) => res.data),
-      staleTime: 600000,
+      staleTime: Infinity,
     });
   }
   function useNewArrivalsProducts() {
@@ -23,21 +23,30 @@ export function useDataActions() {
       staleTime: Infinity,
     });
   }
-   function useCartProducts() {
+  function useRemoveCartItem() {
+    return useMutation({
+      mutationFn: async (id) =>await apiClient.delete(`v1/orders/order_items/${id}`).then((res) => res.data),
+      onSuccess: () => {
+        queryClient.invalidateQueries(["cart", "list"]);
+      },
+    });
+  }
+  
+  function useCartProducts() {
     return useQuery({
       queryKey: ['cart', 'list'],
       queryFn: async () => await apiClient.get('v1/orders/in_progress').then((res) => res.data),
-      staleTime: 100,
+      staleTime: Infinity,
     });
   }
 
-  const useAddToCart = (id, quantity) => {
+  const useAddToCart = (id) => {
     return useMutation({
-      mutationFn: async () => await apiClient.post(`v1/products/${id}/add_to_cart`, { "orderItemQuantity": quantity }).then((res) => res.data),
+      mutationFn: async (quantity) => await apiClient.post(`v1/products/${id}/add_to_cart`, { "orderItemQuantity": quantity }).then((res) => res.data),
       onSuccess: () => {
       queryClient.invalidateQueries(['cart', 'list']);
     },
     });
   }
-  return { useProducts , useNewArrivalsProducts , useProductDetails , useAddToCart , useCartProducts  }
+  return { useProducts , useNewArrivalsProducts , useProductDetails , useAddToCart , useCartProducts , useRemoveCartItem  }
 }
