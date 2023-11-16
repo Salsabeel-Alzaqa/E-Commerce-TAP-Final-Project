@@ -23,6 +23,7 @@ export function useDataActions() {
       staleTime: Infinity,
     });
   }
+  
   function usePersonalInfo() {
     return useQuery({
       queryKey: ['personalInfo', 'list'],
@@ -30,6 +31,7 @@ export function useDataActions() {
       staleTime: Infinity,
     });
   }
+
   function useRemoveCartItem() {
     return useMutation({
       mutationFn: async (id) =>await apiClient.delete(`v1/orders/order_items/${id}`).then((res) => res.data),
@@ -55,5 +57,6 @@ export function useDataActions() {
     },
     });
   }
+
   return { useProducts , useNewArrivalsProducts , useProductDetails , useAddToCart , useCartProducts , useRemoveCartItem , usePersonalInfo }
 }
