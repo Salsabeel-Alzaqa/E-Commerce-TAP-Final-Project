@@ -9,18 +9,15 @@ export const UserItems = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
-  const handleLoginClick = () => {
-    navigate("/login");
-  };
   return (
     <List>
       {isAuthenticated ? (<>  <ListItem button>
-        <ListItemText primary="Profile" />
+        <ListItemText primary="Profile" onClick={()=>navigate("/profile")}/>
       </ListItem>
         <ListItem button onClick={handleLogoutClick}>
           <ListItemText primary="Log out" />
         </ListItem></>)
-        : (<ListItem button onClick={handleLoginClick}>
+        : (<ListItem button onClick={()=>navigate("/login")}>
           <ListItemText primary="LogIn" />
         </ListItem>)}
     </List>

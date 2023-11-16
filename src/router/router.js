@@ -10,6 +10,8 @@ import { Listing } from '../pages/Listing/Listing';
 import { ProductPage } from '../pages/ProductPage/ProductPage';
 import { LogInPage } from '../pages/LogInPage/LogInPage';
 import { AuthGuard } from '../pages/AuthGuard/AuthGuard';
+import { ProfilePage } from '../pages/ProfilePage/ProfilePage';
+
 export const router = createBrowserRouter(
   createRoutesFromElements(<>
     <Route path="/" element={<RootLayout />}>
@@ -36,12 +38,21 @@ export const router = createBrowserRouter(
           </AuthGuard>
         }
       ></Route>
+      <Route
+        path="/profile"
+        element={
+          <AuthGuard>
+            <ProfilePage />
+          </AuthGuard>
+        }
+      ></Route>
     </Route>
     <Route
       path="/login"
       element={
         <LogInPage />
       }
-    ></Route></>
+    ></Route>
+   </>
   )
 );

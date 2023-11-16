@@ -23,6 +23,13 @@ export function useDataActions() {
       staleTime: Infinity,
     });
   }
+  function usePersonalInfo() {
+    return useQuery({
+      queryKey: ['personalInfo', 'list'],
+      queryFn: async () => await apiClient.get('/v1/users/me').then((res) => res.data),
+      staleTime: Infinity,
+    });
+  }
    function useCartProducts() {
     return useQuery({
       queryKey: ['cart', 'list'],
@@ -39,5 +46,5 @@ export function useDataActions() {
     },
     });
   }
-  return { useProducts , useNewArrivalsProducts , useProductDetails , useAddToCart , useCartProducts  }
+  return { useProducts , useNewArrivalsProducts , useProductDetails , useAddToCart , useCartProducts , usePersonalInfo  }
 }
