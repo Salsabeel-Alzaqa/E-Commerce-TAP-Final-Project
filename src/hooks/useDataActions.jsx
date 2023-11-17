@@ -41,11 +41,12 @@ export function useDataActions() {
     });
   }
   
-  function useCartProducts() {
+  function useCartItems() {
     return useQuery({
-      queryKey: ['cart', 'list'],
-      queryFn: async () => await apiClient.get('v1/orders/in_progress').then((res) => res.data),
-      staleTime: Infinity,
+      queryKey: ["cart", "list"],
+      queryFn: async () =>
+        await apiClient.get("v1/orders/in_progress").then((res) => res?.data),
+      staleTime: 100,
     });
   }
 
@@ -58,5 +59,23 @@ export function useDataActions() {
     });
   }
 
-  return { useProducts , useNewArrivalsProducts , useProductDetails , useAddToCart , useCartProducts , useRemoveCartItem , usePersonalInfo }
+  const useUpdateUserInfo = () => {
+    return useMutation({
+      mutationFn: async (newInfo) => await apiClient.put('v1/users', newInfo).then((res) => res.data),
+      onSuccess: () => {
+      queryClient.invalidateQueries(['personalInfo', 'list']);
+    },
+    });
+  }
+  
+  const useUpdateUserPassword = () => {
+    return useMutation({
+      mutationFn: async (passwords) => await apiClient.post('v1/users/me/change_password',passwords).then((res) => res.data),
+      onSuccess: () => {
+      queryClient.invalidateQueries(['personalInfo', 'list']);
+    },
+    });
+  }
+
+  return { useProducts , useNewArrivalsProducts , useProductDetails , useAddToCart , useCartItems , useRemoveCartItem , usePersonalInfo , useUpdateUserInfo , useUpdateUserPassword }
 }

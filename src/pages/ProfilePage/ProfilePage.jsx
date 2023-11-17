@@ -11,22 +11,24 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
 const StyledTab = styled(Tab)({
-  '&.Mui-selected': {
-    backgroundColor:'#F1F1F1',
-    color: '#1B4B66',
-  },
-});
-const TabsContainer = styled(Tabs)({
     display: 'flex',
-    justifyContent: 'flex-start',
-});
-const TabLabelContainer = styled('div')({
-  display: 'flex',
-  justifyContent: 'space-between',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    '& .MuiTab-wrapper': {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+    },
+    '&.Mui-selected': {
+        backgroundColor: '#F1F1F1',
+        color: '#1B4B66',
+    },
 });
 
 const ArrowIcon = styled(ArrowForwardIosIcon)({
-  fontSize: 16, // Adjust the size of the arrow icon as needed
+    fontSize: 16, 
+     display: 'flex',
+    justifyContent: 'flex-end',
 });
 const breadcrumbItems = [
     <Typography underline="hover" key="2">
@@ -66,29 +68,23 @@ export const ProfilePage = () => {
                 </Box>
             </Box>
             <Grid container spacing={3} mb={4}>
-                <Grid item xs={12} sm={12} md={12} lg={4}>
-                    <TabsContainer
+                <Grid item xs={12} sm={12} md={12} lg={3}>
+                    <Tabs
                         value={selectedTab}
                         onChange={handleTabChange}
                         orientation={isSmallScreen ? 'horizontal' : 'vertical'}
                         TabIndicatorProps={{ style: { left: 0 } }}
+                        sx={{padding:0}}
                     >
                         {tabs.map((tab, index) => (
-                            <StyledTab
-                                key={index}
-                                label={
-                                    <TabLabelContainer>
-                                        {tab.label}
-                                        <ArrowIcon />
-                                    </TabLabelContainer>
-                                }
-                            />
+                                <StyledTab key={index} label={tab.label} icon={<ArrowIcon />} iconPosition="end"/>
+                               
                         ))}
-                    </TabsContainer>
+                    </Tabs>
                 </Grid>
                 {tabs.map((tab, index) => (
                     selectedTab === index && (
-                        <Grid key={index} item xs={12} sm={12} md={12} lg={8}>
+                        <Grid key={index} item xs={12} sm={12} md={12} lg={9}>
                             <Typography variant="h5" gutterBottom>{getSelectedTabLabel()}</Typography>
                             <Divider />
                             {tab.page}
