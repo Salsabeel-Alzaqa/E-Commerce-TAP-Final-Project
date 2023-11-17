@@ -61,7 +61,7 @@ export function useDataActions() {
       queryKey: ["cartData", "list"],
       queryFn: async () =>
         await apiClient.get("v1/orders/in_progress").then((res) => res?.data),
-      staleTime: Infinity,
+      staleTime: 100,
     });
   }
 
@@ -72,7 +72,7 @@ export function useDataActions() {
         await apiClient
           .get(`v1/orders/${orderID}/orderitems`)
           .then((res) => res.data),
-      staleTime: Infinity,
+      staleTime: 100,
     });
   }
 
@@ -80,7 +80,6 @@ export function useDataActions() {
     return useMutation({
       mutationFn: async (data) =>
         await apiClient.put(`v1/orders/${data.orderID}`, data.data),
-      staleTime: Infinity,
     });
   }
 
