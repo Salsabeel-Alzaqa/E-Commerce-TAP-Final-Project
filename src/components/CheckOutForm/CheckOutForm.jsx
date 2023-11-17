@@ -61,11 +61,19 @@ export const CheckOutForm = (props) => {
     formState: { errors },
   } = useForm();
 
-  const { useCreateAddress } = useDataActions();
-  const { isLoading, isError, mutate } = useCreateAddress();
+  const { useCreateAddress, useUpdateCartItems } = useDataActions();
+  const { mutate: mutatePostAddress } = useCreateAddress();
+  const { mutateAsync: mutatePutOrder } = useUpdateCartItems();
 
   const onSubmit = async (data) => {
-    mutate({
+    const preparedItemsData = props.cartData.data?.map((item) => {
+      return { id: item.id, quantity: item.quantity };
+    });
+    await mutatePutOrder({
+      orderID: props.cartData.data[0].orderID,
+      data: { addressId: 1, orderItems: preparedItemsData },
+    });
+    mutatePostAddress({
       first_name: data.first_name,
       lastname: data.lastname,
       email: data.email,
@@ -73,13 +81,6 @@ export const CheckOutForm = (props) => {
       location: data.location,
     });
   };
-
-  if (isLoading) {
-    return <Typography>Loading ... </Typography>;
-  }
-  if (isError) {
-    return <Typography>Error</Typography>;
-  }
 
   return (
     <Accordion variant="none" defaultExpanded="true">

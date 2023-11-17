@@ -13,11 +13,11 @@ import { useDataActions } from "../../hooks/useDataActions";
 
 export const ProductsCart = (props) => {
   const { useRemoveCartItem } = useDataActions();
-  const { isLoading, isError, error, mutate } = useRemoveCartItem();
+  const { isLoading, isError, error, mutateAsync } = useRemoveCartItem();
 
   const handleRemoveItem = async (itemId) => {
-    await mutate(itemId);
-    props.cartItems.filter((item) => item.id !== itemId);
+    await mutateAsync(itemId);
+    props.setCartItems(props.cartItems.filter((item) => item.id !== itemId));
   };
 
   return (

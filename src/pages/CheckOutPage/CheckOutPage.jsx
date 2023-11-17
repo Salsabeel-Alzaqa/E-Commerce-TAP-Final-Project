@@ -41,7 +41,7 @@ export const CheckOutPage = () => {
       ) : (
         <>
           <Box sx={{ display: "flex", gap: 15, position: "relative" }}>
-            <CheckOutForm />
+            <CheckOutForm cartData={cartData} />
             <Box sx={{ minWidth: "500px" }}>
               <Paper variant="none" sx={{ marginTop: 4 }}>
                 <Typography

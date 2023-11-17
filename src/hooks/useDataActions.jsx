@@ -85,12 +85,13 @@ export function useDataActions() {
 
   function useRemoveCartItem() {
     return useMutation({
-      mutationFn: async (orderItemId) =>
-        await apiClient.delete(`v1/orders/order_items/${orderItemId}`),
+      mutationFn: async (id) =>
+        await apiClient
+          .delete(`v1/orders/order_items/${id}`)
+          .then((res) => res.data),
       onSuccess: () => {
-        queryClient.invalidateQueries(["cartData", "list"]);
+        queryClient.invalidateQueries(["cart", "list"]);
       },
-      staleTime: Infinity,
     });
   }
 
