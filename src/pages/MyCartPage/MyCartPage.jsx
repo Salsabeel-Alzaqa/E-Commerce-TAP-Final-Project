@@ -36,7 +36,7 @@ export const MyCartPage = () => {
   };
 
   useEffect(() => {
-    setCartItems(cartData);
+    setCartItems(cartData?.data);
   }, [cartData]);
 
   const handleContinueShopping = (page) => {
@@ -59,7 +59,7 @@ export const MyCartPage = () => {
             <Box sx={{ display: "flex", gap: 15 }}>
               <ProductsCart cartItems={cartItems} setCartItems={setCartItems} />
               <Box>
-                <OrderSummary orderID={cartItems[0].orderID} />
+                <OrderSummary cartData={cartData} />
                 <Stack
                   direction="row"
                   spacing={3}

@@ -5,7 +5,6 @@ import RemoveIcon from "@mui/icons-material/Remove";
 
 export const QuantityButton = ({ value, onChange }) => {
   const handleIncrement = () => {
-    console.log("value", value);
     onChange(value + 1);
   };
 

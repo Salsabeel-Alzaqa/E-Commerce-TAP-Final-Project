@@ -15,8 +15,8 @@ export const ProductsCart = (props) => {
   const { useRemoveCartItem } = useDataActions();
   const { isLoading, isError, error, mutate } = useRemoveCartItem();
 
-  const handleRemoveItem = (itemId) => {
-    mutate(itemId);
+  const handleRemoveItem = async (itemId) => {
+    await mutate(itemId);
     props.cartItems.filter((item) => item.id !== itemId);
   };
 
@@ -50,7 +50,7 @@ export const ProductsCart = (props) => {
                   align="right"
                   sx={{ border: "none", paddingBottom: 0 }}
                 >
-                  ${item.price}
+                  ${item.sub_total}
                 </TableCell>
                 <TableCell
                   align="right"
@@ -62,7 +62,7 @@ export const ProductsCart = (props) => {
                   align="right"
                   sx={{ border: "none", paddingBottom: 0 }}
                 >
-                  ${item.sub_total}
+                  ${item.sub_total * item.quantity}
                 </TableCell>
               </TableRow>
               <TableRow>

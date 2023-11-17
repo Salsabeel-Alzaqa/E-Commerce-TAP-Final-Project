@@ -60,9 +60,7 @@ export function useDataActions() {
     return useQuery({
       queryKey: ["cartData", "list"],
       queryFn: async () =>
-        await apiClient
-          .get("v1/orders/in_progress")
-          .then((res) => res?.data?.data),
+        await apiClient.get("v1/orders/in_progress").then((res) => res?.data),
       staleTime: Infinity,
     });
   }
@@ -79,7 +77,6 @@ export function useDataActions() {
   }
 
   function useUpdateCartItems(orderID) {
-    console.log("ORDERIDDD", orderID);
     return useMutation({
       mutationFn: async (data) =>
         await apiClient.put(`v1/orders/${data.orderID}`, data.data),
@@ -87,14 +84,11 @@ export function useDataActions() {
     });
   }
 
-  function useRemoveCartItem(props) {
+  function useRemoveCartItem() {
     return useMutation({
       mutationFn: async (orderItemId) =>
-        await apiClient.delete(`orders/order_items/${orderItemId}`),
-      onSuccess: (data, itemId) => {
-        props.setCartItems((prevCartItems) =>
-          prevCartItems.filter((item) => item.id !== itemId)
-        );
+        await apiClient.delete(`v1/orders/order_items/${orderItemId}`),
+      onSuccess: () => {
         queryClient.invalidateQueries(["cartData", "list"]);
       },
       staleTime: Infinity,

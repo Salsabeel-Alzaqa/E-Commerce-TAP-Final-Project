@@ -24,17 +24,15 @@ export const ProductCartCard = (props) => {
   return (
     <Card variant="none" sx={{ display: "flex", maxWidth: 500 }}>
       <CardMedia
-        sx={{ maxWidth: 150 }}
+        sx={{ maxWidth: 150, borderRadius: "5px" }}
         component="img"
-        alt={props.item.name_product}
+        alt={props.item.name}
         height="120"
         image={props.item.image}
       />
       <CardContent sx={{ fontSize: "16px", fontWeight: "500" }}>
-        <Typography component="div">{props.item.name_product}</Typography>
-        <Typography color="text.secondary">
-          {props.item.short_description}
-        </Typography>
+        <Typography component="div">{props.item.name}</Typography>
+        <Typography color="text.secondary">{props.item.sub_title}</Typography>
         <Stack
           direction="row"
           sx={{ marginTop: 1, width: "73px", height: "30px" }}
@@ -45,7 +43,7 @@ export const ProductCartCard = (props) => {
               onChange={handleQuantityChange}
             />
           ) : (
-            <Typography>Qy{props.item.quantity}</Typography>
+            <Typography>Qy- {props.item.quantity}</Typography>
           )}
         </Stack>
       </CardContent>
