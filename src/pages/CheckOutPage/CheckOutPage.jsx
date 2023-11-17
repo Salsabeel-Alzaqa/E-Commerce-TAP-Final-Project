@@ -51,11 +51,11 @@ export const CheckOutPage = () => {
                   Order Details
                 </Typography>
                 <Divider sx={{ marginBottom: 4 }} />
-                {cartData?.map((item, index) => (
+                {cartData?.data.map((item, index) => (
                   <ProductCartCard key={index} item={item} inMyCart={false} />
                 ))}
               </Paper>
-              <OrderSummary orderID={cartData[0].orderID} />
+              <OrderSummary cartData={cartData} />
             </Box>
           </Box>
           <Button
