@@ -7,6 +7,7 @@ import { OrderSummary } from "../../components/OrderSummary/OrderSummary";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDataActions } from "../../hooks/useDataActions";
+import { async } from "q";
 
 export const MyCartPage = () => {
   const { useCartItems } = useDataActions();
@@ -20,16 +21,16 @@ export const MyCartPage = () => {
   const [cartItems, setCartItems] = useState([]);
 
   const { useUpdateCartItems } = useDataActions();
-  const { mutate: mutateUpdateItems } = useUpdateCartItems();
+  const { mutateAsync: mutateUpdateItems } = useUpdateCartItems();
 
   const navigate = useNavigate();
-  const handleProceedToCheckOut = () => {
+  const handleProceedToCheckOut = async () => {
     const preparedItemsData = cartItems.map((item) => {
       return { id: item.id, quantity: item.quantity };
     });
-    mutateUpdateItems({
+    await mutateUpdateItems({
       orderID: cartItems[0].orderID,
-      data: { addressId: 1, orderItems: preparedItemsData },
+      data: { orderItems: preparedItemsData },
     });
     navigate(`/checkoutpage`);
   };

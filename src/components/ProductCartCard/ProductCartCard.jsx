@@ -10,11 +10,11 @@ export const ProductCartCard = (props) => {
   const handleQuantityChange = (newQuantity) => {
     props.setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.name_product === props.item.name_product
+        item.id === props.item.id
           ? {
               ...item,
               quantity: newQuantity,
-              subtotal: item.price * newQuantity,
+              subtotal: item.sub_total * newQuantity,
             }
           : item
       )
