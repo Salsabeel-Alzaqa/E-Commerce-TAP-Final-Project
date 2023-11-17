@@ -62,11 +62,10 @@ export const CheckOutPage = () => {
             aria-label="back"
             sx={{
               position: "absolute",
-              top: "535px",
+              top: "640px",
               left: "35px",
               textTransform: "none",
               textDecoration: "underline",
-              marginTop: 2,
             }}
             onClick={() => handleBackToCart()}
           >

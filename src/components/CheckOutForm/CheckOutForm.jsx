@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import Button from "@mui/material/Button";
 import { useDataActions } from "../../hooks/useDataActions";
 import { Loading } from "../Loading/Loading";
+import { useNavigate } from "react-router";
 
 const FormInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -61,25 +62,36 @@ export const CheckOutForm = (props) => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
   const { useCreateAddress, useUpdateCartItems } = useDataActions();
-  const { mutate: mutatePostAddress } = useCreateAddress();
+  const { mutateAsync: mutatePostAddress } = useCreateAddress();
   const { mutateAsync: mutatePutOrder } = useUpdateCartItems();
 
   const onSubmit = async (data) => {
     const preparedItemsData = props.cartData.data?.map((item) => {
       return { id: item.id, quantity: item.quantity };
     });
-    await mutatePutOrder({
-      orderID: props.cartData.data[0].orderID,
-      data: { addressId: 1, orderItems: preparedItemsData },
-    });
-    mutatePostAddress({
-      first_name: data.first_name,
-      lastname: data.lastname,
-      email: data.email,
-      phone_number: data.countryCode + data.phoneNumber,
-      location: data.location,
-    });
+    try {
+      await Promise.all([
+        mutatePutOrder({
+          orderID: props.cartData.data[0].orderID,
+          data: { addressId: 1, orderItems: preparedItemsData },
+        }),
+        mutatePostAddress({
+          first_name: data.first_name,
+          last_name: data.last_name,
+          email: data.email,
+          phone_number: data.countryCode + data.phoneNumber,
+          street: data.street,
+          city: data.city,
+          state: data.state,
+          pin_code: data.pin_code,
+        }),
+      ]);
+      navigate(`/`);
+    } catch (error) {
+      console.error("Error while checking out");
+    }
   };
 
   return (
@@ -125,7 +137,7 @@ export const CheckOutForm = (props) => {
                 Last Name
               </InputLabel>
               <FormInput
-                {...register("lastname", {
+                {...register("last_name", {
                   required: true,
                 })}
                 aria-invalid={errors.lastname ? "true" : "false"}
@@ -189,22 +201,71 @@ export const CheckOutForm = (props) => {
           </Box>
           <Box sx={{ display: "flex", gap: 6 }}>
             <FormControl variant="standard" sx={{ width: "50%" }}>
-              <InputLabel shrink htmlFor="location-input">
-                Location
+              <InputLabel shrink htmlFor="sreet_name-input">
+                Street
               </InputLabel>
               <FormInput
-                placeholder="Enter Location"
-                id="location-input"
-                {...register("location", {
+                {...register("street", {
                   required: true,
                 })}
-                aria-invalid={errors.location ? "true" : "false"}
+                aria-invalid={errors.street ? "true" : "false"}
+                placeholder="Enter Street Name"
+                id="street_name-input"
               />
-              {errors.location?.type === "required" && (
-                <Typography color="error">location is required</Typography>
+              {errors.street?.type === "required" && (
+                <Typography color="error">Street name is required</Typography>
               )}
             </FormControl>
-            <FormControl variant="standard" sx={{ width: "50%" }}></FormControl>
+            <FormControl variant="standard" sx={{ width: "50%" }}>
+              <InputLabel shrink htmlFor="city-input">
+                City
+              </InputLabel>
+              <FormInput
+                {...register("city", {
+                  required: true,
+                })}
+                aria-invalid={errors.city ? "true" : "false"}
+                placeholder="Enter City Name"
+                id="city-input"
+              />
+              {errors.city?.type === "required" && (
+                <Typography color="error">City is required</Typography>
+              )}
+            </FormControl>
+          </Box>
+          <Box sx={{ display: "flex", gap: 6 }}>
+            <FormControl variant="standard" sx={{ width: "50%" }}>
+              <InputLabel shrink htmlFor="state_name-input">
+                State
+              </InputLabel>
+              <FormInput
+                {...register("state", {
+                  required: true,
+                })}
+                aria-invalid={errors.state ? "true" : "false"}
+                placeholder="Enter State Name"
+                id="state_name-input"
+              />
+              {errors.state?.type === "required" && (
+                <Typography color="error">State is required</Typography>
+              )}
+            </FormControl>
+            <FormControl variant="standard" sx={{ width: "50%" }}>
+              <InputLabel shrink htmlFor="pin">
+                Pin Code
+              </InputLabel>
+              <FormInput
+                {...register("pin_code", {
+                  required: true,
+                })}
+                aria-invalid={errors.pin ? "true" : "false"}
+                placeholder="Enter Pin Code"
+                id="pin"
+              />
+              {errors.pin?.type === "required" && (
+                <Typography color="error">Pin is required</Typography>
+              )}
+            </FormControl>
           </Box>
           <Button
             variant="contained"
