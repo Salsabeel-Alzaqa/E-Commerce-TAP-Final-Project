@@ -31,7 +31,6 @@ export const MyCartPage = () => {
       orderID: cartItems[0].orderID,
       data: { addressId: 1, orderItems: preparedItemsData },
     });
-
     navigate(`/checkoutpage`);
   };
 
