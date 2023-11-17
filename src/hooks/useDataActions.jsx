@@ -27,7 +27,7 @@ export function useDataActions() {
         await apiClient
           .get(`/v1/products/${id}/${filter}`)
           .then((res) => res.data),
-      staleTime: 600000,
+      staleTime: Infinity,
     });
   }
   function useNewArrivalsProducts() {
@@ -40,12 +40,13 @@ export function useDataActions() {
       staleTime: Infinity,
     });
   }
+
   function useCartProducts() {
     return useQuery({
       queryKey: ["cart", "list"],
       queryFn: async () =>
         await apiClient.get("v1/orders/in_progress").then((res) => res.data),
-      staleTime: 100,
+      staleTime: Infinity,
     });
   }
 
@@ -95,9 +96,9 @@ export function useDataActions() {
     });
   }
 
-  const useAddToCart = (id, quantity) => {
+  const useAddToCart = (id) => {
     return useMutation({
-      mutationFn: async () =>
+      mutationFn: async (quantity) =>
         await apiClient
           .post(`v1/products/${id}/add_to_cart`, {
             orderItemQuantity: quantity,
@@ -108,6 +109,7 @@ export function useDataActions() {
       },
     });
   };
+
   return {
     useProducts,
     useNewArrivalsProducts,
