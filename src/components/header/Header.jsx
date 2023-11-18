@@ -1,5 +1,17 @@
 import React, { useState } from "react";
-import {AppBar, Box ,Toolbar ,IconButton , Typography ,Menu , Container , Button ,MenuItem ,Badge , Popover } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Button,
+  MenuItem,
+  Badge,
+  Popover,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -26,10 +38,13 @@ const StyledLink = styled(Link)`
 export const Header = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const navigate = useNavigate();
   const mobileMenuId = "primary-search-account-menu-mobile";
+  const handleCartClick = () => {
+    navigate(`/cartpage`);
+  };
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -47,7 +62,7 @@ export const Header = () => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
   const handleClearSearchAndNavigate = (page) => {
-    setInput('');
+    setInput("");
     navigate(`/listing?&category=${page}`);
   };
 
@@ -91,29 +106,29 @@ export const Header = () => {
       </MenuItem>
       <MenuItem>
         <IconButton
-                size="large"
-                aria-label="show 17 new notifications"
-                onClick={handleClick}
-              >
-                <Badge badgeContent={17} color="error">
-                  <PersonOutlineIcon color="primary" />
-                </Badge>
-              </IconButton>
-              <Popover
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-              >
-                <UserItems />
-              </Popover>
+          size="large"
+          aria-label="show 17 new notifications"
+          onClick={handleClick}
+        >
+          <Badge badgeContent={17} color="error">
+            <PersonOutlineIcon color="primary" />
+          </Badge>
+        </IconButton>
+        <Popover
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right",
+          }}
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+        >
+          <UserItems />
+        </Popover>
         <p>Profile</p>
       </MenuItem>
       <MenuItem>
@@ -150,7 +165,7 @@ export const Header = () => {
                 to={{
                   pathname: `/`,
                 }}
-                onClick={() => setInput('')}
+                onClick={() => setInput("")}
               >
                 <Logo />
               </StyledLink>
@@ -214,7 +229,7 @@ export const Header = () => {
                 to={{
                   pathname: `/`,
                 }}
-                onClick={() => setInput('')}
+                onClick={() => setInput("")}
               >
                 <Logo />
               </StyledLink>
@@ -266,12 +281,12 @@ export const Header = () => {
                 anchorEl={anchorEl}
                 onClose={handleClose}
                 anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
+                  vertical: "bottom",
+                  horizontal: "right",
                 }}
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
               >
                 <UserItems />
@@ -281,6 +296,7 @@ export const Header = () => {
                 edge="end"
                 aria-label="account of current user"
                 aria-haspopup="true"
+                onClick={handleCartClick}
               >
                 <LocalMallIcon color="primary" />
               </IconButton>

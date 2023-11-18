@@ -3,7 +3,7 @@ import { MockShopByBrand } from "../../assets/data/data";
 import { Title } from "../Title/Title";
 import { Grid, Paper, Container } from "@mui/material";
 import { styled } from "@mui/system";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const StyledPaper = styled(Paper)({
   display: "flex",
