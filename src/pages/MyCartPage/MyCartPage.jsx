@@ -7,7 +7,16 @@ import { OrderSummary } from "../../components/OrderSummary/OrderSummary";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDataActions } from "../../hooks/useDataActions";
-import { async } from "q";
+import { styled } from "@mui/system";
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  gap: "70px",
+  marginBottom: "10px",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+  },
+}));
 
 export const MyCartPage = () => {
   const { useCartItems } = useDataActions();
@@ -56,7 +65,7 @@ export const MyCartPage = () => {
       ) : (
         <>
           {cartItems?.length ? (
-            <Box sx={{ display: "flex", gap: 15 }}>
+            <StyledBox>
               <ProductsCart cartItems={cartItems} setCartItems={setCartItems} />
               <Box>
                 <OrderSummary cartData={cartData} />
@@ -83,7 +92,7 @@ export const MyCartPage = () => {
                   </Button>
                 </Stack>
               </Box>
-            </Box>
+            </StyledBox>
           ) : (
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Typography>Cart is empty</Typography>

@@ -4,7 +4,15 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { QuantityButton } from "../QuantityButton/QuantityButton";
-import { Stack } from "@mui/material";
+import { Stack, styled } from "@mui/material";
+
+const StyledCard = styled(Card)(({ theme }) => ({
+  display: "flex",
+  maxWidth: 500,
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+  },
+}));
 
 export const ProductCartCard = (props) => {
   const handleQuantityChange = (newQuantity) => {
@@ -22,7 +30,7 @@ export const ProductCartCard = (props) => {
   };
 
   return (
-    <Card variant="none" sx={{ display: "flex", maxWidth: 500 }}>
+    <StyledCard variant="none">
       <CardMedia
         sx={{ maxWidth: 150, borderRadius: "5px" }}
         component="img"
@@ -47,6 +55,6 @@ export const ProductCartCard = (props) => {
           )}
         </Stack>
       </CardContent>
-    </Card>
+    </StyledCard>
   );
 };

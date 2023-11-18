@@ -8,8 +8,15 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { ProductCartCard } from "../ProductCartCard/ProductCartCard";
-import { Button } from "@mui/material";
+import { Button, styled } from "@mui/material";
 import { useDataActions } from "../../hooks/useDataActions";
+
+const StyledCard = styled(TableRow)(({ theme }) => ({
+  fontSize: "16px",
+  [theme.breakpoints.down("md")]: {
+    fontSize: "12px",
+  },
+}));
 
 export const ProductsCart = (props) => {
   const { useRemoveCartItem } = useDataActions();
