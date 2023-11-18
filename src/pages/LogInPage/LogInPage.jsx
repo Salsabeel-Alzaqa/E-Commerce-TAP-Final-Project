@@ -5,22 +5,26 @@ import apiClient from '../../api/axios';
 import { useNavigate , Link  } from "react-router-dom";
 
 export const LogInPage = () => {
-    const { register, handleSubmit, formState: { errors, isSubmitting }, setValue } = useForm();
+    const { register, handleSubmit, watch, formState: { errors, isSubmitting }, setValue } = useForm();
     const [loginError, setLoginError] = useState(null);
     const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
-    const getUserInfo = () => {
-        const sortedInfo = localStorage.getItem('userInfo');
-        if (sortedInfo) {
-            const { email, password } = JSON.parse(sortedInfo);
-            setValue('email', email);
-            setValue('password', password);
-            setRememberMe(true); 
+    const getUserInfo = (email) => {
+        const storedInfo = localStorage.getItem('userInfo');
+        if (storedInfo) {
+            const userInfoArray = JSON.parse(storedInfo);
+            const userWithEmail = userInfoArray.find(user => user.email === email);
+            if (userWithEmail) {
+                setValue('email', userWithEmail.email);
+                setValue('password', userWithEmail.password);
+                setRememberMe(true);
+            }
         }
     };
     useEffect(() => {
-        getUserInfo();
-    },[]);
+        let email = watch('email');
+        getUserInfo(email);
+    }, [watch, watch('email')]);
     const onSubmit = async (data) => {
         try {
             setLoginError(null);
@@ -28,7 +32,8 @@ export const LogInPage = () => {
             const token = response.data.token;
             localStorage.setItem('token', token);
             if (rememberMe) {
-                localStorage.setItem('userInfo', JSON.stringify(data));
+                const userInfo  = [{ 'email': data.email, 'password': data.password }];
+                localStorage.setItem('userInfo', JSON.stringify(userInfo));
             } else {
                 localStorage.removeItem('userInfo');
             }

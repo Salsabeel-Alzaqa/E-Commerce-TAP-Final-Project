@@ -2,24 +2,14 @@ import { useMutation, useQuery, QueryClient } from "react-query";
 import apiClient from "../api/axios";
 export function useDataActions() {
   const queryClient = new QueryClient();
-  function useProducts(filters) {
+    function useProducts(filters) {
     return useQuery({
-      queryKey: ["product", "list", filters],
-      queryFn: async () =>
-        await apiClient
-          .get(
-            `/v1/products?${
-              filters.categoryValue ? `&category=${filters.categoryValue}` : ""
-            }${filters.brandValue ? `&brand=${filters.brandValue}` : ""}${
-              filters.searchValue ? `&search_term=${filters.searchValue}` : ""
-            }${filters.arrivalValue === true ? `&new_arrival=true` : ""}${
-              filters.handpickedValue === true ? `&handpicked=true` : ""
-            }&&page=${filters.currentPage}`
-          )
-          .then((res) => res.data),
+      queryKey: ['product', 'list', filters],
+      queryFn: async () => await apiClient.get(`/v1/products?${filters.categoryValue ? `&category=${filters.categoryValue}` : ''}${filters.brandValue ? `&brand=${filters.brandValue}` : ''}${filters.searchValue ? `&search_term=${filters.searchValue}` : ''}${filters.arrivalValue === true ? `&new_arrival=true` : ''}${filters.handpickedValue === true ? `&handpicked=true` : ''}&&page=${filters.currentPage}`).then((res) => res.data),
       staleTime: Infinity,
     });
-  }
+    }
+  
   function useProductDetails(id, filter) {
     return useQuery({
       queryKey: ["product", "get", id, filter],
@@ -41,15 +31,6 @@ export function useDataActions() {
     });
   }
 
-  function useCartProducts() {
-    return useQuery({
-      queryKey: ["cart", "list"],
-      queryFn: async () =>
-        await apiClient.get("v1/orders/in_progress").then((res) => res.data),
-      staleTime: Infinity,
-    });
-  }
-
   function useCreateAddress() {
     return useMutation({
       mutationFn: async (data) => await apiClient.post(`v1/addresses`, data),
@@ -59,7 +40,7 @@ export function useDataActions() {
 
   function useCartItems() {
     return useQuery({
-      queryKey: ["cartData", "list"],
+      queryKey: ["cart", "list"],
       queryFn: async () =>
         await apiClient.get("v1/orders/in_progress").then((res) => res?.data),
       staleTime: 100,
@@ -101,25 +82,52 @@ export function useDataActions() {
       mutationFn: async (quantity) =>
         await apiClient
           .post(`v1/products/${id}/add_to_cart`, {
-            orderItemQuantity: quantity,
+            'orderItemQuantity': quantity,
           })
           .then((res) => res.data),
       onSuccess: () => {
         queryClient.invalidateQueries(["cart", "list"]);
       },
     });
-  };
+  }
 
+  function usePersonalInfo() {
+    return useQuery({
+      queryKey: ['personalInfo', 'list'],
+      queryFn: async () => await apiClient.get('/v1/users/me').then((res) => res.data),
+      staleTime: Infinity,
+    });
+  }
+
+  const useUpdateUserInfo = () => {
+    return useMutation({
+      mutationFn: async (newInfo) => await apiClient.put('v1/users', newInfo).then((res) => res.data),
+      onSuccess: () => {
+      queryClient.invalidateQueries(['personalInfo', 'list']);
+    },
+    });
+  }
+  
+  const useUpdateUserPassword = () => {
+    return useMutation({
+      mutationFn: async (passwords) => await apiClient.post('v1/users/me/change_password', passwords).then((res) => res.data),
+      onSuccess: () => {
+        queryClient.invalidateQueries(['personalInfo', 'list']);
+      },
+    });
+  }
   return {
     useProducts,
     useNewArrivalsProducts,
     useProductDetails,
     useAddToCart,
-    useCartProducts,
     useCreateAddress,
     useCartItems,
     useRemoveCartItem,
     useCartOrderDetails,
     useUpdateCartItems,
+    usePersonalInfo,
+    useUpdateUserInfo,
+    useUpdateUserPassword
   };
 }

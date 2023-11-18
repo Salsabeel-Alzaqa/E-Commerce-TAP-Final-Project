@@ -20,10 +20,10 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
   const [isSnackbarOpen, setSnackbarOpen] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
   const [message, setMessage] = useState('');
-  const { useAddToCart, useCartProducts, useRemoveCartItem } = useDataActions();
+  const { useAddToCart, useCartItems, useRemoveCartItem } = useDataActions();
   const addToCartMutation = useAddToCart(id);
   const removeProductMutation = useRemoveCartItem();
-  const { data: products, isLoading, isError, refetch } = useCartProducts();
+  const { data: products, isLoading, isError, refetch } = useCartItems();
   
   useEffect(() => {
     if (products && products.data !== null) {
@@ -42,6 +42,7 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
     try {
       await addToCartMutation.mutateAsync(Number(quantity));
       refetch();
+      setIsInCart(true);
       setMessage('Product added to cart successfully!');
       setSnackbarOpen(true);
     } catch (error) {
@@ -53,6 +54,7 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
       let item = products.data.find(product => product.productID === id);
       await removeProductMutation.mutateAsync(item.id);
       refetch();
+      setIsInCart(false);
       setMessage('Product removed from cart successfully!');
       setSnackbarOpen(true);
     } catch (error) {

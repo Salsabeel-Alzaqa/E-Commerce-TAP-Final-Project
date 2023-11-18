@@ -12,6 +12,7 @@ import { MyCartPage } from "../pages/MyCartPage/MyCartPage";
 import { CheckOutPage } from "../pages/CheckOutPage/CheckOutPage";
 import { LogInPage } from "../pages/LogInPage/LogInPage";
 import { AuthGuard } from "../pages/AuthGuard/AuthGuard";
+import { ProfilePage } from '../pages/ProfilePage/ProfilePage';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +43,14 @@ export const router = createBrowserRouter(
             </AuthGuard>
           }
         ></Route>
+        <Route
+        path="/profile"
+        element={
+          <AuthGuard>
+            <ProfilePage />
+          </AuthGuard>
+        }
+      ></Route>
         <Route
           path="/checkoutpage"
           element={
