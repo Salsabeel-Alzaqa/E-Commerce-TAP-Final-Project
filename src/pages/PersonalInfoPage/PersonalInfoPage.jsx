@@ -15,13 +15,13 @@ function stringAvatar(name) {
 }
 export const PersonalInfoPage = () => {
   const [showForm, setShowForm] = useState(false);
-    const { usePersonalInfo } = useDataActions();
-    const { data: info, isLoading, isError } = usePersonalInfo();
-    if (isError) return <p>Error ...</p>;
+  const { usePersonalInfo } = useDataActions();
+  const { data: info, isLoading, isError, refetch } = usePersonalInfo();
+  if (isError) return <p>Error ...</p>;
   const handleUpdate = () => {
-        setShowForm(!showForm);
-    };
-    const setShowFormCallback = (value) => {
+    setShowForm(!showForm);
+  };
+  const setShowFormCallback = (value) => {
     setShowForm(value);
   };
 
@@ -37,7 +37,7 @@ export const PersonalInfoPage = () => {
             </Stack>
           </Box>
           <Box my={5}>
-            <UserInfoForm showForm={showForm} setShowFormCallback={setShowFormCallback} {...info} />
+            <UserInfoForm showForm={showForm} setShowFormCallback={setShowFormCallback} refetch={refetch} {...info} />
           </Box>
         </>)}
     </Box>

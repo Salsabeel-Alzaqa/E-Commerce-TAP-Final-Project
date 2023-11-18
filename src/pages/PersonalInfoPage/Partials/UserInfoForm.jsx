@@ -9,14 +9,13 @@ const StyledInput = styled(InputBase)({
   height: '48px',
   padding: '10px',
 });
-export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_name, email, phone_number }) => {
+export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_name, email, phone_number , refetch }) => {
     const { register, handleSubmit, setValue, watch, setError, formState: { errors, isSubmitting } , clearErrors } = useForm();
-    const { useUpdateUserInfo, usePersonalInfo , useUpdateUserPassword} = useDataActions();
-    const { refetch } = usePersonalInfo();
+    const { useUpdateUserInfo , useUpdateUserPassword} = useDataActions();
     const updateInfo = useUpdateUserInfo();
     const updatePassword = useUpdateUserPassword();
     const [showPassword, setShowPassword] = useState(false);
-    const [passwordsMatch, setPasswordsMatch] = useState('');
+    const phoneNumber = phone_number.split(' ');
     const onSubmit = async (data) => {
         try {
             if (!isInfoUnchanged()) {
@@ -24,7 +23,7 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
                     'first_name': data.first_name,
                     'last_name': data.last_name,
                     'email': data.email,
-                    'mobile_number': data.mobileNumber
+                    'phone_number':`+${data.mobileCode} ${data.mobileNumber}`
                 }
                 await updateInfo.mutateAsync(newInfo);
                 refetch();
@@ -43,39 +42,26 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
                 console.error('Error updating Info', error);
             }
         }
-        finally {
-            setValue('currentPassword','');
-            setValue('newPassword','');
-            setValue('confirmPassword','');
-        }
     };
   const defaultValues = {
     first_name,
     last_name,
     email,
-    mobileCode: 11, 
-    mobileNumber: phone_number,
+    mobileCode: phoneNumber[0].replace('+', ''), 
+    mobileNumber: phoneNumber[1],
     currentPassword:'',
   };
     useEffect(() => {
-        Object.keys(defaultValues).forEach((key) => {
-            setValue(key, defaultValues[key]);
-        });
-    }, [setValue]);
-
-    useEffect(() => {
-        const newPassword = watch('newPassword');
-        const confirmPassword = watch('confirmPassword');
-        if (newPassword !== '' && confirmPassword !== '') {
-            if (newPassword === confirmPassword) {
-                setPasswordsMatch(true);
-            } else {
-                setPasswordsMatch(false);
-            }
-        } else {
-            setPasswordsMatch(true);
+        if (showForm) {
+            Object.keys(defaultValues).forEach((key) => {
+                setValue(key, defaultValues[key]);
+            });
         }
-    }, [watch, watch('newPassword'), watch('confirmPassword')]);
+    }, [showForm, setValue]);
+
+    const isPasswordMatch = () => {
+        return watch('newPassword') === watch('confirmPassword');
+    };
     
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
@@ -171,7 +157,7 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
                                     type="number"
                                     startAdornment={<InputAdornment position="start">+</InputAdornment>}
                                     sx={{ width: 70, padding: 0 }}
-                                    defaultValue={11}
+                                    defaultValue={phoneNumber[0].replace('+', '')}
                                     disabled={isSubmitting}
                                 />
                             </FormControl>
@@ -183,7 +169,7 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
                                     id="mobileNumber"
                                     name="mobileNumber"
                                     type="text"
-                                    defaultValue={phone_number}
+                                    defaultValue={phoneNumber[1]}
                                     sx={{ width: '60%' }}
                                     disabled={isSubmitting}
                                 />
@@ -228,6 +214,7 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
                                 <StyledInput
                                     {...register('newPassword', {
                                         required: !!watch('currentPassword'),
+                                        onFocus: () => clearErrors('confirmPassword')
                                     })}
                                     id="newPassword"
                                     name="newPassword"
@@ -251,16 +238,25 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
                                 <StyledInput
                                     {...register('confirmPassword', {
                                         required: !!watch('currentPassword'),
+                                        onFocus: () => clearErrors('confirmPassword')
                                     })}
                                     id="confirmPassword"
                                     name="confirmPassword"
                                     type="password"
                                     disabled={!watch('currentPassword') || isSubmitting}
+                                    
+                                    onBlur={() => {
+                                        if (!isPasswordMatch) {
+                                            setError('confirmPassword', {
+                                                message: 'The new Password and Confirm Password not match',
+                                            });
+                                        }
+                                    }}
                                 />
                             </FormControl>
                             <Box mt={3}>
-                                {!passwordsMatch && (
-                                    <Alert severity="error">The new Password and Confirm Password not match</Alert>
+                                {errors.confirmPassword?.message && (
+                                    <Alert severity="error">{errors.confirmPassword.message}</Alert>
                                 )}
                                 {errors.currentPassword?.message && (
                                     <Alert severity="error">{errors.currentPassword.message}</Alert>
@@ -268,7 +264,7 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
                         </Grid>
                     </Grid>
                     <Box mt={5} display="flex" justifyContent={'flex-end'}>
-                        <Button type="submit" variant="contained" color="primary" disabled={(isInfoUnchanged() && watch('currentPassword') === defaultValues.currentPassword) || (!passwordsMatch)}>
+                        <Button type="submit" variant="contained" color="primary" disabled={(isInfoUnchanged() && watch('currentPassword') === defaultValues.currentPassword) || (isSubmitting)}>
                             Save Changes
                         </Button>
                     </Box>
