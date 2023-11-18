@@ -29,7 +29,7 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
                 await updateInfo.mutateAsync(newInfo);
                 refetch();
             }
-            if (data.newPassword !== '') {
+            if (data.currentPassword !== '' && data.newPassword !== '') {
                 let passwords = { "currentPassword": data.currentPassword, "newPassword": data.newPassword }
                 await updatePassword.mutateAsync(passwords);
             }
@@ -61,7 +61,6 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
     useEffect(() => {
         const newPassword = watch('newPassword');
         const confirmPassword = watch('confirmPassword');
-
         if (newPassword !== '' && confirmPassword !== '') {
             if (newPassword === confirmPassword) {
                 setPasswordsMatch(true);
