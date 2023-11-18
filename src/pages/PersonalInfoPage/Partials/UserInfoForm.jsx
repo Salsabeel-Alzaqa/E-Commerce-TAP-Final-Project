@@ -5,11 +5,10 @@ import { styled } from '@mui/system';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useDataActions } from '../../../hooks/useDataActions';
-const StyledInput = styled(InputBase)({
-  height: '48px',
-  padding: '10px',
-});
-export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_name, email, phone_number , refetch }) => {
+const StyledInput = styled(InputBase)({ height: '48px', padding: '10px', });
+
+export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_name, email, phone_number, refetch }) => {
+    
     const { register, handleSubmit, setValue, watch, setError, formState: { errors, isSubmitting } , clearErrors } = useForm();
     const { useUpdateUserInfo , useUpdateUserPassword} = useDataActions();
     const updateInfo = useUpdateUserInfo();
@@ -28,7 +27,7 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
                 await updateInfo.mutateAsync(newInfo);
                 refetch();
             }
-            if (data.currentPassword !== '' && data.newPassword !== '') {
+            if (data.currentPassword !== '' ) {
                 let passwords = { "currentPassword": data.currentPassword, "newPassword": data.newPassword }
                 await updatePassword.mutateAsync(passwords);
             }
@@ -43,14 +42,16 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
             }
         }
     };
-  const defaultValues = {
-    first_name,
-    last_name,
-    email,
-    mobileCode: phoneNumber[0].replace('+', ''), 
-    mobileNumber: phoneNumber[1],
-    currentPassword:'',
-  };
+    const defaultValues = {
+        first_name,
+        last_name,
+        email,
+        mobileCode: phoneNumber[0].replace('+', ''),
+        mobileNumber: phoneNumber[1],
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+    };
     useEffect(() => {
         if (showForm) {
             Object.keys(defaultValues).forEach((key) => {
@@ -58,11 +59,6 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
             });
         }
     }, [showForm, setValue]);
-
-    const isPasswordMatch = () => {
-        return watch('newPassword') === watch('confirmPassword');
-    };
-    
     const togglePasswordVisibility = () => {
         setShowPassword((prev) => !prev);
     };
@@ -244,9 +240,8 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
                                     name="confirmPassword"
                                     type="password"
                                     disabled={!watch('currentPassword') || isSubmitting}
-                                    
                                     onBlur={() => {
-                                        if (!isPasswordMatch) {
+                                        if (watch('newPassword') !== watch('confirmPassword')) {
                                             setError('confirmPassword', {
                                                 message: 'The new Password and Confirm Password not match',
                                             });
