@@ -55,7 +55,13 @@ export const ProfilePage = () => {
     };
     
     const handleLogoutClick = () => {
-        localStorage.removeItem("token");
+        const sortedtoken = localStorage.getItem('token');
+        if (sortedtoken) {
+            localStorage.removeItem('token');
+        }
+        else {
+            sessionStorage.removeItem('token');
+        }
         navigate("/login");
     };
     return (

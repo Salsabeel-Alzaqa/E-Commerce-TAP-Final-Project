@@ -4,8 +4,8 @@ const apiClient = axios.create({
   baseURL: 'https://tap-backend-final-3-otnz.onrender.com/api/',
 });
 
-const getToken = () => {
-  return localStorage.getItem('token');
+const getToken = () => {  
+  return localStorage.getItem('token') || sessionStorage.getItem('token');
 };
 
 apiClient.interceptors.request.use(
