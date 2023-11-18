@@ -43,6 +43,11 @@ export const UserInfoForm = ({ showForm, setShowFormCallback, first_name, last_n
                 console.error('Error updating Info', error);
             }
         }
+        finally {
+            setValue('currentPassword','');
+            setValue('newPassword','');
+            setValue('confirmPassword','');
+        }
     };
   const defaultValues = {
     first_name,
