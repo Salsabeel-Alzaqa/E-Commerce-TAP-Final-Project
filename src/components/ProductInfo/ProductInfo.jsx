@@ -4,6 +4,7 @@ import { ProductPrice } from "../ProductPrice/ProductPrice";
 import { QuantityButton } from "../QuantityButton/QuantityButton";
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import { ConfirmationModal } from '../ConfirmationModal/ConfirmationModal';
 import { useDataActions } from '../../hooks/useDataActions';
 import { styled } from "@mui/system";
 const StyledChip = styled(Chip)({
@@ -20,11 +21,12 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
   const [isSnackbarOpen, setSnackbarOpen] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
   const [message, setMessage] = useState('');
+  const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const { useAddToCart, useCartItems, useRemoveCartItem } = useDataActions();
-  const addToCartMutation = useAddToCart(id);
-  const removeProductMutation = useRemoveCartItem();
+  const { mutateAsync: addToCartMutation, isLoading: isAddProductLoading } = useAddToCart(id);
+  const { mutateAsync: removeProductMutation, isLoading: isRemoveProductLoading } = useRemoveCartItem();
   const { data: products, isLoading, isError, refetch } = useCartItems();
-  
+
   useEffect(() => {
     if (products && products.data !== null) {
       setIsInCart(products.data.some(product => product.productID === id));
@@ -38,9 +40,16 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
+  const openConfirmationModal = () => {
+    setConfirmationModalOpen(true);
+  };
+
+  const closeConfirmationModal = () => {
+    setConfirmationModalOpen(false);
+  };
   const handleAddToCart = async () => {
     try {
-      await addToCartMutation.mutateAsync(Number(quantity));
+      await addToCartMutation(Number(quantity));
       refetch();
       setIsInCart(true);
       setMessage('Product added to cart successfully!');
@@ -51,8 +60,9 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
   };
   const handleRemoveFromCart = async () => {
     try {
+      closeConfirmationModal();
       let item = products.data.find(product => product.productID === id);
-      await removeProductMutation.mutateAsync(item.id);
+      await removeProductMutation(item.id);
       refetch();
       setIsInCart(false);
       setMessage('Product removed from cart successfully!');
@@ -98,13 +108,17 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
             <Typography variant="body1" color="primary" >Terms & Conditions</Typography>
           </Box>
           <Box>
-            <StyledChip label={<div><div>Use code</div><div>ORDER100</div></div>}/>
+            <StyledChip label={<div><div>Use code</div><div>ORDER100</div></div>} />
           </Box>
         </Box>
         <Stack direction="row" spacing={3} sx={{ width: '100%', mt: 2 }}>
           {isLoading ? (<Button variant="contained" fullWidth disabled><CircularProgress size={24} /></Button>)
-            : (isInCart ? (<Button variant="contained" fullWidth color="error" startIcon={<WorkOutlineOutlinedIcon />} onClick={handleRemoveFromCart}>Remove from Cart</Button>)
-              : (<Button variant="contained" fullWidth startIcon={<WorkOutlineOutlinedIcon />} onClick={handleAddToCart}>Add to Cart</Button>)
+            : (isInCart ? (<Button variant="contained" fullWidth color="error" startIcon={!isRemoveProductLoading && <WorkOutlineOutlinedIcon />} disabled={isRemoveProductLoading}
+              onClick={openConfirmationModal}> {isRemoveProductLoading ? (
+                <CircularProgress size={24} color="inherit" />) : ("Remove from Cart")}</Button>)
+              : (<Button variant="contained" fullWidth startIcon={!isAddProductLoading && <WorkOutlineOutlinedIcon />} onClick={handleAddToCart} disabled={isAddProductLoading}>
+                {isAddProductLoading ? (<CircularProgress size={24} color="inherit" />) : ("Add to Cart")}
+              </Button>)
             )}
           <Button variant="outlined" fullWidth startIcon={<FavoriteBorderOutlinedIcon />}>
             Add to Favorites
@@ -119,6 +133,12 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
       >
         <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>{message}</Alert>
       </Snackbar>
+      <ConfirmationModal
+        isOpen={isConfirmationModalOpen}
+        onClose={closeConfirmationModal}
+        onConfirm={handleRemoveFromCart}
+        message={`Are you sure that you want to remove '${name}' from your cart?`}
+      />
     </>
   );
 };
