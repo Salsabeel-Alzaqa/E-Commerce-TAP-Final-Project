@@ -24,6 +24,10 @@ export const MyCartPage = () => {
     isError: isErrorCartItems,
   } = useCartItems();
 
+  const handleBackToHome = () => {
+    navigate(`/`);
+  };
+
   const breadcrumbItems = [<Typography>My Cart</Typography>];
   const [cartItems, setCartItems] = useState([]);
 
@@ -43,7 +47,7 @@ export const MyCartPage = () => {
   };
 
   useEffect(() => {
-    setCartItems(cartData?.data);
+    setCartItems(cartData?.data || []);
   }, [cartData]);
 
   const handleContinueShopping = (page) => {
@@ -113,8 +117,25 @@ export const MyCartPage = () => {
               </Box>
             </Box>
           ) : (
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Box
+              sx={{
+                marginTop: "50px",
+                marginBottom: "100px",
+              }}
+            >
               <Typography>Cart is empty</Typography>
+              <Button
+                aria-label="back"
+                sx={{
+                  marginTop: 2,
+                  textTransform: "none",
+                  textDecoration: "underline",
+                  padding: "0",
+                }}
+                onClick={() => handleBackToHome()}
+              >
+                Back to Home
+              </Button>
             </Box>
           )}
         </>
