@@ -3,15 +3,16 @@ import { useLocation } from 'react-router-dom';
 import HeroItem from '../../components/HeroItem/HeroItem';
 import { Container, Box, Grid ,Typography , Pagination , Chip , Stack} from '@mui/material';
 import heroImage from '../../assets/images/listingHero.png';
-import searchImage from '../../assets/images/art.png';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumbs';
 import { Title } from '../../components/Title/Title';
 import { Loading } from '../../components/Loading/Loading';
 import { useDataActions } from '../../hooks/useDataActions';
 import { ProductCard } from '../../components/ProductCard/ProductCard';
+import { NotFound } from "../NotFound/NotFound";
 export const Listing = () => {
     const { useProducts } = useDataActions();
-    const { search } = useLocation();
+    let { search } = useLocation();
+    const searchFilter = useLocation().search;
     const [currentPage, setCurrentPage] = useState(1);
     const handlePageChange = (event,value) => {
         setCurrentPage(value);
@@ -26,11 +27,10 @@ export const Listing = () => {
     };
     const searchParams = new URLSearchParams(search);
     const searchValue = searchParams.get('search') || '';
-    const brandValue = searchParams.get('brand') || '';
+    const brandValue = searchParams.get('brand')|| '';
     const categoryValue = searchParams.get('category') || '';
-    const arrivalValue = searchParams.get('newArrival') || '';
-    const handpickedValue = searchParams.get('handpicked') || '';
-    const { data: products, isLoading, isError } = useProducts({ searchValue , brandValue , categoryValue,arrivalValue , handpickedValue,currentPage })
+    const arrivalValue = searchParams.get('new_arrival') || '';
+    const { data: products, isLoading, isError } = useProducts({ searchFilter,currentPage })
     if (isError) return <p>Error ...</p>;
     const breadcrumbItems = [
         <Typography underline="hover" key="2">
@@ -48,12 +48,7 @@ export const Listing = () => {
                 {isLoading ? (
                     <Box mb={5}><Loading num={12} /></Box>
                 ) : products.results.length === 0 ? (
-                    <Box sx={{ display: "flex", justifyContent: "center", flexDirection: 'column', alignItems: 'center' }} my={5}>
-                        <img src={searchImage} alt="search fail" width="50%" />
-                        <Typography variant="h4">
-                            We coudn’t find what you’re looking for. Try something else.
-                        </Typography>
-                    </Box>
+                    <NotFound />
                 ) : (<>
                     <Grid container spacing={3}>
                         {products.results?.map((product, index) => (

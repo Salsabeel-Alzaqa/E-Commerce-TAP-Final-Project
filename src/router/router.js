@@ -7,6 +7,7 @@ import {
 import { HomePage } from "../pages/HomePage/HomePage";
 import { RootLayout } from "../layouts/RootLayout";
 import { Listing } from "../pages/Listing/Listing";
+import { NotFound } from "../pages/NotFound/NotFound";
 import { ProductPage } from "../pages/ProductPage/ProductPage";
 import { MyCartPage } from "../pages/MyCartPage/MyCartPage";
 import { CheckOutPage } from "../pages/CheckOutPage/CheckOutPage";
@@ -54,6 +55,12 @@ export const router = createBrowserRouter(
             <AuthGuard>
               <CheckOutPage />
             </AuthGuard>
+          }
+        ></Route>
+        <Route
+          path="*"
+          element={
+              <NotFound />
           }
         ></Route>
       </Route>

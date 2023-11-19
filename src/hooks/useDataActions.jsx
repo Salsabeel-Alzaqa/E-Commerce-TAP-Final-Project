@@ -5,7 +5,7 @@ export function useDataActions() {
     function useProducts(filters) {
     return useQuery({
       queryKey: ['product', 'list', filters],
-      queryFn: async () => await apiClient.get(`/v1/products?${filters.categoryValue ? `&category=${filters.categoryValue}` : ''}${filters.brandValue ? `&brand=${filters.brandValue}` : ''}${filters.searchValue ? `&search_term=${filters.searchValue}` : ''}${filters.arrivalValue === true ? `&new_arrival=true` : ''}${filters.handpickedValue === true ? `&handpicked=true` : ''}&&page=${filters.currentPage}`).then((res) => res.data),
+      queryFn: async () => await apiClient.get(`/v1/products${filters.searchFilter}&&page=${filters.currentPage}`).then((res) => res.data),
       staleTime: Infinity,
     });
     }
