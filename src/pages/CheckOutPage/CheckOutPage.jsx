@@ -42,10 +42,12 @@ export const CheckOutPage = () => {
           <Box
             sx={{
               display: "flex",
+              justifyContent: "space-between",
               gap: "70px",
+              marginBottom: "50px",
               [theme.breakpoints.down("md")]: {
                 flexDirection: "column",
-                gap: "35px",
+                gap: "20px",
               },
             }}
           >
@@ -53,14 +55,24 @@ export const CheckOutPage = () => {
             <Box
               sx={{
                 position: "relative",
-                minWidth: "500px",
+                minWidth: "400px",
                 [theme.breakpoints.down("md")]: {
                   minWidth: "auto",
                   marginBottom: 3,
                 },
               }}
             >
-              <Paper variant="none" sx={{ marginTop: 4 }}>
+              <Paper
+                variant="none"
+                sx={{
+                  marginTop: 4,
+                  minWidth: "400px",
+                  [theme.breakpoints.down("sm")]: {
+                    minWidth: "auto",
+                    marginTop: 0,
+                  },
+                }}
+              >
                 <Typography
                   gutterBottom
                   sx={{ fontSize: "20px", fontWeight: "600" }}

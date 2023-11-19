@@ -66,8 +66,9 @@ export const MyCartPage = () => {
             <Box
               sx={{
                 display: "flex",
+                justifyContent: "space-between",
                 gap: "70px",
-                marginBottom: "10px",
+                marginBottom: "50px",
                 [theme.breakpoints.down("md")]: {
                   flexDirection: "column",
                   gap: "35px",
@@ -80,7 +81,7 @@ export const MyCartPage = () => {
                 <Stack
                   direction="row"
                   spacing={3}
-                  sx={{ width: "100%", mt: 2, mb: 3 }}
+                  sx={{ width: "100%", mt: 2 }}
                 >
                   <Button
                     variant="contained"
