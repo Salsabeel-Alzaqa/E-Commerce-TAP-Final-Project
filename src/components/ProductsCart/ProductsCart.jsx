@@ -11,10 +11,10 @@ import { ProductCartCard } from "../ProductCartCard/ProductCartCard";
 import { Button, styled } from "@mui/material";
 import { useDataActions } from "../../hooks/useDataActions";
 
-const StyledCard = styled(TableRow)(({ theme }) => ({
+const StyledCell = styled(TableCell)(({ theme }) => ({
   fontSize: "16px",
-  [theme.breakpoints.down("md")]: {
-    fontSize: "12px",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "10px",
   },
 }));
 
@@ -31,11 +31,11 @@ export const ProductsCart = (props) => {
     <TableContainer component={Paper} variant="none" sx={{ maxWidth: 800 }}>
       <Table aria-label="simple table">
         <TableHead>
-          <TableRow sx={{ fontSize: "16px" }}>
-            <TableCell>Product Name</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Qty</TableCell>
-            <TableCell align="right">Subtotal</TableCell>
+          <TableRow>
+            <StyledCell>Product Name</StyledCell>
+            <StyledCell align="right">Price</StyledCell>
+            <StyledCell align="right">Qty</StyledCell>
+            <StyledCell align="right">Subtotal</StyledCell>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -5,6 +5,7 @@ import {
   Divider,
   Paper,
   Typography,
+  styled,
 } from "@mui/material";
 import React from "react";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumbs";
@@ -14,6 +15,21 @@ import { CheckOutForm } from "../../components/CheckOutForm/CheckOutForm";
 import { useDataActions } from "../../hooks/useDataActions";
 import { ProductCartCard } from "../../components/ProductCartCard/ProductCartCard";
 import { useNavigate } from "react-router-dom";
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  gap: 70,
+  position: "relative",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+  },
+}));
+const StyledBoxDetails = styled(Box)(({ theme }) => ({
+  minWidth: "500px",
+  [theme.breakpoints.down("md")]: {
+    minWidth: "auto",
+  },
+}));
 
 export const CheckOutPage = () => {
   const { useCartItems } = useDataActions();
@@ -40,9 +56,9 @@ export const CheckOutPage = () => {
         <Typography>Loading ...</Typography>
       ) : (
         <>
-          <Box sx={{ display: "flex", gap: 15, position: "relative" }}>
+          <StyledBox>
             <CheckOutForm cartData={cartData} />
-            <Box sx={{ minWidth: "500px" }}>
+            <StyledBoxDetails>
               <Paper variant="none" sx={{ marginTop: 4 }}>
                 <Typography
                   gutterBottom
@@ -56,8 +72,8 @@ export const CheckOutPage = () => {
                 ))}
               </Paper>
               <OrderSummary cartData={cartData} />
-            </Box>
-          </Box>
+            </StyledBoxDetails>
+          </StyledBox>
           <Button
             aria-label="back"
             sx={{
