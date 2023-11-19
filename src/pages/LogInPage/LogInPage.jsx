@@ -1,36 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button, TextField, Typography, Container, FormControlLabel, Checkbox, CircularProgress } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import apiClient from '../../api/axios';
 import { useNavigate , Link  } from "react-router-dom";
 
 export const LogInPage = () => {
-    const { register, handleSubmit, formState: { errors, isSubmitting }, setValue } = useForm();
+    const { register, handleSubmit, watch, formState: { errors, isSubmitting }, setValue } = useForm();
     const [loginError, setLoginError] = useState(null);
-    const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
-    const getUserInfo = () => {
-        const sortedInfo = localStorage.getItem('userInfo');
-        if (sortedInfo) {
-            const { email, password } = JSON.parse(sortedInfo);
-            setValue('email', email);
-            setValue('password', password);
-            setRememberMe(true); 
-        }
-    };
-    useEffect(() => {
-        getUserInfo();
-    },[]);
     const onSubmit = async (data) => {
         try {
             setLoginError(null);
             const response = await apiClient.post('v1/login', data);
             const token = response.data.token;
-            localStorage.setItem('token', token);
-            if (rememberMe) {
-                localStorage.setItem('userInfo', JSON.stringify(data));
+            if (watch('rememberMe')) {
+                localStorage.setItem('token', token);
             } else {
-                localStorage.removeItem('userInfo');
+                sessionStorage.setItem('token', token);
             }
             navigate("/");
         } catch (error) {
@@ -43,9 +29,6 @@ export const LogInPage = () => {
     }
     const handleTextFieldClick = () => {
         setLoginError(null);
-    };
-     const handleRememberMeChange = () => {
-         setRememberMe((prevRememberMe) => !prevRememberMe);
     };
     return (
         <Container component="main" maxWidth="xs" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
@@ -91,7 +74,7 @@ export const LogInPage = () => {
                     disabled={isSubmitting}
                 />
                 <FormControlLabel
-                    control={<Checkbox checked={rememberMe} onChange={handleRememberMeChange} />}
+                    control={<Checkbox {...register('rememberMe')}/>}
                     label="Remember Me"
                 />
                 <Button
