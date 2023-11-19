@@ -1,14 +1,11 @@
 import React , {useState} from 'react'
-import Breadcrumb from '../../components/Breadcrumbs/Breadcrumbs';
-import { Title } from '../../components/Title/Title';
+import Breadcrumb from '../components/Breadcrumbs/Breadcrumbs';
+import { Title } from '../components/Title/Title';
 import { Container, Box, Grid, Typography , useMediaQuery, Tab, Tabs , Button , Divider } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { PersonalInfoPage } from '../PersonalInfoPage/PersonalInfoPage';
-import { OrdersPage } from '../OrdersPage/OrdersPage';
-import { WishlistPage } from '../WishlistPage/WishlistPage';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useNavigate } from "react-router-dom";
+import { useNavigate , Link , Outlet } from "react-router-dom";
 import { styled } from "@mui/system";
 const StyledTab = styled(Tab)({
     display: 'flex',
@@ -30,21 +27,16 @@ const ArrowIcon = styled(ArrowForwardIosIcon)({
      display: 'flex',
     justifyContent: 'flex-end',
 });
-const breadcrumbItems = [
-    <Typography underline="hover" key="2">
-        User Profile
-    </Typography>
-];
 
-export const ProfilePage = () => {
+export const ProfileLayout = () => {
     const [selectedTab, setSelectedTab] = useState(0);
     const navigate = useNavigate();
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
     const tabs = [
-        { label: 'Personal Information', page: <PersonalInfoPage /> },
-        { label: 'My Orders', page: <OrdersPage /> },
-        { label: 'My Wishlist', page: <WishlistPage /> },
+        { label: 'Personal Information', page: '/profile' },
+        { label: 'My Orders', page: '/profile/my-orders' },
+        { label: 'My Wishlist', page: '/profile/my-wishlist' },
     ];
 
     const handleTabChange = (event, newValue) => {
@@ -53,7 +45,12 @@ export const ProfilePage = () => {
     const getSelectedTabLabel = () => {
         return tabs[selectedTab].label;
     };
-    
+    const breadcrumbItems = [
+            <Typography key="2">
+                User Profile
+            </Typography>,
+            getSelectedTabLabel() === 'Personal Information' ? '' : <Typography underline="hover" key="3">{getSelectedTabLabel()}</Typography>
+    ];
     const handleLogoutClick = () => {
         const sortedtoken = localStorage.getItem('token');
         if (sortedtoken) {
@@ -80,21 +77,19 @@ export const ProfilePage = () => {
                         onChange={handleTabChange}
                         orientation={isSmallScreen ? 'horizontal' : 'vertical'}
                         TabIndicatorProps={{ style: { left: 0 } }}
-                        sx={{padding:0}}
+                        sx={{ padding: 0 }}
                     >
                         {tabs.map((tab, index) => (
-                                <StyledTab key={index} label={tab.label} icon={<ArrowIcon />} iconPosition="end"/>
+                            <StyledTab key={index} label={tab.label} component={Link} to={tab.page} icon={<ArrowIcon />} iconPosition="end" />
                                
                         ))}
                     </Tabs>
                 </Grid>
-                {tabs.map((tab, index) => (
-                    selectedTab === index && (
-                        <Grid key={index} item xs={12} sm={12} md={12} lg={9}>
-                            <Typography variant="h5" gutterBottom>{getSelectedTabLabel()}</Typography>
-                            <Divider />
-                            {tab.page}
-                        </Grid>)))}
+                <Grid item xs={12} sm={12} md={12} lg={9}>
+                    <Typography variant="h5" gutterBottom>{getSelectedTabLabel()}</Typography>
+                    <Divider />
+                    <Outlet />
+                </Grid>
             </Grid>
         </Container>
     );

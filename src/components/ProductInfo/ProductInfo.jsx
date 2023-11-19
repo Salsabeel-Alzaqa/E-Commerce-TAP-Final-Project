@@ -4,8 +4,10 @@ import { ProductPrice } from "../ProductPrice/ProductPrice";
 import { QuantityButton } from "../QuantityButton/QuantityButton";
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { ConfirmationModal } from '../ConfirmationModal/ConfirmationModal';
 import { useDataActions } from '../../hooks/useDataActions';
+import { useWishlist } from '../../hooks/useWishlist';
 import { styled } from "@mui/system";
 const StyledChip = styled(Chip)({
   height: '66px',
@@ -23,6 +25,7 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
   const [message, setMessage] = useState('');
   const [isConfirmationModalOpen, setConfirmationModalOpen] = useState(false);
   const { useAddToCart, useCartItems, useRemoveCartItem } = useDataActions();
+  const {isInWishlist , AddToWishlist , isAddWishlistProductLoading , isWishlistLoading } = useWishlist(id);
   const { mutateAsync: addToCartMutation, isLoading: isAddProductLoading } = useAddToCart(id);
   const { mutateAsync: removeProductMutation, isLoading: isRemoveProductLoading } = useRemoveCartItem();
   const { data: products, isLoading, isError, refetch } = useCartItems();
@@ -120,9 +123,12 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
                 {isAddProductLoading ? (<CircularProgress size={24} color="inherit" />) : ("Add to Cart")}
               </Button>)
             )}
-          <Button variant="outlined" fullWidth startIcon={<FavoriteBorderOutlinedIcon />}>
-            Add to Favorites
-          </Button>
+          {isWishlistLoading ? (<Button variant="outlined" fullWidth disabled><CircularProgress size={24} /></Button>)
+            : (isInWishlist ? (<Button variant="outlined" fullWidth color="error" startIcon={<FavoriteIcon />}>Remove from Wishlist</Button>)
+              : (<Button variant="outlined" fullWidth startIcon={!isAddWishlistProductLoading && <FavoriteBorderOutlinedIcon />} onClick={AddToWishlist} disabled={isAddWishlistProductLoading}>
+                {isAddWishlistProductLoading ? (<CircularProgress size={24} color="inherit" />) : ("Add to Wishlist")}
+              </Button>)
+            )}
         </Stack>
       </Box>
       <Snackbar

@@ -116,6 +116,24 @@ export function useDataActions() {
       },
     });
   }
+
+  const useWishlistProducts = () => {
+    return useQuery({
+      queryKey: ['wishlistproduct', 'list'],
+      queryFn: async () => await apiClient.get('v1/wishlist').then((res) => res.data),
+      staleTime: Infinity,
+    });
+  };
+
+  const useAddWishlistProduct = (productId) => {
+    return useMutation({
+      mutationFn: async () => await apiClient.post(`v1/wishlist/${productId}/add_to_wishlist`).then((res) => res?.data),
+      onSuccess: () => {
+        queryClient.invalidateQueries(['wishlistproduct', 'list']);
+      },
+    });
+  }
+
   return {
     useProducts,
     useNewArrivalsProducts,
@@ -128,6 +146,8 @@ export function useDataActions() {
     useUpdateCartItems,
     usePersonalInfo,
     useUpdateUserInfo,
-    useUpdateUserPassword
+    useUpdateUserPassword,
+    useWishlistProducts,
+    useAddWishlistProduct
   };
 }
