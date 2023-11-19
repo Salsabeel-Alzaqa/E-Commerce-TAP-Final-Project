@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useQuery } from "react-query";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,10 +7,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { ProductCartCard } from "../ProductCartCard/ProductCartCard";
-import { Button } from "@mui/material";
+import { Button, useTheme } from "@mui/material";
 import { useDataActions } from "../../hooks/useDataActions";
 
 export const ProductsCart = (props) => {
+  const theme = useTheme();
   const { useRemoveCartItem } = useDataActions();
   const { isLoading, isError, error, mutateAsync } = useRemoveCartItem();
 
@@ -24,11 +24,50 @@ export const ProductsCart = (props) => {
     <TableContainer component={Paper} variant="none" sx={{ maxWidth: 800 }}>
       <Table aria-label="simple table">
         <TableHead>
-          <TableRow sx={{ fontSize: "16px" }}>
-            <TableCell>Product Name</TableCell>
-            <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Qty</TableCell>
-            <TableCell align="right">Subtotal</TableCell>
+          <TableRow>
+            <TableCell
+              sx={{
+                fontSize: "16px",
+                [theme.breakpoints.down("sm")]: {
+                  fontSize: "10px",
+                },
+              }}
+            >
+              Product Name
+            </TableCell>
+            <TableCell
+              sx={{
+                fontSize: "16px",
+                [theme.breakpoints.down("sm")]: {
+                  fontSize: "10px",
+                },
+              }}
+              align="right"
+            >
+              Price
+            </TableCell>
+            <TableCell
+              sx={{
+                fontSize: "16px",
+                [theme.breakpoints.down("sm")]: {
+                  fontSize: "10px",
+                },
+              }}
+              align="right"
+            >
+              Qty
+            </TableCell>
+            <TableCell
+              sx={{
+                fontSize: "16px",
+                [theme.breakpoints.down("sm")]: {
+                  fontSize: "10px",
+                },
+              }}
+              align="right"
+            >
+              Subtotal
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -39,7 +78,16 @@ export const ProductsCart = (props) => {
                   "&:last-child td, &:last-child th": { border: 0 },
                 }}
               >
-                <TableCell component="th" scope="row" sx={{ border: "none" }}>
+                <TableCell
+                  component="th"
+                  scope="row"
+                  sx={{
+                    border: "none",
+                    [theme.breakpoints.down("sm")]: {
+                      paddingRight: "0",
+                    },
+                  }}
+                >
                   <ProductCartCard
                     setCartItems={props.setCartItems}
                     item={item}
@@ -48,29 +96,88 @@ export const ProductsCart = (props) => {
                 </TableCell>
                 <TableCell
                   align="right"
-                  sx={{ border: "none", paddingBottom: 0 }}
+                  sx={{
+                    border: "none",
+                    paddingBottom: 0,
+                    [theme.breakpoints.down("sm")]: {
+                      fontSize: "12px",
+                    },
+                  }}
                 >
                   ${item.sub_total}
                 </TableCell>
                 <TableCell
                   align="right"
-                  sx={{ border: "none", paddingBottom: 0 }}
+                  sx={{
+                    border: "none",
+                    paddingBottom: 0,
+                    [theme.breakpoints.down("sm")]: {
+                      fontSize: "12px",
+                    },
+                  }}
                 >
                   {item.quantity}
                 </TableCell>
                 <TableCell
                   align="right"
-                  sx={{ border: "none", paddingBottom: 0 }}
+                  sx={{
+                    border: "none",
+                    paddingBottom: 0,
+                    [theme.breakpoints.down("sm")]: {
+                      fontSize: "12px",
+                    },
+                  }}
                 >
                   ${item.sub_total * item.quantity}
                 </TableCell>
               </TableRow>
+
               <TableRow>
-                <TableCell colSpan={5} align="right" sx={{ paddingTop: 0 }}>
+                <TableCell
+                  colSpan={theme.breakpoints.down("sm") ? 2 : 3}
+                  align="right"
+                  sx={{
+                    paddingTop: 0,
+                    borderBottom: "none",
+                    [theme.breakpoints.down("sm")]: {
+                      fontSize: "12px",
+                      paddingLeft: "0",
+                    },
+                  }}
+                >
+                  <Button
+                    sx={{
+                      textTransform: "none",
+                      textDecoration: "underline",
+                      color: "#1B4B66",
+                    }}
+                    onClick={() => handleRemoveItem(item.id)}
+                  >
+                    Move to Wishlist
+                  </Button>
+                </TableCell>
+                <TableCell
+                  colSpan={3}
+                  align="right"
+                  sx={{
+                    paddingTop: 0,
+                    borderBottom: "none",
+                    [theme.breakpoints.down("sm")]: {
+                      fontSize: "12px",
+                      paddingLeft: "0",
+                    },
+                  }}
+                >
                   <Button
                     aria-label="remove"
                     color="error"
-                    sx={{ textTransform: "none", textDecoration: "underline" }}
+                    sx={{
+                      textTransform: "none",
+                      textDecoration: "underline",
+                      [theme.breakpoints.down("sm")]: {
+                        fontSize: "12px",
+                      },
+                    }}
                     onClick={() => handleRemoveItem(item.id)}
                   >
                     Remove

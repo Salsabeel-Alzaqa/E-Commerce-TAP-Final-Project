@@ -5,6 +5,8 @@ import {
   Divider,
   Paper,
   Typography,
+  styled,
+  useTheme,
 } from "@mui/material";
 import React from "react";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumbs";
@@ -16,12 +18,9 @@ import { ProductCartCard } from "../../components/ProductCartCard/ProductCartCar
 import { useNavigate } from "react-router-dom";
 
 export const CheckOutPage = () => {
+  const theme = useTheme();
   const { useCartItems } = useDataActions();
   const { data: cartData, isLoading, isError } = useCartItems();
-  const navigate = useNavigate();
-  const handleBackToCart = () => {
-    navigate(`/cartpage`);
-  };
 
   const breadcrumbItems = [
     <Typography>My Cart</Typography>,
@@ -40,10 +39,40 @@ export const CheckOutPage = () => {
         <Typography>Loading ...</Typography>
       ) : (
         <>
-          <Box sx={{ display: "flex", gap: 15, position: "relative" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: "70px",
+              marginBottom: "50px",
+              [theme.breakpoints.down("md")]: {
+                flexDirection: "column",
+                gap: "20px",
+              },
+            }}
+          >
             <CheckOutForm cartData={cartData} />
-            <Box sx={{ minWidth: "500px" }}>
-              <Paper variant="none" sx={{ marginTop: 4 }}>
+            <Box
+              sx={{
+                position: "relative",
+                minWidth: "400px",
+                [theme.breakpoints.down("md")]: {
+                  minWidth: "auto",
+                  marginBottom: 3,
+                },
+              }}
+            >
+              <Paper
+                variant="none"
+                sx={{
+                  marginTop: 4,
+                  minWidth: "400px",
+                  [theme.breakpoints.down("sm")]: {
+                    minWidth: "auto",
+                    marginTop: 0,
+                  },
+                }}
+              >
                 <Typography
                   gutterBottom
                   sx={{ fontSize: "20px", fontWeight: "600" }}
@@ -58,19 +87,6 @@ export const CheckOutPage = () => {
               <OrderSummary cartData={cartData} />
             </Box>
           </Box>
-          <Button
-            aria-label="back"
-            sx={{
-              position: "absolute",
-              top: "640px",
-              left: "35px",
-              textTransform: "none",
-              textDecoration: "underline",
-            }}
-            onClick={() => handleBackToCart()}
-          >
-            Back to Cart
-          </Button>
         </>
       )}
     </Container>

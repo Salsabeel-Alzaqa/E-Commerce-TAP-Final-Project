@@ -1,5 +1,5 @@
 import * as React from "react";
-import { alpha, styled } from "@mui/material/styles";
+import { alpha, styled, useTheme } from "@mui/material/styles";
 import {
   InputBase,
   Box,
@@ -9,6 +9,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   Typography,
+  Stack,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useForm } from "react-hook-form";
@@ -56,6 +57,7 @@ const FormInput = styled(InputBase)(({ theme }) => ({
 }));
 
 export const CheckOutForm = (props) => {
+  const theme = useTheme();
   const {
     register,
     handleSubmit,
@@ -66,6 +68,9 @@ export const CheckOutForm = (props) => {
   const { useCreateAddress, useUpdateCartItems } = useDataActions();
   const { mutateAsync: mutatePostAddress } = useCreateAddress();
   const { mutateAsync: mutatePutOrder } = useUpdateCartItems();
+  const handleBackToCart = () => {
+    navigate(`/cartpage`);
+  };
 
   const onSubmit = async (data) => {
     const preparedItemsData = props.cartData.data?.map((item) => {
@@ -100,12 +105,13 @@ export const CheckOutForm = (props) => {
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
+        sx={{ paddingX: 0 }}
       >
         <Typography sx={{ fontSize: "20px", fontWeight: 600 }}>
           Add New Address
         </Typography>
       </AccordionSummary>
-      <AccordionDetails>
+      <AccordionDetails sx={{ paddingX: 0 }}>
         <Box
           onSubmit={handleSubmit(onSubmit)}
           component="form"
@@ -115,7 +121,18 @@ export const CheckOutForm = (props) => {
             gap: 2,
           }}
         >
-          <Box sx={{ display: "flex", gap: 6 }}>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 6,
+              [theme.breakpoints.down("md")]: {
+                gap: 4,
+              },
+              [theme.breakpoints.down("sm")]: {
+                gap: 1,
+              },
+            }}
+          >
             <FormControl variant="standard" sx={{ width: "50%" }}>
               <InputLabel shrink htmlFor="first_name-input">
                 First Name
@@ -150,14 +167,25 @@ export const CheckOutForm = (props) => {
             </FormControl>
           </Box>
 
-          <Box sx={{ display: "flex", gap: 6 }}>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 6,
+              [theme.breakpoints.down("md")]: {
+                gap: 4,
+              },
+              [theme.breakpoints.down("sm")]: {
+                gap: 1,
+              },
+            }}
+          >
             <Box
               sx={{ display: "flex", flexDirection: "column", width: "50%" }}
             >
               <InputLabel shrink htmlFor="phone_number-input">
                 Mobile Number
               </InputLabel>
-              <Box sx={{ display: "flex", gap: 1, marginTop: "6px" }}>
+              <Box sx={{ display: "flex", gap: 1, marginTop: "2px" }}>
                 <FormControl variant="standard" sx={{ width: "20%" }}>
                   <FormInput
                     {...register("countryCode", {
@@ -199,7 +227,18 @@ export const CheckOutForm = (props) => {
               )}
             </FormControl>
           </Box>
-          <Box sx={{ display: "flex", gap: 6 }}>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 6,
+              [theme.breakpoints.down("md")]: {
+                gap: 4,
+              },
+              [theme.breakpoints.down("sm")]: {
+                gap: 1,
+              },
+            }}
+          >
             <FormControl variant="standard" sx={{ width: "50%" }}>
               <InputLabel shrink htmlFor="sreet_name-input">
                 Street
@@ -233,7 +272,18 @@ export const CheckOutForm = (props) => {
               )}
             </FormControl>
           </Box>
-          <Box sx={{ display: "flex", gap: 6 }}>
+          <Box
+            sx={{
+              display: "flex",
+              gap: 6,
+              [theme.breakpoints.down("md")]: {
+                gap: 4,
+              },
+              [theme.breakpoints.down("sm")]: {
+                gap: 1,
+              },
+            }}
+          >
             <FormControl variant="standard" sx={{ width: "50%" }}>
               <InputLabel shrink htmlFor="state_name-input">
                 State
@@ -267,14 +317,40 @@ export const CheckOutForm = (props) => {
               )}
             </FormControl>
           </Box>
-          <Button
-            variant="contained"
-            size="large"
-            type="submit"
-            sx={{ width: "30%", marginLeft: "auto", marginTop: "30px" }}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+              mt: 2,
+              mb: 3,
+            }}
           >
-            Place Order
-          </Button>
+            <Button
+              aria-label="back"
+              sx={{
+                marginTop: 2,
+                textTransform: "none",
+                textDecoration: "underline",
+              }}
+              onClick={() => handleBackToCart()}
+            >
+              Back to Cart
+            </Button>
+            <Button
+              variant="contained"
+              size="large"
+              type="submit"
+              sx={{
+                width: "40%",
+                marginLeft: "auto",
+                marginTop: "30px",
+                textTransform: "none",
+              }}
+            >
+              Place Order
+            </Button>
+          </Box>
         </Box>
       </AccordionDetails>
     </Accordion>

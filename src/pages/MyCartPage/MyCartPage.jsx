@@ -1,4 +1,11 @@
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React, { useEffect } from "react";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumbs";
 import { Title } from "../../components/Title/Title";
@@ -7,9 +14,9 @@ import { OrderSummary } from "../../components/OrderSummary/OrderSummary";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDataActions } from "../../hooks/useDataActions";
-import { async } from "q";
 
 export const MyCartPage = () => {
+  const theme = useTheme();
   const { useCartItems } = useDataActions();
   const {
     data: cartData,
@@ -56,7 +63,18 @@ export const MyCartPage = () => {
       ) : (
         <>
           {cartItems?.length ? (
-            <Box sx={{ display: "flex", gap: 15 }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: "70px",
+                marginBottom: "50px",
+                [theme.breakpoints.down("md")]: {
+                  flexDirection: "column",
+                  gap: "35px",
+                },
+              }}
+            >
               <ProductsCart cartItems={cartItems} setCartItems={setCartItems} />
               <Box>
                 <OrderSummary cartData={cartData} />
@@ -68,7 +86,12 @@ export const MyCartPage = () => {
                   <Button
                     variant="contained"
                     fullWidth
-                    sx={{ textTransform: "none" }}
+                    sx={{
+                      textTransform: "none",
+                      [theme.breakpoints.down("sm")]: {
+                        fontSize: "12px",
+                      },
+                    }}
                     onClick={handleProceedToCheckOut}
                   >
                     Proceed to Checkout
@@ -76,7 +99,12 @@ export const MyCartPage = () => {
                   <Button
                     variant="outlined"
                     fullWidth
-                    sx={{ textTransform: "none" }}
+                    sx={{
+                      textTransform: "none",
+                      [theme.breakpoints.down("sm")]: {
+                        fontSize: "12px",
+                      },
+                    }}
                     onClick={() => handleContinueShopping("handbag")}
                   >
                     Continue Shopping
