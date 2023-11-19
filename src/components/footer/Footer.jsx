@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { Box, Button } from "@mui/material";
+import { Box, Button, useTheme } from "@mui/material";
 import { SocialMedia } from "../SocialMedia/SocialMedia";
 import { Location } from "../Location/Location";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,6 +18,7 @@ export const Footer = (props) => {
     "Jewellery",
   ];
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const products = ["Featured", "Trendy", "Brands"];
 
@@ -25,14 +26,16 @@ export const Footer = (props) => {
     <Box
       component="footer"
       sx={{
-        p: 6,
+        px: 1,
+        py: 4,
+
         background: "#1B4B66",
       }}
     >
-      <Container maxWidth="xl">
+      <Container maxWidth="xl" padding="0">
         <Grid container spacing={1}>
           <Grid item xs={12} sm={5}>
-            <Grid container spacing={1}>
+            <Grid container spacing={3}>
               <Grid item xs={6}>
                 <Typography
                   color="white"

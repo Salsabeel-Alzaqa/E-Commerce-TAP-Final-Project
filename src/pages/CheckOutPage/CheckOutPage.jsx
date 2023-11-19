@@ -6,6 +6,7 @@ import {
   Paper,
   Typography,
   styled,
+  useTheme,
 } from "@mui/material";
 import React from "react";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumbs";
@@ -16,28 +17,10 @@ import { useDataActions } from "../../hooks/useDataActions";
 import { ProductCartCard } from "../../components/ProductCartCard/ProductCartCard";
 import { useNavigate } from "react-router-dom";
 
-const StyledBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  gap: 70,
-  position: "relative",
-  [theme.breakpoints.down("md")]: {
-    flexDirection: "column",
-  },
-}));
-const StyledBoxDetails = styled(Box)(({ theme }) => ({
-  minWidth: "500px",
-  [theme.breakpoints.down("md")]: {
-    minWidth: "auto",
-  },
-}));
-
 export const CheckOutPage = () => {
+  const theme = useTheme();
   const { useCartItems } = useDataActions();
   const { data: cartData, isLoading, isError } = useCartItems();
-  const navigate = useNavigate();
-  const handleBackToCart = () => {
-    navigate(`/cartpage`);
-  };
 
   const breadcrumbItems = [
     <Typography>My Cart</Typography>,
@@ -56,9 +39,27 @@ export const CheckOutPage = () => {
         <Typography>Loading ...</Typography>
       ) : (
         <>
-          <StyledBox>
+          <Box
+            sx={{
+              display: "flex",
+              gap: "70px",
+              [theme.breakpoints.down("md")]: {
+                flexDirection: "column",
+                gap: "35px",
+              },
+            }}
+          >
             <CheckOutForm cartData={cartData} />
-            <StyledBoxDetails>
+            <Box
+              sx={{
+                position: "relative",
+                minWidth: "500px",
+                [theme.breakpoints.down("md")]: {
+                  minWidth: "auto",
+                  marginBottom: 3,
+                },
+              }}
+            >
               <Paper variant="none" sx={{ marginTop: 4 }}>
                 <Typography
                   gutterBottom
@@ -72,21 +73,8 @@ export const CheckOutPage = () => {
                 ))}
               </Paper>
               <OrderSummary cartData={cartData} />
-            </StyledBoxDetails>
-          </StyledBox>
-          <Button
-            aria-label="back"
-            sx={{
-              position: "absolute",
-              top: "640px",
-              left: "35px",
-              textTransform: "none",
-              textDecoration: "underline",
-            }}
-            onClick={() => handleBackToCart()}
-          >
-            Back to Cart
-          </Button>
+            </Box>
+          </Box>
         </>
       )}
     </Container>
