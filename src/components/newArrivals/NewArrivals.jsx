@@ -27,7 +27,7 @@ export const NewArrivals = () => {
             <Button
               variant="none"
               endIcon={<ArrowForwardIosIcon />}
-              onClick={() => navigate(`/listing?&newArrival=true`)}
+              onClick={() => navigate(`/listing?&new_arrival=true`)}
               sx={{
                 fontSize: "14px",
                 fontWeight: "600",
