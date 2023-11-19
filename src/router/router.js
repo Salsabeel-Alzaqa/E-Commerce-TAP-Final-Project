@@ -13,7 +13,10 @@ import { MyCartPage } from "../pages/MyCartPage/MyCartPage";
 import { CheckOutPage } from "../pages/CheckOutPage/CheckOutPage";
 import { LogInPage } from "../pages/LogInPage/LogInPage";
 import  AuthGuard ,  {LoginGuard } from "../pages/AuthGuard/AuthGuard";
-import { ProfilePage } from '../pages/ProfilePage/ProfilePage';
+import { ProfileLayout } from "../layouts/ProfileLayout";
+import { PersonalInfoPage } from '../pages/PersonalInfoPage/PersonalInfoPage';
+import { OrdersPage } from '../pages/OrdersPage/OrdersPage';
+import { WishlistPage } from '../pages/WishlistPage/WishlistPage';
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -41,14 +44,41 @@ export const router = createBrowserRouter(
             </AuthGuard>
           }
         ></Route>
-        <Route
-          path="/profile"
+        <Route path="/profile" element={<ProfileLayout />}>
+          <Route
+            exact
+            path="/profile"
+            element={
+              <AuthGuard>
+                <PersonalInfoPage />
+              </AuthGuard>
+            }
+          ></Route>
+          <Route
+            path="/profile/my-orders"
+            element={
+              <AuthGuard>
+                <OrdersPage />
+              </AuthGuard>
+            }
+          ></Route>
+          <Route
+            path="/profile/my-wishlist"
+            element={
+              <AuthGuard>
+                <WishlistPage />
+              </AuthGuard>
+            }
+          ></Route>
+          {/* <Route
+          path="/profile/my-orders/:orderId"
           element={
             <AuthGuard>
-              <ProfilePage />
+              <OrderDetails />
             </AuthGuard>
           }
-        ></Route>
+        ></Route> */}
+        </Route>
         <Route
           path="/checkoutpage"
           element={
@@ -60,7 +90,7 @@ export const router = createBrowserRouter(
         <Route
           path="*"
           element={
-              <NotFound />
+            <NotFound />
           }
         ></Route>
       </Route>

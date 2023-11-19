@@ -1,9 +1,11 @@
 import React from "react";
-import { Box, Button, Rating, Typography, CardContent, CardMedia, Card, Stack, Chip } from "@mui/material";
+import { Box, Button, Rating, Typography, CardContent, CardMedia, Card, Stack, Chip , IconButton } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { styled } from '@mui/system';
 import { useNavigate } from "react-router-dom";
 import { ProductPrice } from "../ProductPrice/ProductPrice";
+import { useWishlist } from '../../hooks/useWishlist';
 const StyledCardMedia = styled(CardMedia)(({ 
   height: 300,
   borderRadius: "8px",
@@ -45,6 +47,7 @@ const CustomChip = styled(Chip)(({
 }));
 
 export const ProductCard = ({ name, id, short_description, price, image_url, lessInfo, rate, discount, ratingCount, chipLabel }) => {
+  const { isInWishlist, AddToWishlist, isAddWishlistProductLoading, isWishlistLoading } = useWishlist(id);
   const isAuthenticated = localStorage.getItem('token') || sessionStorage.getItem('token');
   const navigate = useNavigate();
   const handleProduct = () => {
@@ -54,10 +57,10 @@ export const ProductCard = ({ name, id, short_description, price, image_url, les
     <Card sx={{ width: '100%', boxShadow: "none" }}>
       <StyledCardMedia image={image_url} title={name}>
         {chipLabel && (
-        <CustomChip
-          label={chipLabel}
-        />
-      )}
+          <CustomChip
+            label={chipLabel}
+          />
+        )}
         <Overlay className="overlay">
           <ButtonStyled variant="contained" onClick={handleProduct}>
             See Product
@@ -65,20 +68,24 @@ export const ProductCard = ({ name, id, short_description, price, image_url, les
         </Overlay>
       </StyledCardMedia>
       <CardContent sx={{ px: 0 }}>
-        <Box sx={{ display: "flex",justifyContent: "space-between",alignItems: "center",}}>
-          <Typography gutterBottom variant="none" component="div" sx={{fontSize: "16px",fontWeight: "500",}}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", }}>
+          <Typography gutterBottom variant="none" component="div" sx={{ fontSize: "16px", fontWeight: "500", }}>
             {name}
           </Typography>
-          {isAuthenticated && <FavoriteBorderIcon sx={{ fontSize: 25, color: "primary" }} />}
+          {isAuthenticated && isWishlistLoading ? <></>: isInWishlist ? (<IconButton aria-label="add" size="large">
+            <FavoriteIcon fontSize="inherit" />
+          </IconButton>) : (<IconButton aria-label="add" size="large" disabled={isAddWishlistProductLoading} onClick={AddToWishlist}>
+            <FavoriteBorderIcon fontSize="inherit" />
+          </IconButton>)}
         </Box>
-        <Typography variant="body2" color="text.secondary" sx={{fontSize: "14px",mb: "5px"}}>
+        <Typography variant="body2" color="text.secondary" sx={{ fontSize: "14px", mb: "5px" }}>
           {short_description}
         </Typography>
         {lessInfo ? null : <Stack direction="row" spacing={2}>
           <Rating name="text-feedback" value={Number(rate)} readOnly precision={0.5} />
           <Typography variant="caption" color="primary" pt={0.5}>{ratingCount} Ratings</Typography>
         </Stack>}
-        {lessInfo ? <ProductPrice price={price} size={"body1"} /> : <ProductPrice price={price}  size={'body1'} discount={discount}/>}
+        {lessInfo ? <ProductPrice price={price} size={"body1"} /> : <ProductPrice price={price} size={'body1'} discount={discount} />}
       </CardContent>
     </Card>
   );
