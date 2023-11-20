@@ -4,6 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import { Typography, Container, Box, useTheme } from "@mui/material";
 import { SpotLightCard } from "../SpotLightCard/SpotLightCard";
 import MakeupImage from "../../assets/images/makeup-image.png";
+import { useNavigate } from "react-router";
 
 const SpotLightBannerData = [
   {
@@ -22,10 +23,11 @@ const SpotLightBannerData = [
 
 export const SpotLightBanner = (props) => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   return (
     <Container maxWidth="xl" sx={{ my: 10 }} ref={props.innerRef}>
-      <Card>
+      <Card onClick={() => navigate(`/listing?&category=skincare`)}>
         <Box sx={{ position: "relative" }}>
           <CardMedia
             sx={{

@@ -4,10 +4,12 @@ import CardMedia from "@mui/material/CardMedia";
 import { Typography, Box, useTheme } from "@mui/material";
 import ProductDefault from "../../assets/images/ProductDefault.jpg";
 import EastIcon from "@mui/icons-material/East";
+import { useNavigate } from "react-router-dom";
 
 export const SpotLightCard = (props) => {
   const [image, setImage] = useState(null);
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const loadImage = async (imageName) => {
     try {
@@ -75,6 +77,7 @@ export const SpotLightCard = (props) => {
           }}
         >
           <EastIcon
+            onClick={() => navigate(`/listing?&category=skincare`)}
             sx={{
               color: props.cardData.color,
               position: "absolute",
