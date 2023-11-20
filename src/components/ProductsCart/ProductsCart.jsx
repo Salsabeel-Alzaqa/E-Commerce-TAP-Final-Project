@@ -21,7 +21,7 @@ export const ProductsCart = (props) => {
   };
 
   return (
-    <TableContainer component={Paper} variant="none" sx={{ maxWidth: 800 }}>
+    <TableContainer component={Paper} variant="none">
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -92,6 +92,7 @@ export const ProductsCart = (props) => {
                     setCartItems={props.setCartItems}
                     item={item}
                     inMyCart={true}
+                    orderpage={props.orderpage}
                   />
                 </TableCell>
                 <TableCell
@@ -131,63 +132,64 @@ export const ProductsCart = (props) => {
                   ${item.sub_total * item.quantity}
                 </TableCell>
               </TableRow>
-
-              <TableRow>
-                <TableCell
-                  colSpan={theme.breakpoints.down("sm") ? 2 : 3}
-                  align="right"
-                  sx={{
-                    paddingTop: 0,
-                    borderBottom: "none",
-                    [theme.breakpoints.down("sm")]: {
-                      fontSize: "12px",
-                      paddingLeft: "0",
-                    },
-                  }}
-                >
-                  <Button
+              {props.orderpage ? null
+                :<TableRow>
+                  <TableCell
+                    colSpan={theme.breakpoints.down("sm") ? 2 : 3}
+                    align="right"
                     sx={{
-                      textTransform: "none",
-                      textDecoration: "underline",
-                      color: "#1B4B66",
-                    }}
-                    onClick={() => handleRemoveItem(item.id)}
-                  >
-                    Move to Wishlist
-                  </Button>
-                </TableCell>
-                <TableCell
-                  colSpan={3}
-                  align="right"
-                  sx={{
-                    paddingTop: 0,
-                    borderBottom: "none",
-                    [theme.breakpoints.down("sm")]: {
-                      fontSize: "12px",
-                      paddingLeft: "0",
-                    },
-                  }}
-                >
-                  <Button
-                    aria-label="remove"
-                    color="error"
-                    sx={{
-                      textTransform: "none",
-                      textDecoration: "underline",
+                      paddingTop: 0,
+                      borderBottom: "none",
                       [theme.breakpoints.down("sm")]: {
                         fontSize: "12px",
+                        paddingLeft: "0",
                       },
                     }}
-                    onClick={() => handleRemoveItem(item.id)}
                   >
-                    Remove
-                  </Button>
-                </TableCell>
-              </TableRow>
+                    <Button
+                      sx={{
+                        textTransform: "none",
+                        textDecoration: "underline",
+                        color: "#1B4B66",
+                      }}
+                      onClick={() => handleRemoveItem(item.id)}
+                    >
+                      Move to Wishlist
+                    </Button>
+                  </TableCell>
+                  <TableCell
+                    colSpan={3}
+                    align="right"
+                    sx={{
+                      paddingTop: 0,
+                      borderBottom: "none",
+                      [theme.breakpoints.down("sm")]: {
+                        fontSize: "12px",
+                        paddingLeft: "0",
+                      },
+                    }}
+                  >
+                    <Button
+                      aria-label="remove"
+                      color="error"
+                      sx={{
+                        textTransform: "none",
+                        textDecoration: "underline",
+                        [theme.breakpoints.down("sm")]: {
+                          fontSize: "12px",
+                        },
+                      }}
+                      onClick={() => handleRemoveItem(item.id)}
+                    >
+                      Remove
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              }
             </React.Fragment>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  )
 };

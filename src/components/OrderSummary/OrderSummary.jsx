@@ -4,35 +4,36 @@ import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import { Box, useTheme } from "@mui/material";
 
-export const OrderSummary = ({ cartData }) => {
+export const OrderSummary = ({ cartData , orderpage}) => {
   const theme = useTheme();
   return (
     <Paper
       variant="none"
       sx={{
-        marginTop: 4,
+        marginTop:orderpage ? 0 : 4,
       }}
     >
-      <Typography
-        gutterBottom
-        sx={{
-          fontSize: "20px",
-          fontWeight: "600",
-          [theme.breakpoints.down("sm")]: {
-            fontSize: "14px",
-          },
-        }}
-      >
-        Order Details
-      </Typography>
-      <Divider />
+      {orderpage ? null :
+        <><Typography
+          gutterBottom
+          sx={{
+            fontSize: "20px",
+            fontWeight: "600",
+            [theme.breakpoints.down("sm")]: {
+              fontSize: "14px",
+            },
+          }}
+        >
+          Order Details
+        </Typography>
+          <Divider /></>}
       <>
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
             gap: "150px",
-            marginTop: 1,
+            marginTop:orderpage ? 0 : 1,
             [theme.breakpoints.down("sm")]: {
               gap: "50px",
             },

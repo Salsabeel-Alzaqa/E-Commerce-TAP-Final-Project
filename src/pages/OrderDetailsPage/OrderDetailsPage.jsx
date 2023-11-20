@@ -1,18 +1,24 @@
 import React from 'react'
-import { Grid, Typography, Divider, Box, Stack, Button } from '@mui/material';
-import { useDataActions } from '../../hooks/useDataActions';
-import { useParams } from 'react-router-dom';
-import { OrderSummary } from '../../components/OrderSummary/OrderSummary';
-export const OrderDetailsPage = () => {
-  let { orderID } = useParams();
-  const { useCartOrderDetails } = useDataActions();
-  const { data: products, isLoading, isError } = useCartOrderDetails(orderID);
-  console.log(products)
-  
+import { TabPanel } from '../../components/TabPanel/TabPanel';
+import { ItemsOrdered } from './partials/ItemsOrdered';
+const TabsItems = [
+      {
+        'label': 'Items Ordered',
+        'content': <ItemsOrdered />
+      },
+      {
+        'label': 'Invoices',
+        'content': <>nothing to show </>
+      },
+      {
+        'label': 'Order Shipment',
+        'content': <>nothing to show</>
+      }
+    ];
+export const OrderDetailsPage = () => {  
   return (
-      <div>
-      details
-      {isLoading ? <></>:<OrderSummary cartData={products.data} />}
-    </div>
+      <>
+      <TabPanel TabsItems={TabsItems} />
+    </>
   )
 }
