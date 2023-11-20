@@ -1,170 +1,174 @@
 import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import { Button, useTheme } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useNavigate } from "react-router-dom";
 
+const TableHead = () => {
+  const theme = useTheme();
+
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        padding: "16px",
+        borderBottom: "1px solid #ddd",
+        color: "#626262",
+        fontWeight: "500",
+        fontSize: "16px",
+        marginBottom: "20px",
+        marginTop: "30px",
+      }}
+    >
+      <Box
+        sx={{
+          width: "20%",
+          [theme.breakpoints.down("sm")]: {
+            fontSize: "10px",
+          },
+        }}
+      >
+        Order ID
+      </Box>
+      <Box
+        sx={{
+          width: "35%",
+          [theme.breakpoints.down("sm")]: {
+            fontSize: "10px",
+          },
+        }}
+      >
+        Date
+      </Box>
+      <Box
+        sx={{
+          width: "20%",
+          [theme.breakpoints.down("sm")]: {
+            fontSize: "10px",
+          },
+        }}
+      >
+        Price
+      </Box>
+      <Box
+        sx={{
+          width: "20%",
+          [theme.breakpoints.down("sm")]: {
+            fontSize: "10px",
+          },
+        }}
+      >
+        Status
+      </Box>
+      <Box
+        sx={{
+          width: "5%",
+          [theme.breakpoints.down("sm")]: {
+            fontSize: "10px",
+          },
+        }}
+      ></Box>
+    </Box>
+  );
+};
+
 export const OrdersTable = (props) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const formatDate = (inputDate) => {
-    const formattedDate = new Date(inputDate).toLocaleDateString("en-GB", {
+    const date = new Date(inputDate);
+    const options = {
       day: "2-digit",
-      month: "2-digit",
+      month: "long",
       year: "numeric",
-    });
-    return formattedDate;
+    };
+
+    const formattedDate = new Intl.DateTimeFormat("en-GB", options).format(
+      date
+    );
+
+    const modifiedDate = formattedDate.replace(/(\s+\d{4})$/, ",$1");
+
+    return modifiedDate;
   };
+
   return (
-    <TableContainer component={Paper} variant="none">
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell
+    <Paper variant="none" sx={{ marginBottom: "20px", padding: 0 }}>
+      <TableHead />
+      {props.data?.map((item, index) => (
+        <Box
+          key={index}
+          sx={{
+            color: "#171520",
+            fontWeight: "500",
+            padding: "16px",
+            display: "flex",
+            alignItems: "center",
+            background: "#F1F1F1",
+            marginBottom: "20px",
+            borderRadius: "8px",
+          }}
+        >
+          <Box
+            sx={{
+              width: "20%",
+              [theme.breakpoints.down("sm")]: {
+                fontSize: "10px",
+              },
+            }}
+          >
+            {`#${item.id}`}
+          </Box>
+          <Box
+            sx={{
+              width: "35%",
+              [theme.breakpoints.down("sm")]: {
+                fontSize: "10px",
+              },
+            }}
+          >
+            {formatDate(item.createdAt)}
+          </Box>
+          <Box
+            sx={{
+              width: "20%",
+              [theme.breakpoints.down("sm")]: {
+                fontSize: "10px",
+              },
+            }}
+          >
+            {`$${item.total_price}`}
+          </Box>
+          <Box
+            sx={{
+              width: "20%",
+              [theme.breakpoints.down("sm")]: {
+                fontSize: "10px",
+              },
+            }}
+          >
+            {item.status}
+          </Box>
+          <Box
+            sx={{
+              width: "5%",
+              textAlign: "right",
+              [theme.breakpoints.down("sm")]: {
+                fontSize: "10px",
+              },
+            }}
+          >
+            <ArrowForwardIosIcon
               sx={{
-                fontSize: "16px",
-                [theme.breakpoints.down("sm")]: {
-                  fontSize: "10px",
-                },
+                fontSize: "14px",
+                fontWeight: "600",
+                color: theme.palette.primary.main,
               }}
-            >
-              Order ID
-            </TableCell>
-            <TableCell
-              sx={{
-                fontSize: "16px",
-                textAlign: "left",
-                [theme.breakpoints.down("sm")]: {
-                  fontSize: "10px",
-                },
-              }}
-            >
-              Date
-            </TableCell>
-            <TableCell
-              sx={{
-                textAlign: "left",
-                fontSize: "16px",
-                [theme.breakpoints.down("sm")]: {
-                  fontSize: "10px",
-                },
-              }}
-            >
-              Price
-            </TableCell>
-            <TableCell
-              sx={{
-                fontSize: "16px",
-                textAlign: "left",
-                [theme.breakpoints.down("sm")]: {
-                  fontSize: "10px",
-                },
-              }}
-            >
-              Status
-            </TableCell>
-            <TableCell
-              sx={{
-                textAlign: "left",
-                fontSize: "16px",
-                [theme.breakpoints.down("sm")]: {
-                  fontSize: "10px",
-                },
-              }}
-            ></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.data?.map((item, index) => (
-            <React.Fragment key={index}>
-              <TableRow
-                sx={{
-                  "&:last-child td, &:last-child th": { border: 0 },
-                  background: "#F1F1F1",
-                  borderBottom: "solid 20px white",
-                }}
-              >
-                <TableCell
-                  component="th"
-                  scope="row"
-                  sx={{
-                    border: "none",
-                    textAlign: "left",
-                    marginBottom: "10px",
-                    [theme.breakpoints.down("sm")]: {
-                      paddingRight: "0",
-                    },
-                  }}
-                >
-                  #{item.id}
-                </TableCell>
-                <TableCell
-                  sx={{
-                    border: "none",
-                    textAlign: "left",
-                    paddingBottom: 0,
-                    [theme.breakpoints.down("sm")]: {
-                      fontSize: "12px",
-                    },
-                  }}
-                >
-                  {formatDate(item.createdAt)}
-                </TableCell>
-                <TableCell
-                  sx={{
-                    border: "none",
-                    paddingBottom: 0,
-                    [theme.breakpoints.down("sm")]: {
-                      fontSize: "12px",
-                    },
-                  }}
-                >
-                  ${item.total_price}
-                </TableCell>
-                <TableCell
-                  sx={{
-                    border: "none",
-                    textAlign: "left",
-                    paddingBottom: 0,
-                    [theme.breakpoints.down("sm")]: {
-                      fontSize: "12px",
-                    },
-                  }}
-                >
-                  {item.status}
-                </TableCell>
-                <TableCell
-                  align="right"
-                  sx={{
-                    border: "none",
-                    paddingBottom: 0,
-                    [theme.breakpoints.down("sm")]: {
-                      fontSize: "12px",
-                    },
-                  }}
-                >
-                  <Button
-                    variant="none"
-                    endIcon={<ArrowForwardIosIcon />}
-                    // onClick={() => navigate(`/`) todo}
-                    sx={{
-                      fontSize: "14px",
-                      fontWeight: "600",
-                      color: theme.palette.primary.main,
-                    }}
-                  ></Button>
-                </TableCell>
-              </TableRow>
-            </React.Fragment>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            />
+          </Box>
+        </Box>
+      ))}
+    </Paper>
   );
 };

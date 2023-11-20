@@ -21,7 +21,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 0 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -55,7 +55,11 @@ export default function FullWidthTabs(props) {
   };
 
   return (
-    <Box sx={{ bgcolor: "background.paper" }}>
+    <Box
+      sx={{
+        bgcolor: "background.paper",
+      }}
+    >
       <AppBar position="static" elevation={0}>
         <Tabs
           value={value}
@@ -64,22 +68,52 @@ export default function FullWidthTabs(props) {
           textColor="inherit"
           variant="none"
           aria-label="full width tabs example"
-          sx={{ flexGrow: 0, width: "100%" }}
+          sx={{
+            flexGrow: 0,
+            width: "100%",
+          }}
         >
           <Tab
             label="Completed"
             {...a11yProps(0)}
-            sx={{ color: "#626262", width: "150px", textTransform: "none" }}
+            sx={{
+              color: "#626262",
+              width: "150px",
+              textTransform: "none",
+              fontSize: "16px",
+              [theme.breakpoints.down("sm")]: {
+                fontSize: "10px",
+                width: "90px",
+              },
+            }}
           />
           <Tab
             label="Processing"
             {...a11yProps(1)}
-            sx={{ color: "#626262", width: "150px", textTransform: "none" }}
+            sx={{
+              color: "#626262",
+              width: "150px",
+              textTransform: "none",
+              fontSize: "16px",
+              [theme.breakpoints.down("sm")]: {
+                fontSize: "10px",
+                width: "90px",
+              },
+            }}
           />
           <Tab
             label="Cancelled"
             {...a11yProps(2)}
-            sx={{ color: "#626262", width: "150px", textTransform: "none" }}
+            sx={{
+              color: "#626262",
+              width: "150px",
+              textTransform: "none",
+              fontSize: "16px",
+              [theme.breakpoints.down("sm")]: {
+                fontSize: "10px",
+                width: "90px",
+              },
+            }}
           />
         </Tabs>
       </AppBar>

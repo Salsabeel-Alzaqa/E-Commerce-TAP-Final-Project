@@ -1,8 +1,10 @@
 import React from "react";
 import FullWidthTabs from "./partials/TabPanel";
 import { useDataActions } from "../../hooks/useDataActions";
+import { useTheme } from "@mui/material";
 
 export const OrdersPage = () => {
+  const theme = useTheme();
   const completedOrders = [];
   const processingOrders = [];
   const { useMyOrders } = useDataActions();
