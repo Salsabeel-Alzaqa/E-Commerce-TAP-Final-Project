@@ -133,7 +133,7 @@ export function useDataActions() {
       },
     });
   }
-
+  
   return {
     useProducts,
     useNewArrivalsProducts,

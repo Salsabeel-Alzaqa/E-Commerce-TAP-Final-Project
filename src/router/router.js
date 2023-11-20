@@ -17,6 +17,7 @@ import { ProfileLayout } from "../layouts/ProfileLayout";
 import { PersonalInfoPage } from '../pages/PersonalInfoPage/PersonalInfoPage';
 import { OrdersPage } from '../pages/OrdersPage/OrdersPage';
 import { WishlistPage } from '../pages/WishlistPage/WishlistPage';
+import { OrderDetailsPage } from '../pages/OrderDetailsPage/OrderDetailsPage';
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -70,14 +71,14 @@ export const router = createBrowserRouter(
               </AuthGuard>
             }
           ></Route>
-          {/* <Route
-          path="/profile/my-orders/:orderId"
+          <Route
+          path="/profile/my-orders/:orderID"
           element={
             <AuthGuard>
-              <OrderDetails />
+              <OrderDetailsPage />
             </AuthGuard>
           }
-        ></Route> */}
+        ></Route>
         </Route>
         <Route
           path="/checkoutpage"
