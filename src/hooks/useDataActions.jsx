@@ -2,14 +2,19 @@ import { useMutation, useQuery, QueryClient } from "react-query";
 import apiClient from "../api/axios";
 export function useDataActions() {
   const queryClient = new QueryClient();
-    function useProducts(filters) {
+  function useProducts(filters) {
     return useQuery({
-      queryKey: ['product', 'list', filters],
-      queryFn: async () => await apiClient.get(`/v1/products${filters.searchFilter}&&page=${filters.currentPage}`).then((res) => res.data),
+      queryKey: ["product", "list", filters],
+      queryFn: async () =>
+        await apiClient
+          .get(
+            `/v1/products${filters.searchFilter}&&page=${filters.currentPage}`
+          )
+          .then((res) => res.data),
       staleTime: Infinity,
     });
-    }
-  
+  }
+
   function useProductDetails(id, filter) {
     return useQuery({
       queryKey: ["product", "get", id, filter],
@@ -82,55 +87,72 @@ export function useDataActions() {
       mutationFn: async (quantity) =>
         await apiClient
           .post(`v1/products/${id}/add_to_cart`, {
-            'orderItemQuantity': quantity,
+            orderItemQuantity: quantity,
           })
           .then((res) => res.data),
       onSuccess: () => {
         queryClient.invalidateQueries(["cart", "list"]);
       },
     });
-  }
+  };
 
   function usePersonalInfo() {
     return useQuery({
-      queryKey: ['personalInfo', 'list'],
-      queryFn: async () => await apiClient.get('/v1/users/me').then((res) => res.data),
+      queryKey: ["personalInfo", "list"],
+      queryFn: async () =>
+        await apiClient.get("/v1/users/me").then((res) => res.data),
       staleTime: Infinity,
     });
   }
 
   const useUpdateUserInfo = () => {
     return useMutation({
-      mutationFn: async (newInfo) => await apiClient.put('v1/users', newInfo).then((res) => res.data),
+      mutationFn: async (newInfo) =>
+        await apiClient.put("v1/users", newInfo).then((res) => res.data),
       onSuccess: () => {
-      queryClient.invalidateQueries(['personalInfo', 'list']);
-    },
-    });
-  }
-  
-  const useUpdateUserPassword = () => {
-    return useMutation({
-      mutationFn: async (passwords) => await apiClient.post('v1/users/me/change_password', passwords).then((res) => res.data),
-      onSuccess: () => {
-        queryClient.invalidateQueries(['personalInfo', 'list']);
+        queryClient.invalidateQueries(["personalInfo", "list"]);
       },
     });
-  }
+  };
+
+  const useUpdateUserPassword = () => {
+    return useMutation({
+      mutationFn: async (passwords) =>
+        await apiClient
+          .post("v1/users/me/change_password", passwords)
+          .then((res) => res.data),
+      onSuccess: () => {
+        queryClient.invalidateQueries(["personalInfo", "list"]);
+      },
+    });
+  };
 
   const useWishlistProducts = () => {
     return useQuery({
-      queryKey: ['wishlistproduct', 'list'],
-      queryFn: async () => await apiClient.get('v1/wishlist').then((res) => res.data),
+      queryKey: ["wishlistproduct", "list"],
+      queryFn: async () =>
+        await apiClient.get("v1/wishlist").then((res) => res.data),
       staleTime: Infinity,
     });
   };
 
   const useAddWishlistProduct = (productId) => {
     return useMutation({
-      mutationFn: async () => await apiClient.post(`v1/wishlist/${productId}/add_to_wishlist`).then((res) => res?.data),
+      mutationFn: async () =>
+        await apiClient
+          .post(`v1/wishlist/${productId}/add_to_wishlist`)
+          .then((res) => res?.data),
       onSuccess: () => {
-        queryClient.invalidateQueries(['wishlistproduct', 'list']);
+        queryClient.invalidateQueries(["wishlistproduct", "list"]);
       },
+    });
+  };
+
+  function useMyOrders() {
+    return useQuery({
+      queryKey: ["orders", "list"],
+      queryFn: async () =>
+        await apiClient.get("v1/orders").then((res) => res?.data),
     });
   }
 
@@ -148,6 +170,7 @@ export function useDataActions() {
     useUpdateUserInfo,
     useUpdateUserPassword,
     useWishlistProducts,
-    useAddWishlistProduct
+    useAddWishlistProduct,
+    useMyOrders,
   };
 }
