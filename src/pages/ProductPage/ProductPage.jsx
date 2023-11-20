@@ -1,23 +1,32 @@
-import React , {useState} from "react";
+import React from "react";
 import Breadcrumb ,{StyledLink} from "../../components/Breadcrumbs/Breadcrumbs";
 import { useParams } from 'react-router-dom';
 import { useDataActions } from '../../hooks/useDataActions';
-import { Container , Typography , Grid , Box , Skeleton , Tabs ,Tab} from "@mui/material";
+import { Container , Typography , Grid , Box , Skeleton } from "@mui/material";
 import { ProductInfo } from "../../components/ProductInfo/ProductInfo";
 import { ProductDescription } from "./partials/ProductDescription";
 import { ProductReviews } from "./partials/ProductReviews";
 import { RelatedProducts } from "./partials/RelatedProducts";
 import { ProductImagesGalary } from "../../components/ProductImagesGalary/ProductImagesGalary";
+import { TabPanel } from "../../components/TabPanel/TabPanel";
+const getCategoryName = (categoryID) => {
+  const categoryNames = {
+    1: 'Personal Care',
+    2: 'Handbags',
+    3: 'Watches',
+    4: 'Eye Wear',
+    5: 'Apparels',
+    6: 'Jewellery',
+    7: 'SkinCare'
+  };
+  return categoryNames[categoryID];
+};
 export const ProductPage = () => {
-  const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
   const { useProductDetails } = useDataActions();
   const { data: product, isLoading, isError } = useProductDetails(id,'');
   let TabsItems;
   let breadcrumbItems;
-  const handleTabChange = (event, newValue) => {
-    setSelectedTab(newValue);
-  };
   if (isError) return <p>Error ...</p>;
   if (product) {
     TabsItems = [
@@ -35,8 +44,8 @@ export const ProductPage = () => {
       }
     ];
     breadcrumbItems = [
-      <StyledLink key="2">
-        Handbags
+      <StyledLink key="2" href={`/listing?&category=${getCategoryName(product.categoryID)}`}>
+        {getCategoryName(product.categoryID)}
       </StyledLink>,
       <Typography underline="hover" key="3">
         {product.name}
@@ -64,15 +73,7 @@ export const ProductPage = () => {
       </Grid>
       {isLoading ? (<></>)
         : (<Box my={4}>
-          <Tabs value={selectedTab} onChange={handleTabChange} TabIndicatorProps={{ style: { display: "none" } }}>
-            {TabsItems.map((tab, index) => (
-              <Tab label={tab.label} key={index} />))}
-          </Tabs>
-          {TabsItems.map((tab, index) => (
-            selectedTab === index && (
-              <Box key={index} mt={3}>
-                {tab.content}
-              </Box>)))}
+          <TabPanel TabsItems={TabsItems} />
         </Box>)
       }
     </Container>

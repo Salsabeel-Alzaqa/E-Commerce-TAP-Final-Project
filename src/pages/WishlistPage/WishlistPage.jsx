@@ -8,11 +8,12 @@ export const WishlistPage = () => {
   const { useWishlistProducts } = useDataActions();
   const { data: products, isLoading, isError } = useWishlistProducts();
   if (isError) return <p>Error ...</p>;
+  console.log(products);
   return (
     <Box mt={5}>
       {isLoading ? (
         <Box mb={5}><Loading num={12} /></Box>
-      ) : products.products.length === 0 ? (
+      ) : products.message === 'No items in your wishlist yet.' ? (
         <Box sx={{ display: "flex", justifyContent: "center", flexDirection: 'column', alignItems: 'center' }} my={5}>
           <img src={wishlistImage} alt="search fail" width="50%" />
           <Typography variant="h4">

@@ -7,7 +7,7 @@ export const useWishlist = (id) => {
     const { data: wishlist, isLoading: isWishlistLoading , isError , refetch } = useWishlistProducts();
     useEffect(() => {
         if (wishlist && wishlist.products !== null) {
-            setIsInWishlist(wishlist.products.some(item => item.id === id));
+            setIsInWishlist(wishlist.products?.some(item => item.id === id));
         }
     }, [wishlist, id]);
 
