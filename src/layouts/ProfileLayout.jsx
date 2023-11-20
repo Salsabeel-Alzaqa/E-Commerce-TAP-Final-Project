@@ -86,8 +86,6 @@ export const ProfileLayout = () => {
                     </Tabs>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={9}>
-                    <Typography variant="h5" gutterBottom>{getSelectedTabLabel()}</Typography>
-                    <Divider />
                     <Outlet />
                 </Grid>
             </Grid>
