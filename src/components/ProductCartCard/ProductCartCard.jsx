@@ -84,10 +84,11 @@ export const ProductCartCard = (props) => {
           }}
         >
           {props.inMyCart ? (
-            <QuantityButton
-              value={props.item.quantity}
-              onChange={handleQuantityChange}
-            />
+            props.orderpage ? null
+              :<QuantityButton
+                value={props.item.quantity}
+                onChange={handleQuantityChange}
+              />
           ) : (
             <Typography>Qy- {props.item.quantity}</Typography>
           )}

@@ -54,7 +54,7 @@ export function useDataActions() {
 
   function useCartOrderDetails(orderID) {
     return useQuery({
-      queryKey: ["orderDetails", orderID],
+      queryKey: ["orderDetails","get", orderID],
       queryFn: async () =>
         await apiClient
           .get(`v1/orders/${orderID}/orderitems`)
@@ -155,7 +155,7 @@ export function useDataActions() {
         await apiClient.get("v1/orders").then((res) => res?.data),
     });
   }
-
+  
   return {
     useProducts,
     useNewArrivalsProducts,
