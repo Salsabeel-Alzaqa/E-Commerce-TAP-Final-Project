@@ -2,7 +2,7 @@ import React from "react";
 import Breadcrumb ,{StyledLink} from "../../components/Breadcrumbs/Breadcrumbs";
 import { useParams } from 'react-router-dom';
 import { useDataActions } from '../../hooks/useDataActions';
-import { Container , Typography , Grid , Box , Skeleton , Tabs ,Tab} from "@mui/material";
+import { Container , Typography , Grid , Box , Skeleton } from "@mui/material";
 import { ProductInfo } from "../../components/ProductInfo/ProductInfo";
 import { ProductDescription } from "./partials/ProductDescription";
 import { ProductReviews } from "./partials/ProductReviews";
