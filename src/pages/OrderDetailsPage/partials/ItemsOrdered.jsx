@@ -35,12 +35,13 @@ export const ItemsOrdered = () => {
                     <Box my={5}>
                         <Typography variant="h5" gutterBottom>Order Information</Typography>
                         <Divider />
+                        <Box my={1}></Box>
                         <Grid container spacing={6}>
-                            <Grid item xs={12} md={6} lg={4.5}>
+                            <Grid item xs={12} md={6} lg={4}>
                                 <Typography variant="body1" color="text.secondary">Order Details</Typography>
                                 <OrderSummary cartData={products} orderpage={true} />
                             </Grid>
-                            <Grid item xs={12} md={6} lg={4.5}>
+                            <Grid item xs={12} md={6} lg={4}>
                                 <Typography variant="body1" color="text.secondary" align={isSmallScreen ? 'left' :"center"} >Payment Details</Typography>
                                 <Typography variant="body1" align={isSmallScreen ? 'left' :"center"}>Cash on Delivery</Typography>
                             </Grid>
