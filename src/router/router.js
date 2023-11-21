@@ -77,7 +77,6 @@ export const router = createBrowserRouter(
             </AuthGuard>
           }
         ></Route>
-      </Route>
       <Route
         path="/checkoutpage"
         element={
@@ -92,6 +91,7 @@ export const router = createBrowserRouter(
           <NotFound />
         }
       ></Route>
+      </Route>
       <Route path="/login" element={<LoginGuard><LogInPage /></LoginGuard>}></Route>
     </>
   )

@@ -165,6 +165,7 @@ export const OrdersTable = (props) => {
                 fontWeight: "600",
                 color: theme.palette.primary.main,
               }}
+              onClick={() => navigate(`/profile/my-orders/${item.id}`)}
             />
           </Box>
         </Box>
