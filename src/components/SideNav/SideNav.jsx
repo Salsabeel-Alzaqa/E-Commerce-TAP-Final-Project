@@ -49,8 +49,7 @@ export const SideNav = ({children , selectedItem}) => {
                     sx={{ padding: 0 }}
                 >
                     {tabs.map((tab, index) => (
-                        <StyledTab key={index} label={tab.label} component={Link} to={tab.page} icon={<ArrowIcon />} iconPosition="end" />
-                               
+                        <StyledTab key={index} label={tab.label} component={Link} to={tab.page} icon={isSmallScreen ? null : <ArrowIcon />} iconPosition="end" />
                     ))}
                 </Tabs>
             </Grid>
