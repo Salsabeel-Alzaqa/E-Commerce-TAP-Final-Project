@@ -156,6 +156,14 @@ export function useDataActions() {
     });
   }
 
+  function useMyaddresses() {
+    return useQuery({
+      queryKey: ["addresses", "list"],
+      queryFn: async () =>
+        await apiClient.get("v1/addresses").then((res) => res?.data),
+    });
+  }
+
   return {
     useProducts,
     useNewArrivalsProducts,
@@ -172,5 +180,6 @@ export function useDataActions() {
     useWishlistProducts,
     useAddWishlistProduct,
     useMyOrders,
+    useMyaddresses,
   };
 }

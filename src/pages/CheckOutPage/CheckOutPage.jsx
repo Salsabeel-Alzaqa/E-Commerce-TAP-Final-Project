@@ -21,6 +21,8 @@ export const CheckOutPage = () => {
   const theme = useTheme();
   const { useCartItems } = useDataActions();
   const { data: cartData, isLoading, isError } = useCartItems();
+  const { useMyaddresses } = useDataActions();
+  const { data: addressesData } = useMyaddresses();
 
   const breadcrumbItems = [
     <Typography>My Cart</Typography>,
