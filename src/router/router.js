@@ -13,7 +13,6 @@ import { MyCartPage } from "../pages/MyCartPage/MyCartPage";
 import { CheckOutPage } from "../pages/CheckOutPage/CheckOutPage";
 import { LogInPage } from "../pages/LogInPage/LogInPage";
 import  AuthGuard ,  {LoginGuard } from "../pages/AuthGuard/AuthGuard";
-import { ProfileLayout } from "../layouts/ProfileLayout";
 import { PersonalInfoPage } from '../pages/PersonalInfoPage/PersonalInfoPage';
 import { OrdersPage } from '../pages/OrdersPage/OrdersPage';
 import { WishlistPage } from '../pages/WishlistPage/WishlistPage';
@@ -45,33 +44,32 @@ export const router = createBrowserRouter(
             </AuthGuard>
           }
         ></Route>
-        <Route path="/profile" element={<ProfileLayout />}>
-          <Route
-            exact
-            path="/profile"
-            element={
-              <AuthGuard>
-                <PersonalInfoPage />
-              </AuthGuard>
-            }
-          ></Route>
-          <Route
-            path="/profile/my-orders"
-            element={
-              <AuthGuard>
-                <OrdersPage />
-              </AuthGuard>
-            }
-          ></Route>
-          <Route
-            path="/profile/my-wishlist"
-            element={
-              <AuthGuard>
-                <WishlistPage />
-              </AuthGuard>
-            }
-          ></Route>
-          <Route
+        <Route
+          exact
+          path="/profile"
+          element={
+            <AuthGuard>
+              <PersonalInfoPage />
+            </AuthGuard>
+          }
+        ></Route>
+        <Route
+          path="/profile/my-orders"
+          element={
+            <AuthGuard>
+              <OrdersPage />
+            </AuthGuard>
+          }
+        ></Route>
+        <Route
+          path="/profile/my-wishlist"
+          element={
+            <AuthGuard>
+              <WishlistPage />
+            </AuthGuard>
+          }
+        ></Route>
+        <Route
           path="/profile/my-orders/:orderID"
           element={
             <AuthGuard>
@@ -79,22 +77,21 @@ export const router = createBrowserRouter(
             </AuthGuard>
           }
         ></Route>
-        </Route>
-        <Route
-          path="/checkoutpage"
-          element={
-            <AuthGuard>
-              <CheckOutPage />
-            </AuthGuard>
-          }
-        ></Route>
-        <Route
-          path="*"
-          element={
-            <NotFound />
-          }
-        ></Route>
       </Route>
+      <Route
+        path="/checkoutpage"
+        element={
+          <AuthGuard>
+            <CheckOutPage />
+          </AuthGuard>
+        }
+      ></Route>
+      <Route
+        path="*"
+        element={
+          <NotFound />
+        }
+      ></Route>
       <Route path="/login" element={<LoginGuard><LogInPage /></LoginGuard>}></Route>
     </>
   )
