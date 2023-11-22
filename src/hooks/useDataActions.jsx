@@ -155,7 +155,19 @@ export function useDataActions() {
         await apiClient.get("v1/orders").then((res) => res?.data),
     });
   }
+<<<<<<< HEAD
+
+  function useMyaddresses() {
+    return useQuery({
+      queryKey: ["addresses", "list"],
+      queryFn: async () =>
+        await apiClient.get("v1/addresses").then((res) => res?.data),
+    });
+  }
+
+=======
   
+>>>>>>> e9ad714664b346058566fe58402e747303800837
   return {
     useProducts,
     useNewArrivalsProducts,
@@ -172,5 +184,6 @@ export function useDataActions() {
     useWishlistProducts,
     useAddWishlistProduct,
     useMyOrders,
+    useMyaddresses,
   };
 }
