@@ -54,7 +54,7 @@ export function useDataActions() {
 
   function useCartOrderDetails(orderID) {
     return useQuery({
-      queryKey: ["orderDetails","get", orderID],
+      queryKey: ["orderDetails", "get", orderID],
       queryFn: async () =>
         await apiClient
           .get(`v1/orders/${orderID}/orderitems`)
@@ -155,7 +155,6 @@ export function useDataActions() {
         await apiClient.get("v1/orders").then((res) => res?.data),
     });
   }
-<<<<<<< HEAD
 
   function useMyaddresses() {
     return useQuery({
@@ -165,9 +164,6 @@ export function useDataActions() {
     });
   }
 
-=======
-  
->>>>>>> e9ad714664b346058566fe58402e747303800837
   return {
     useProducts,
     useNewArrivalsProducts,
