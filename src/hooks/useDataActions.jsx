@@ -159,7 +159,7 @@ export function useDataActions() {
   const useLogin = () => { 
     return useMutation({
       mutationFn: async (data) =>
-        await apiClient.post('v1/login', data).then((res) => res.data),
+        await apiClient.post('v1/login', data).then((res) => res.data.token),
     });
   }
   return {

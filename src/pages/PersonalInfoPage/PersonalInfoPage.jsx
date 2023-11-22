@@ -7,7 +7,7 @@ import { SideNav } from '../../components/SideNav/SideNav';
 import { Title } from '../../components/Title/Title';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumbs';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useNavigate } from "react-router-dom";
+import { logOut } from "../../utils/userutils";
 const breadcrumbItems = [
   <Typography key="2">
     User Profile
@@ -26,7 +26,6 @@ function stringAvatar(name) {
 export const PersonalInfoPage = () => {
   const [showForm, setShowForm] = useState(false);
   const { usePersonalInfo } = useDataActions();
-  const navigate = useNavigate();
   const { data: info, isLoading, isError, refetch } = usePersonalInfo();
   if (isError) return <p>Error ...</p>;
   const handleUpdate = () => {
@@ -36,16 +35,8 @@ export const PersonalInfoPage = () => {
     setShowForm(value);
   };
   const handleLogoutClick = () => {
-        const sortedtoken = localStorage.getItem('token');
-        if (sortedtoken) {
-            localStorage.removeItem('token');
-        }
-        else {
-            sessionStorage.removeItem('token');
-        }
-        navigate("/login");
-    };
-
+    logOut();
+  };
   return (
     <Container maxWidth="xl">
       <Box mt={3}>

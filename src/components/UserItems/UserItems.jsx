@@ -1,18 +1,12 @@
 import React from 'react';
 import { List, ListItem, ListItemText } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import { logOut , getToken } from '../../utils/userutils';
 export const UserItems = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+  const token = getToken();
   const handleLogoutClick = () => {
-    const sortedtoken = localStorage.getItem('token');
-    if (sortedtoken) {
-      localStorage.removeItem('token');
-    }
-    else {
-      sessionStorage.removeItem('token');
-    }
-    navigate("/login");
+    logOut();
   };
   return (
     <List>

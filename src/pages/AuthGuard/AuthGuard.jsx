@@ -1,8 +1,9 @@
 import React from 'react';
 import { Outlet, redirect } from 'react-router-dom';
+import { getToken } from '../../utils/userutils';
 
 export const authGuardLoader = () => {
-  const isAuthenticated = localStorage.getItem('token') || sessionStorage.getItem('token');
+  const isAuthenticated = getToken();
   if (!isAuthenticated) {
     return redirect('/login')
   }
@@ -11,12 +12,12 @@ export const authGuardLoader = () => {
 
 export const AuthGuard = () => {
   return (
-    <Outlet />
+      <Outlet />
   )
 };
 
 export const loginPageLoader = () => {
-  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+  const token = getToken();
   if (token) {
     return redirect('/')
   }

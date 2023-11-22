@@ -9,6 +9,7 @@ import { ConfirmationModal } from '../ConfirmationModal/ConfirmationModal';
 import { useDataActions } from '../../hooks/useDataActions';
 import { useWishlist } from '../../hooks/useWishlist';
 import { styled } from "@mui/system";
+import { NotFound } from '../../pages/NotFound/NotFound';
 const StyledChip = styled(Chip)({
   height: '66px',
   width: '109px',
@@ -36,7 +37,7 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
     }
   }, [products, id]);
 
-  if (isError) return <p>Error ...</p>;
+  if (isError) return <NotFound />;
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
   };
@@ -100,10 +101,10 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
                 <Button color="primary">check</Button></InputAdornment>} sx={{ height: '56px' }} />
           </Grid>
         </Grid>
-        <Stack direction="row" spacing={3}>
+       {isInCart ? <Box mt={3}></Box> : <Stack direction="row" spacing={3}>
           <Typography variant="h6">Quantity:</Typography>
-          <QuantityButton value={quantity} onChange={handleQuantityChange} />
-        </Stack>
+            <QuantityButton value={quantity} onChange={handleQuantityChange} />
+        </Stack>}
         <Box display='flex' alignItems={'center'} justifyContent={'space-around'} sx={{ width: '100%', border: '1px solid #1B4B66', borderRadius: "4px", height: '96px' }}>
           <Box>
             <Typography variant="body1">Get upto 30% Off on order </Typography>

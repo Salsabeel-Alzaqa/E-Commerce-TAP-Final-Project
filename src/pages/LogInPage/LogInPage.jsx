@@ -1,24 +1,27 @@
 import React, { useState } from 'react';
 import { Button, TextField, Typography, Container, FormControlLabel, Checkbox, CircularProgress } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import apiClient from '../../api/axios';
-import { useNavigate , Link  } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useDataActions } from '../../hooks/useDataActions';
 
 export const LogInPage = () => {
     const { register, handleSubmit, watch, formState: { errors, isSubmitting }, setValue } = useForm();
     const [loginError, setLoginError] = useState(null);
     const navigate = useNavigate();
+    const { useLogin } = useDataActions();
+    const { isLoading, mutateAsync: loginMutation } = useLogin();
     const onSubmit = async (data) => {
         try {
             setLoginError(null);
-            const response = await apiClient.post('v1/login', data);
-            const token = response.data.token;
-            if (watch('rememberMe')) {
-                localStorage.setItem('token', token);
-            } else {
-                sessionStorage.setItem('token', token);
+            const token = await loginMutation(data);
+            if (!isLoading && token) {
+                if (watch('rememberMe')) {
+                    localStorage.setItem('token', token);
+                } else {
+                    sessionStorage.setItem('token', token);
+                }
+                navigate("/");
             }
-            navigate("/");
         } catch (error) {
             setLoginError('Email or password is wrong');
             console.error('Login failed:', error.message);
