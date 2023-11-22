@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Stack,
   Typography,
@@ -32,7 +33,8 @@ export const MyCartPage = () => {
   const [cartItems, setCartItems] = useState([]);
 
   const { useUpdateCartItems } = useDataActions();
-  const { mutateAsync: mutateUpdateItems } = useUpdateCartItems();
+  const { isLoading: proceeding, mutateAsync: mutateUpdateItems } =
+    useUpdateCartItems();
 
   const navigate = useNavigate();
   const handleProceedToCheckOut = async () => {
@@ -97,8 +99,13 @@ export const MyCartPage = () => {
                       },
                     }}
                     onClick={handleProceedToCheckOut}
+                    disabled={proceeding}
                   >
-                    Proceed to Checkout
+                    {proceeding ? (
+                      <CircularProgress size={24} />
+                    ) : (
+                      "Proceed to Checkout"
+                    )}
                   </Button>
                   <Button
                     variant="outlined"

@@ -11,6 +11,7 @@ import {
   AccordionSummary,
   Box,
   Button,
+  CircularProgress,
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -18,20 +19,33 @@ import { useDataActions } from "../../hooks/useDataActions";
 import { useNavigate } from "react-router-dom";
 
 export const AddressesSection = (props) => {
-  const [selectedValue, setSelectedValue] = useState("Los Angeles");
+  const [selectedValue, setSelectedValue] = useState();
   const { useMyaddresses } = useDataActions();
   const { data: addressesData } = useMyaddresses();
   const { useCreateAddress, useUpdateCartItems } = useDataActions();
-  const { mutateAsync: mutatePostAddress } = useCreateAddress();
+  const {
+    isLoading,
+    isError,
+    mutateAsync: mutatePostAddress,
+  } = useCreateAddress();
   const { mutateAsync: mutatePutOrder } = useUpdateCartItems();
-  const onSubmit = async (data) => {
+  const [radioError, setRadioError] = useState(false);
+  const navigate = useNavigate();
+
+  const placeOrder = async () => {
+    if (!selectedValue) {
+      setRadioError(true);
+      return;
+    }
+    setRadioError(false);
     const preparedItemsData = props.cartData.data?.map((item) => {
       return { id: item.id, quantity: item.quantity };
     });
 
     const selectedAddress = addressesData.find(
-      (address) => address.city === selectedValue
+      (address) => address.id === parseInt(selectedValue)
     );
+
     try {
       await Promise.all([
         mutatePutOrder({
@@ -58,17 +72,33 @@ export const AddressesSection = (props) => {
     }
   };
 
-  const uniqueCities = new Set();
-
   const handleRadioChange = (event) => {
     setSelectedValue(event.target.value);
   };
-  const navigate = useNavigate();
+
   const handleBackToCart = () => {
     navigate(`/cartpage`);
   };
+
+  const handleAccordionChange = () => {
+    props.setActiveAccordionSection((prev) => {
+      switch (prev) {
+        case "form":
+          return "radio";
+        case "radio":
+          return "form";
+        default:
+          break;
+      }
+    });
+  };
+
   return (
-    <Accordion variant="none">
+    <Accordion
+      variant="none"
+      expanded={props.activeAccordionSection === "radio"}
+      onChange={handleAccordionChange}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -81,30 +111,34 @@ export const AddressesSection = (props) => {
       </AccordionSummary>
       <AccordionDetails>
         <FormControl>
-          <RadioGroup value={selectedValue} onChange={handleRadioChange}>
-            {addressesData.map((address, index) => {
-              if (!uniqueCities.has(address.city)) {
-                uniqueCities.add(address.city);
-                return (
-                  <FormControlLabel
-                    key={index}
-                    value={address.city}
-                    control={<Radio />}
-                    label={address.city}
-                  />
-                );
-              } else {
-                return null;
-              }
-            })}
+          <RadioGroup onChange={handleRadioChange} name="radio-buttons-group">
+            {addressesData?.map((address, index) => (
+              <FormControlLabel
+                key={index}
+                value={address.id}
+                control={<Radio />}
+                label={`${address.city}, ${address.street}`}
+              />
+            ))}
           </RadioGroup>
         </FormControl>
+        {radioError && (
+          <Box sx={{ marginTop: "10px" }}>
+            <Typography sx={{ color: "red" }}>Please select address</Typography>
+          </Box>
+        )}
+        {isError && (
+          <Box sx={{ marginTop: "10px" }}>
+            <Typography sx={{ color: "red" }}>
+              Try with checking out, try again later
+            </Typography>
+          </Box>
+        )}
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
             width: "100%",
-            mt: 2,
             mb: 3,
           }}
         >
@@ -122,16 +156,16 @@ export const AddressesSection = (props) => {
           <Button
             variant="contained"
             size="large"
-            type="submit"
             sx={{
               width: "40%",
               marginLeft: "auto",
               marginTop: "30px",
               textTransform: "none",
             }}
-            onClick={onSubmit}
+            onClick={() => placeOrder()}
+            disabled={isLoading}
           >
-            Place Order
+            {isLoading ? <CircularProgress size={24} /> : "Place Order"}
           </Button>
         </Box>
       </AccordionDetails>
