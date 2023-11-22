@@ -16,13 +16,12 @@ import { CheckOutForm } from "../../components/CheckOutForm/CheckOutForm";
 import { useDataActions } from "../../hooks/useDataActions";
 import { ProductCartCard } from "../../components/ProductCartCard/ProductCartCard";
 import { useNavigate } from "react-router-dom";
+import { AddressesSection } from "../../components/AddressesSection/AddressesSection";
 
 export const CheckOutPage = () => {
   const theme = useTheme();
   const { useCartItems } = useDataActions();
   const { data: cartData, isLoading, isError } = useCartItems();
-  const { useMyaddresses } = useDataActions();
-  const { data: addressesData } = useMyaddresses();
 
   const breadcrumbItems = [
     <Typography>My Cart</Typography>,
@@ -53,7 +52,11 @@ export const CheckOutPage = () => {
               },
             }}
           >
-            <CheckOutForm cartData={cartData} />
+            <Box>
+              {" "}
+              <AddressesSection cartData={cartData} />
+              <CheckOutForm cartData={cartData} />
+            </Box>
             <Box
               sx={{
                 position: "relative",
