@@ -104,6 +104,9 @@ const theme = createTheme({
             borderRadius: "8px",
             color: "white",
           },
+          "@media (max-width: 680px)": {
+            width: "35%",
+          },
         },
       },
     },

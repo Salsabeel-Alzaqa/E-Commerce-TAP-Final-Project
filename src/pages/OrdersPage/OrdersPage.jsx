@@ -1,8 +1,16 @@
 import React from "react";
 import FullWidthTabs from "./partials/TabPanel";
 import { useDataActions } from "../../hooks/useDataActions";
-import { useTheme } from "@mui/material";
-
+import { useTheme , Container , Box , Typography} from "@mui/material";
+import { SideNav } from '../../components/SideNav/SideNav';
+import { Title } from '../../components/Title/Title';
+import Breadcrumb from '../../components/Breadcrumbs/Breadcrumbs';
+const breadcrumbItems = [
+            <Typography key="2">
+                User Profile
+            </Typography>,
+            <Typography underline="hover" key="3">My Orders</Typography>
+    ];
 export const OrdersPage = () => {
   const theme = useTheme();
   const completedOrders = [];
@@ -24,9 +32,17 @@ export const OrdersPage = () => {
   }
 
   return (
-    <FullWidthTabs
-      completedOrders={completedOrders}
-      processingOrders={processingOrders}
-    />
-  );
+    <Container maxWidth="xl">
+      <Box mt={3}>
+        <Breadcrumb items={breadcrumbItems} />
+        <Title text={'My Orders'} color={'primary'} />
+      </Box>
+      <SideNav selectedItem={1}>
+        <FullWidthTabs
+          completedOrders={completedOrders}
+          processingOrders={processingOrders}
+        />
+      </SideNav>
+    </Container>
+  )
 };
