@@ -72,7 +72,7 @@ export const ProductCard = ({ name, id, short_description, price, image_url, les
           <Typography gutterBottom variant="none" component="div" sx={{ fontSize: "16px", fontWeight: "500", }}>
             {name}
           </Typography>
-          {isAuthenticated && isWishlistLoading ? <></>: isInWishlist ? (<IconButton aria-label="add" size="large">
+          {!isAuthenticated || isWishlistLoading ? <></>: isInWishlist ? (<IconButton aria-label="add" size="large">
             <FavoriteIcon fontSize="inherit" />
           </IconButton>) : (<IconButton aria-label="add" size="large" disabled={isAddWishlistProductLoading} onClick={AddToWishlist}>
             <FavoriteBorderIcon fontSize="inherit" />

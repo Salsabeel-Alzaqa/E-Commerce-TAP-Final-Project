@@ -1,17 +1,24 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
-const AuthGuard = ({ children }) => {
+import { Outlet, redirect } from 'react-router-dom';
+
+export const authGuardLoader = () => {
   const isAuthenticated = localStorage.getItem('token') || sessionStorage.getItem('token');
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace={true}/>;
+    return redirect('/login')
   }
-  return <>{children}</>;
-}; 
+  return null;
+};
 
-export function LoginGuard({ children }) {
-  const isAuthenticated = localStorage.getItem('token') || sessionStorage.getItem('token');
-  if (isAuthenticated) return <Navigate to="/" replace={true}/>;
-  return <>{children}</>;
+export const AuthGuard = () => {
+  return (
+    <Outlet />
+  )
+};
+
+export const loginPageLoader = () => {
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+  if (token) {
+    return redirect('/')
+  }
+  return null;
 }
-
-export default AuthGuard;
