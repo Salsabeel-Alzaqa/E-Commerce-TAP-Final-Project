@@ -108,9 +108,9 @@ export const Header = () => {
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
-          onClick={handleClick}
+          onClick={() => handleMove('/profile')}
         >
-          <Badge color="error" onClick={() => handleMove(`/profile`)}>
+          <Badge color="error" >
             <PersonOutlineIcon color="primary" />
           </Badge>
         </IconButton>
@@ -271,7 +271,7 @@ export const Header = () => {
               <IconButton
                 size="large"
                 aria-label="show 17 new notifications"
-                onClick={handleClick}
+                onClick={() => handleMove('/profile')}
               >
                 <Badge color="error">
                   <PersonOutlineIcon color="primary" />
