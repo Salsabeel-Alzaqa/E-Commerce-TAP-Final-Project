@@ -54,7 +54,7 @@ export function useDataActions() {
 
   function useCartOrderDetails(orderID) {
     return useQuery({
-      queryKey: ["orderDetails","get", orderID],
+      queryKey: ["orderDetails", "get", orderID],
       queryFn: async () =>
         await apiClient
           .get(`v1/orders/${orderID}/orderitems`)
@@ -162,6 +162,15 @@ export function useDataActions() {
         await apiClient.post('v1/login', data).then((res) => res.data.token),
     });
   }
+
+  function useMyaddresses() {
+    return useQuery({
+      queryKey: ["addresses", "list"],
+      queryFn: async () =>
+        await apiClient.get("v1/addresses").then((res) => res?.data),
+    });
+  }
+
   return {
     useProducts,
     useNewArrivalsProducts,
@@ -179,5 +188,6 @@ export function useDataActions() {
     useAddWishlistProduct,
     useMyOrders,
     useLogin,
+    useMyaddresses,
   };
 }

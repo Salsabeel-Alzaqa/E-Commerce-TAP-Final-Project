@@ -10,6 +10,7 @@ import {
   AccordionDetails,
   Typography,
   Stack,
+  CircularProgress,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useForm } from "react-hook-form";
@@ -66,7 +67,7 @@ export const CheckOutForm = (props) => {
 
   const navigate = useNavigate();
   const { useCreateAddress, useUpdateCartItems } = useDataActions();
-  const { mutateAsync: mutatePostAddress } = useCreateAddress();
+  const { isLoading, mutateAsync: mutatePostAddress } = useCreateAddress();
   const { mutateAsync: mutatePutOrder } = useUpdateCartItems();
   const handleBackToCart = () => {
     navigate(`/cartpage`);
@@ -99,8 +100,25 @@ export const CheckOutForm = (props) => {
     }
   };
 
+  const handleAccordionChange = () => {
+    props.setActiveAccordionSection((prev) => {
+      switch (prev) {
+        case "form":
+          return "radio";
+        case "radio":
+          return "form";
+        default:
+          break;
+      }
+    });
+  };
+
   return (
-    <Accordion variant="none" defaultExpanded="true">
+    <Accordion
+      variant="none"
+      expanded={props.activeAccordionSection === "form"}
+      onChange={handleAccordionChange}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
@@ -347,8 +365,9 @@ export const CheckOutForm = (props) => {
                 marginTop: "30px",
                 textTransform: "none",
               }}
+              disabled={isLoading}
             >
-              Place Order
+              {isLoading ? <CircularProgress size={24} /> : "Place Order"}
             </Button>
           </Box>
         </Box>

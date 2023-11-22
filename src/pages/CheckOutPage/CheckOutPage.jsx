@@ -15,16 +15,18 @@ import { OrderSummary } from "../../components/OrderSummary/OrderSummary";
 import { CheckOutForm } from "../../components/CheckOutForm/CheckOutForm";
 import { useDataActions } from "../../hooks/useDataActions";
 import { ProductCartCard } from "../../components/ProductCartCard/ProductCartCard";
-import { useNavigate } from "react-router-dom";
+import { AddressesSection } from "../../components/AddressesSection/AddressesSection";
+import { useState } from "react";
 
 export const CheckOutPage = () => {
   const theme = useTheme();
   const { useCartItems } = useDataActions();
   const { data: cartData, isLoading, isError } = useCartItems();
+  const [activeAccordionSection, setActiveAccordionSection] = useState("form");
 
   const breadcrumbItems = [
-    <Typography>My Cart</Typography>,
-    <Typography>Checkout</Typography>,
+    <Typography key="2">My Cart</Typography>,
+    <Typography key="3">Checkout</Typography>,
   ];
 
   if (isError) {
@@ -51,7 +53,19 @@ export const CheckOutPage = () => {
               },
             }}
           >
-            <CheckOutForm cartData={cartData} />
+            <Box>
+              {" "}
+              <AddressesSection
+                cartData={cartData}
+                activeAccordionSection={activeAccordionSection}
+                setActiveAccordionSection={setActiveAccordionSection}
+              />
+              <CheckOutForm
+                cartData={cartData}
+                activeAccordionSection={activeAccordionSection}
+                setActiveAccordionSection={setActiveAccordionSection}
+              />
+            </Box>
             <Box
               sx={{
                 position: "relative",
@@ -80,7 +94,7 @@ export const CheckOutPage = () => {
                   Order Details
                 </Typography>
                 <Divider sx={{ marginBottom: 4 }} />
-                {cartData?.data.map((item, index) => (
+                {cartData?.data?.map((item, index) => (
                   <ProductCartCard key={index} item={item} inMyCart={false} />
                 ))}
               </Paper>

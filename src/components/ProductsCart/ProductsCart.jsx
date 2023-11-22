@@ -72,9 +72,8 @@ export const ProductsCart = (props) => {
         </TableBody>
       </Table>
     </TableContainer>
-  )
+  );
 };
-
 const CartItem = ({ item, orderpage, setCartItems, cartItems }) => {
   const [isConfirmationModalOpen, setConfirmationModalOpen] = React.useState(false);
   const theme = useTheme();
