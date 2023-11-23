@@ -13,7 +13,6 @@ import { OrdersPage } from '../pages/OrdersPage/OrdersPage';
 import { WishlistPage } from '../pages/WishlistPage/WishlistPage';
 import { OrderDetailsPage } from '../pages/OrderDetailsPage/OrderDetailsPage';
 import { AuthGuard , authGuardLoader , loginPageLoader } from '../pages/AuthGuard/AuthGuard';
-import { logOut } from "../utils/userutils";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -25,14 +24,9 @@ export const router = createBrowserRouter([
       {
         element: <AuthGuard />,
         loader: authGuardLoader,
-        onError: (error) => {
-          if (error && error.status === 401) {
-            logOut();
-          }
-        },
         children: [
           { path: "/product/:id", element: <ProductPage /> },
-          { path: "/cartpage", element: <MyCartPage />},
+          { path: "/cartpage", element: <MyCartPage /> },
           { path: "/profile", element: <PersonalInfoPage />},
           { path: "/profile/my-orders", element: <OrdersPage /> },
           { path: "/profile/my-wishlist", element: <WishlistPage />},

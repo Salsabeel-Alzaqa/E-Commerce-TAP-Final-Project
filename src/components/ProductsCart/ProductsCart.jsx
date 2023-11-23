@@ -85,6 +85,7 @@ const CartItem = ({ item, orderpage, setCartItems, cartItems }) => {
     setCartItems(cartItems.filter((product) => product.id !== item.id));
   };
   const handleMoveToWishlist = () => {
+    closeConfirmationModal();
     handleRemoveItem();
     AddToWishlist();
   } 
