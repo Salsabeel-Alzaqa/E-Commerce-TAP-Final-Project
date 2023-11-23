@@ -97,7 +97,12 @@ export const Header = () => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={() => handleMove('/profile/my-wishlist')}>
+        <IconButton
+          size="large"
+          aria-label="show 4 new mails"
+          color="inherit"
+          onClick={() => handleMove("/profile/my-wishlist")}
+        >
           <Badge color="error">
             <FavoriteBorderIcon />
           </Badge>
@@ -110,7 +115,7 @@ export const Header = () => {
           aria-label="show 17 new notifications"
           onClick={handleClick}
         >
-          <Badge color="error" >
+          <Badge color="error">
             <PersonOutlineIcon color="primary" />
           </Badge>
         </IconButton>
@@ -163,7 +168,7 @@ export const Header = () => {
             >
               <StyledLink
                 to={{
-                  pathname: `/`,
+                  pathname: `/frontend-final-3`,
                 }}
                 onClick={() => setInput("")}
               >
@@ -227,7 +232,7 @@ export const Header = () => {
             >
               <StyledLink
                 to={{
-                  pathname: `/`,
+                  pathname: `/frontend-final-3`,
                 }}
                 onClick={() => setInput("")}
               >
@@ -262,7 +267,7 @@ export const Header = () => {
                 size="large"
                 aria-label="show 4 new mails"
                 color="black"
-                onClick={() => handleMove('/profile/my-wishlist')}
+                onClick={() => handleMove("/profile/my-wishlist")}
               >
                 <Badge color="error">
                   <FavoriteBorderIcon color="primary" />
