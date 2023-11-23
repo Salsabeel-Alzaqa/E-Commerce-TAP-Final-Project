@@ -130,7 +130,7 @@ export const AddressesSection = (props) => {
         {isError && (
           <Box sx={{ marginTop: "10px" }}>
             <Typography sx={{ color: "red" }}>
-              Try with checking out, try again later
+              Something wrong with checking out, please try again later
             </Typography>
           </Box>
         )}
