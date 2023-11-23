@@ -66,7 +66,7 @@ export const AddressesSection = (props) => {
           pin_code: selectedAddress.pin_code,
         }),
       ]);
-      navigate(`/`);
+      navigate(`/frontend-final-3`);
     } catch (error) {
       console.error("Error while checking out");
     }

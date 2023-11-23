@@ -7,7 +7,7 @@ import {
   Typography,
   useTheme,
   Grid,
-  Skeleton
+  Skeleton,
 } from "@mui/material";
 import React, { useEffect } from "react";
 import Breadcrumb from "../../components/Breadcrumbs/Breadcrumbs";
@@ -28,10 +28,10 @@ export const MyCartPage = () => {
   } = useCartItems();
 
   const handleBackToHome = () => {
-    navigate(`/`);
+    navigate(`/frontend-final-3`);
   };
 
-  const breadcrumbItems = [<Typography key='2'>My Cart</Typography>];
+  const breadcrumbItems = [<Typography key="2">My Cart</Typography>];
   const [cartItems, setCartItems] = useState([]);
 
   const { useUpdateCartItems } = useDataActions();
@@ -70,8 +70,8 @@ export const MyCartPage = () => {
         Array.from({ length: 3 }, (_, index) => (
           <Grid container mb={2} spacing={2} key={index}>
             <Grid item xs={12} md={9} lg={8}>
-              <Stack direction='row' spacing={3}>
-                <Skeleton variant="rectangular" width={'20%'} height={80} />
+              <Stack direction="row" spacing={3}>
+                <Skeleton variant="rectangular" width={"20%"} height={80} />
                 <Skeleton width="80%" />
               </Stack>
             </Grid>
