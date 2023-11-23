@@ -1,0 +1,39 @@
+{
+  "files": {
+    "main.css": "/frontend-final-3/static/css/main.0c71ad12.css",
+    "main.js": "/frontend-final-3/static/js/main.e01344b5.js",
+    "static/js/497.ab7afc78.chunk.js": "/frontend-final-3/static/js/497.ab7afc78.chunk.js",
+    "static/js/811.ab30db93.chunk.js": "/frontend-final-3/static/js/811.ab30db93.chunk.js",
+    "static/js/373.e4e20253.chunk.js": "/frontend-final-3/static/js/373.e4e20253.chunk.js",
+    "static/js/667.1efd8d91.chunk.js": "/frontend-final-3/static/js/667.1efd8d91.chunk.js",
+    "static/js/432.98c29bc1.chunk.js": "/frontend-final-3/static/js/432.98c29bc1.chunk.js",
+    "static/js/169.d3a55835.chunk.js": "/frontend-final-3/static/js/169.d3a55835.chunk.js",
+    "static/js/59.588d20d4.chunk.js": "/frontend-final-3/static/js/59.588d20d4.chunk.js",
+    "static/js/175.d22c9256.chunk.js": "/frontend-final-3/static/js/175.d22c9256.chunk.js",
+    "static/js/835.01b4e796.chunk.js": "/frontend-final-3/static/js/835.01b4e796.chunk.js",
+    "static/js/961.85371999.chunk.js": "/frontend-final-3/static/js/961.85371999.chunk.js",
+    "static/media/handbagHero.png": "/frontend-final-3/static/media/handbagHero.a7f23862afb0b8f1022d.png",
+    "static/media/makeup-image.png": "/frontend-final-3/static/media/makeup-image.14338e828a8389969b9b.png",
+    "static/media/skincare-essentails.png": "/frontend-final-3/static/media/skincare-essentails.8a63b9b4825645f968e2.png",
+    "static/media/image3.png": "/frontend-final-3/static/media/image3.551fb7556c158c84d649.png",
+    "static/media/WristWatches.png": "/frontend-final-3/static/media/WristWatches.d161e0e3c56f09b3835a.png",
+    "static/media/Handbags.png": "/frontend-final-3/static/media/Handbags.8e8d6a400cd903aa9961.png",
+    "static/media/image2.png": "/frontend-final-3/static/media/image2.1b6178e0f9a103f48566.png",
+    "static/media/image.png": "/frontend-final-3/static/media/image.0ebe48b7e5f24c98abe7.png",
+    "static/media/facepacks.png": "/frontend-final-3/static/media/facepacks.c61b768e18036b8026f0.png",
+    "static/media/PersonalCare.png": "/frontend-final-3/static/media/PersonalCare.aeb6f29db7a8be6b8eb6.png",
+    "static/media/SunGlasses.png": "/frontend-final-3/static/media/SunGlasses.36e72b6daf2e180a844e.png",
+    "static/media/listingHero.png": "/frontend-final-3/static/media/listingHero.89f3a464425e21c7e5c3.png",
+    "static/media/logo.svg": "/frontend-final-3/static/media/logo.31982cf68399b39b1a55a6fdc86544e4.svg",
+    "static/media/revicons.eot": "/frontend-final-3/static/media/revicons.a77de540a38981833f9e.eot",
+    "static/media/revicons.ttf": "/frontend-final-3/static/media/revicons.57fd05d4ae650374c8de.ttf",
+    "static/media/revicons.woff": "/frontend-final-3/static/media/revicons.e8746a624ed098489406.woff",
+    "index.html": "/frontend-final-3/index.html",
+    "main.0c71ad12.css.map": "/frontend-final-3/static/css/main.0c71ad12.css.map",
+    "main.e01344b5.js.map": "/frontend-final-3/static/js/main.e01344b5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0c71ad12.css",
+    "static/js/main.e01344b5.js"
+  ]
+}

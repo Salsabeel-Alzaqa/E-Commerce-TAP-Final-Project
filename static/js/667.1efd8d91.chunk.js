@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcoral_ecommerce_app=self.webpackChunkcoral_ecommerce_app||[]).push([[667],{6667:function(e,c,a){e.exports=a.p+"static/media/WristWatches.d161e0e3c56f09b3835a.png"}}]);

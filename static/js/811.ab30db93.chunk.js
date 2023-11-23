@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcoral_ecommerce_app=self.webpackChunkcoral_ecommerce_app||[]).push([[811],{9811:function(e,a,c){e.exports=c.p+"static/media/PersonalCare.aeb6f29db7a8be6b8eb6.png"}}]);

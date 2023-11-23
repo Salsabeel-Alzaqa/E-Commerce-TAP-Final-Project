@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcoral_ecommerce_app=self.webpackChunkcoral_ecommerce_app||[]).push([[432],{9432:function(e,c,p){e.exports=p.p+"static/media/facepacks.c61b768e18036b8026f0.png"}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcoral_ecommerce_app=self.webpackChunkcoral_ecommerce_app||[]).push([[961],{6961:function(e,c,a){e.exports=a.p+"static/media/skincare-essentails.8a63b9b4825645f968e2.png"}}]);

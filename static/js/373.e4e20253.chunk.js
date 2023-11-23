@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcoral_ecommerce_app=self.webpackChunkcoral_ecommerce_app||[]).push([[373],{7373:function(e,a,c){e.exports=c.p+"static/media/SunGlasses.36e72b6daf2e180a844e.png"}}]);
