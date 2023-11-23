@@ -9,7 +9,6 @@ import { ConfirmationModal } from '../ConfirmationModal/ConfirmationModal';
 import { useDataActions } from '../../hooks/useDataActions';
 import { useWishlist } from '../../hooks/useWishlist';
 import { styled } from "@mui/system";
-import { NotFound } from '../../pages/NotFound/NotFound';
 const StyledChip = styled(Chip)({
   height: '66px',
   width: '109px',
@@ -19,7 +18,7 @@ const StyledChip = styled(Chip)({
   justifyContent: 'center',
   alignItems: 'center',
 });
-export const ProductInfo = ({ name, short_description, ratingCount, rate, discount, price, id }) => {
+export const ProductInfo = ({ name, short_description, ratingCount, rate, discount, price, id , stock_quantity }) => {
   const [quantity, setQuantity] = useState(1);
   const [isSnackbarOpen, setSnackbarOpen] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
@@ -37,7 +36,7 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
     }
   }, [products, id]);
 
-  if (isError) return <NotFound />;
+  if (isError) return <p>Error ....</p>;
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
   };
@@ -101,7 +100,8 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
                 <Button color="primary">check</Button></InputAdornment>} sx={{ height: '56px' }} />
           </Grid>
         </Grid>
-       {isInCart ? <Box mt={3}></Box> : <Stack direction="row" spacing={3}>
+        {isInCart ? <Box mt={3}></Box> : stock_quantity < 1 ? <Typography variant="h6">Sorry, this item out of stock.</Typography> :
+          <Stack direction="row" spacing={3}>
           <Typography variant="h6">Quantity:</Typography>
             <QuantityButton value={quantity} onChange={handleQuantityChange} />
         </Stack>}
@@ -120,7 +120,7 @@ export const ProductInfo = ({ name, short_description, ratingCount, rate, discou
             : (isInCart ? (<Button variant="contained" fullWidth color="error" startIcon={!isRemoveProductLoading && <WorkOutlineOutlinedIcon />} disabled={isRemoveProductLoading}
               onClick={openConfirmationModal}> {isRemoveProductLoading ? (
                 <CircularProgress size={24} color="inherit" />) : ("Remove from Cart")}</Button>)
-              : (<Button variant="contained" fullWidth startIcon={!isAddProductLoading && <WorkOutlineOutlinedIcon />} onClick={handleAddToCart} disabled={isAddProductLoading}>
+              : (<Button variant="contained" fullWidth startIcon={!isAddProductLoading && <WorkOutlineOutlinedIcon />} onClick={handleAddToCart} disabled={isAddProductLoading || stock_quantity < 1}>
                 {isAddProductLoading ? (<CircularProgress size={24} color="inherit" />) : ("Add to Cart")}
               </Button>)
             )}
