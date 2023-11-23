@@ -143,6 +143,7 @@ export const Header = () => {
           aria-controls="primary-search-account-menu"
           aria-haspopup="true"
           color="inherit"
+          onClick={() => handleMove(`/cartpage`)}
         >
           <LocalMallIcon />
         </IconButton>
