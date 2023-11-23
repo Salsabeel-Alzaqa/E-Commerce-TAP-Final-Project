@@ -1,17 +1,17 @@
-import React from 'react';
-import { Breadcrumbs, Link } from '@mui/material';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import { styled } from '@mui/system'; 
+import React from "react";
+import { Breadcrumbs, Link } from "@mui/material";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { styled } from "@mui/system";
 
 export const StyledLink = styled(Link)(({ theme }) => ({
-  textDecoration: 'none',
+  textDecoration: "none",
   color: theme.palette.primary,
-  fontWeight:'bold',
-  '&:hover': {
+  fontWeight: "bold",
+  "&:hover": {
     color: theme.palette.secondary,
   },
-  '&:visited': {
-    color: theme.palette.primary, 
+  "&:visited": {
+    color: theme.palette.primary,
   },
 }));
 function Breadcrumb({ items }) {
@@ -20,9 +20,7 @@ function Breadcrumb({ items }) {
       separator={<NavigateNextIcon fontSize="small" />}
       aria-label="breadcrumb"
     >
-      <StyledLink href="/">
-        Home
-      </StyledLink>
+      <StyledLink href="/frontend-final-3">Home</StyledLink>
       {items}
     </Breadcrumbs>
   );
