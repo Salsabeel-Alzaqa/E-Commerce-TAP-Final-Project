@@ -155,6 +155,13 @@ export function useDataActions() {
         await apiClient.get("v1/orders").then((res) => res?.data),
     });
   }
+  
+  const useLogin = () => { 
+    return useMutation({
+      mutationFn: async (data) =>
+        await apiClient.post('v1/login', data).then((res) => res.data.token),
+    });
+  }
 
   function useMyaddresses() {
     return useQuery({
@@ -180,6 +187,7 @@ export function useDataActions() {
     useWishlistProducts,
     useAddWishlistProduct,
     useMyOrders,
+    useLogin,
     useMyaddresses,
   };
 }

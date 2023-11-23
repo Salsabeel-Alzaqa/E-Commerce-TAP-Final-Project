@@ -1,12 +1,8 @@
 import axios from 'axios';
-
+import { getToken , logOut} from "../utils/userutils";
 const apiClient = axios.create({
   baseURL: 'https://tap-backend-final-3-otnz.onrender.com/api/',
 });
-
-const getToken = () => {  
-  return localStorage.getItem('token') || sessionStorage.getItem('token');
-};
 
 apiClient.interceptors.request.use(
   (config) => {
@@ -26,6 +22,10 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error) => {
+    if (error.response.data === "Unauthorized" && error.response.status === 401)
+    {
+      logOut();
+    }
     return Promise.reject(error);
   }
 );

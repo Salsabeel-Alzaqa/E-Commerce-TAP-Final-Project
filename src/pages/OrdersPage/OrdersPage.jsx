@@ -1,7 +1,7 @@
 import React from "react";
 import FullWidthTabs from "./partials/TabPanel";
 import { useDataActions } from "../../hooks/useDataActions";
-import { useTheme , Container , Box , Typography} from "@mui/material";
+import { Container , Box , Typography} from "@mui/material";
 import { SideNav } from '../../components/SideNav/SideNav';
 import { Title } from '../../components/Title/Title';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumbs';
@@ -12,14 +12,11 @@ const breadcrumbItems = [
             <Typography underline="hover" key="3">My Orders</Typography>
     ];
 export const OrdersPage = () => {
-  const theme = useTheme();
   const completedOrders = [];
   const processingOrders = [];
   const { useMyOrders } = useDataActions();
   const {
     data: orders,
-    isLoading: isLoadingOrders,
-    isError: isErrorOrders,
   } = useMyOrders();
   if (orders?.data) {
     orders.data.forEach((order) => {

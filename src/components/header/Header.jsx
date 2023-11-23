@@ -42,8 +42,8 @@ export const Header = () => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const navigate = useNavigate();
   const mobileMenuId = "primary-search-account-menu-mobile";
-  const handleCartClick = () => {
-    navigate(`/cartpage`);
+  const handleMove = (page) => {
+    navigate(page);
   };
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -97,8 +97,8 @@ export const Header = () => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={() => handleMove('/profile/my-wishlist')}>
+          <Badge color="error">
             <FavoriteBorderIcon />
           </Badge>
         </IconButton>
@@ -110,7 +110,7 @@ export const Header = () => {
           aria-label="show 17 new notifications"
           onClick={handleClick}
         >
-          <Badge badgeContent={17} color="error">
+          <Badge color="error" >
             <PersonOutlineIcon color="primary" />
           </Badge>
         </IconButton>
@@ -262,8 +262,9 @@ export const Header = () => {
                 size="large"
                 aria-label="show 4 new mails"
                 color="black"
+                onClick={() => handleMove('/profile/my-wishlist')}
               >
-                <Badge badgeContent={4} color="error">
+                <Badge color="error">
                   <FavoriteBorderIcon color="primary" />
                 </Badge>
               </IconButton>
@@ -272,7 +273,7 @@ export const Header = () => {
                 aria-label="show 17 new notifications"
                 onClick={handleClick}
               >
-                <Badge badgeContent={17} color="error">
+                <Badge color="error">
                   <PersonOutlineIcon color="primary" />
                 </Badge>
               </IconButton>
@@ -296,7 +297,7 @@ export const Header = () => {
                 edge="end"
                 aria-label="account of current user"
                 aria-haspopup="true"
-                onClick={handleCartClick}
+                onClick={() => handleMove(`/cartpage`)}
               >
                 <LocalMallIcon color="primary" />
               </IconButton>

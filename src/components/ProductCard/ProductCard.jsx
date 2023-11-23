@@ -6,6 +6,7 @@ import { styled } from '@mui/system';
 import { useNavigate } from "react-router-dom";
 import { ProductPrice } from "../ProductPrice/ProductPrice";
 import { useWishlist } from '../../hooks/useWishlist';
+import { getToken } from "../../utils/userutils";
 const StyledCardMedia = styled(CardMedia)(({ 
   height: 300,
   borderRadius: "8px",
@@ -47,8 +48,7 @@ const CustomChip = styled(Chip)(({
 }));
 
 export const ProductCard = ({ name, id, short_description, price, image_url, lessInfo, rate, discount, ratingCount, chipLabel }) => {
-  const { isInWishlist, AddToWishlist, isAddWishlistProductLoading, isWishlistLoading } = useWishlist(id);
-  const isAuthenticated = localStorage.getItem('token') || sessionStorage.getItem('token');
+  const isAuthenticated = getToken();
   const navigate = useNavigate();
   const handleProduct = () => {
     navigate(`/product/${id}`);
@@ -72,11 +72,7 @@ export const ProductCard = ({ name, id, short_description, price, image_url, les
           <Typography gutterBottom variant="none" component="div" sx={{ fontSize: "16px", fontWeight: "500", }}>
             {name}
           </Typography>
-          {isAuthenticated && isWishlistLoading ? <></>: isInWishlist ? (<IconButton aria-label="add" size="large">
-            <FavoriteIcon fontSize="inherit" />
-          </IconButton>) : (<IconButton aria-label="add" size="large" disabled={isAddWishlistProductLoading} onClick={AddToWishlist}>
-            <FavoriteBorderIcon fontSize="inherit" />
-          </IconButton>)}
+          {!isAuthenticated ? <></> : <CardFavourit id={id} />}
         </Box>
         <Typography variant="body2" color="text.secondary" sx={{ fontSize: "14px", mb: "5px" }}>
           {short_description}
@@ -90,3 +86,17 @@ export const ProductCard = ({ name, id, short_description, price, image_url, les
     </Card>
   );
 };
+
+const CardFavourit = ({id}) =>
+{
+  const { isInWishlist, AddToWishlist, isAddWishlistProductLoading, isWishlistLoading } = useWishlist(id);
+  return (
+    <>
+      {isWishlistLoading ? <></> : isInWishlist ? (<IconButton aria-label="add" size="large">
+        <FavoriteIcon fontSize="inherit" />
+      </IconButton>) : (<IconButton aria-label="add" size="large" disabled={isAddWishlistProductLoading} onClick={AddToWishlist}>
+        <FavoriteBorderIcon fontSize="inherit" />
+      </IconButton>)}
+    </>
+  );
+}

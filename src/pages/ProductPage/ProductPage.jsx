@@ -9,6 +9,7 @@ import { ProductReviews } from "./partials/ProductReviews";
 import { RelatedProducts } from "./partials/RelatedProducts";
 import { ProductImagesGalary } from "../../components/ProductImagesGalary/ProductImagesGalary";
 import { TabPanel } from "../../components/TabPanel/TabPanel";
+import { NotFound } from "../NotFound/NotFound";
 const getCategoryName = (categoryID) => {
   const categoryNames = {
     1: 'Personal Care',
@@ -27,7 +28,7 @@ export const ProductPage = () => {
   const { data: product, isLoading, isError } = useProductDetails(id,'');
   let TabsItems;
   let breadcrumbItems;
-  if (isError) return <p>Error ...</p>;
+  if (isError) return <NotFound />;
   if (product) {
     TabsItems = [
       {

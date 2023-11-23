@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { Box, Button, useTheme } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { SocialMedia } from "../SocialMedia/SocialMedia";
 import { Location } from "../Location/Location";
 import { Link, useNavigate } from "react-router-dom";
@@ -18,7 +18,6 @@ export const Footer = (props) => {
     "Jewellery",
   ];
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const products = ["Featured", "Trendy", "Brands"];
 

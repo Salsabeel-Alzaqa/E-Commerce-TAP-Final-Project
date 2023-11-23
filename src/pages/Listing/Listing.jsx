@@ -53,7 +53,7 @@ export const Listing = () => {
                     <Grid container spacing={3}>
                         {products.results?.map((product, index) => (
                             <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                                <ProductCard {...product} />
+                                <ProductCard {...product} chipLabel={product.stock_quantity <1 ?'Out Of Stock' : false}/>
                             </Grid>
                         ))}
                     </Grid>

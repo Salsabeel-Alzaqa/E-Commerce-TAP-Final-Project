@@ -6,7 +6,8 @@ import wishlistImage from '../../assets/images/wishlist.png';
 import { Loading } from '../../components/Loading/Loading';
 import { SideNav } from '../../components/SideNav/SideNav';
 import { Title } from '../../components/Title/Title';
-import  Breadcrumb  from '../../components/Breadcrumbs/Breadcrumbs';
+import Breadcrumb from '../../components/Breadcrumbs/Breadcrumbs';
+import { NotFound } from '../../pages/NotFound/NotFound';
 const breadcrumbItems = [
   <Typography key="2">
     User Profile
@@ -16,7 +17,7 @@ const breadcrumbItems = [
 export const WishlistPage = () => {
   const { useWishlistProducts } = useDataActions();
   const { data: products, isLoading, isError } = useWishlistProducts();
-  if (isError) return <p>Error ...</p>;
+  if (isError) return <NotFound />;
   return (
     <Container maxWidth="xl">
       <Box mt={3}>

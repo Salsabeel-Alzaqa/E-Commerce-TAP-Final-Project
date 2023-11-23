@@ -9,8 +9,8 @@ import Paper from "@mui/material/Paper";
 import { ProductCartCard } from "../ProductCartCard/ProductCartCard";
 import { Button, useTheme } from "@mui/material";
 import { useDataActions } from "../../hooks/useDataActions";
-import { useWishlist } from "../../hooks/useWishlist";
-import { ConfirmationModal } from "../ConfirmationModal/ConfirmationModal";
+import { useWishlist } from '../../hooks/useWishlist';
+import { ConfirmationModal } from '../ConfirmationModal/ConfirmationModal';
 export const ProductsCart = (props) => {
   const theme = useTheme();
   return (
@@ -66,12 +66,7 @@ export const ProductsCart = (props) => {
         <TableBody>
           {props.cartItems.map((item, index) => (
             <React.Fragment key={index}>
-              <CartItem
-                item={item}
-                orderpage={props.orderpage}
-                setCartItems={props.setCartItems}
-                cartItems={props.cartItems}
-              />
+              <CartItem item={item} orderpage={props.orderpage} setCartItems={props.setCartItems} cartItems={props.cartItems}/>
             </React.Fragment>
           ))}
         </TableBody>
@@ -80,28 +75,24 @@ export const ProductsCart = (props) => {
   );
 };
 const CartItem = ({ item, orderpage, setCartItems, cartItems }) => {
-  const [isConfirmationModalOpen, setConfirmationModalOpen] =
-    React.useState(false);
+  const [isConfirmationModalOpen, setConfirmationModalOpen] = React.useState(false);
   const theme = useTheme();
   const { useRemoveCartItem } = useDataActions();
   const { mutateAsync } = useRemoveCartItem();
-  const {
-    isInWishlist,
-    AddToWishlist,
-    isAddWishlistProductLoading,
-    isWishlistLoading,
-  } = useWishlist(item.productID);
+  const { isInWishlist, AddToWishlist, isAddWishlistProductLoading, isWishlistLoading } = useWishlist(item.productID);
   const handleRemoveItem = async () => {
     await mutateAsync(item.id);
     setCartItems(cartItems.filter((product) => product.id !== item.id));
   };
   const handleMoveToWishlist = () => {
+    closeConfirmationModal();
     handleRemoveItem();
     AddToWishlist();
-  };
-  const openConfirmationModal = () => {
+  } 
+    const openConfirmationModal = () => {
     setConfirmationModalOpen(true);
   };
+
   const closeConfirmationModal = () => {
     setConfirmationModalOpen(false);
   };
@@ -166,8 +157,8 @@ const CartItem = ({ item, orderpage, setCartItems, cartItems }) => {
           ${item.sub_total * item.quantity}
         </TableCell>
       </TableRow>
-      {orderpage ? null : (
-        <TableRow>
+      {orderpage ? null
+        : <TableRow>
           <TableCell
             colSpan={theme.breakpoints.down("sm") ? 2 : 3}
             align="right"
@@ -180,10 +171,8 @@ const CartItem = ({ item, orderpage, setCartItems, cartItems }) => {
               },
             }}
           >
-            {isInWishlist || isWishlistLoading ? (
-              <></>
-            ) : (
-              <Button
+            {isInWishlist || isWishlistLoading ? <></>
+              : <Button
                 sx={{
                   textTransform: "none",
                   textDecoration: "underline",
@@ -193,8 +182,7 @@ const CartItem = ({ item, orderpage, setCartItems, cartItems }) => {
                 onClick={handleMoveToWishlist}
               >
                 Move to Wishlist
-              </Button>
-            )}
+              </Button>}
           </TableCell>
           <TableCell
             colSpan={3}
@@ -224,7 +212,7 @@ const CartItem = ({ item, orderpage, setCartItems, cartItems }) => {
             </Button>
           </TableCell>
         </TableRow>
-      )}
+      }
       <ConfirmationModal
         isOpen={isConfirmationModalOpen}
         onClose={closeConfirmationModal}
@@ -233,4 +221,4 @@ const CartItem = ({ item, orderpage, setCartItems, cartItems }) => {
       />
     </>
   );
-};
+}
