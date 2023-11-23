@@ -79,7 +79,7 @@ export const Footer = (props) => {
                 {products.map((item, index) => (
                   <Link
                     key={index}
-                    to="/"
+                    to="/frontend-final-3"
                     onClick={() => props.setSection(item)}
                     style={{
                       textDecoration: "none",

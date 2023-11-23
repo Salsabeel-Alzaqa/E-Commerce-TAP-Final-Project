@@ -114,7 +114,7 @@ export const LogInPage = () => {
           {isSubmitting ? <CircularProgress size={24} /> : "Log In"}
         </Button>
       </form>
-      <Link to="/">Guest Mood</Link>
+      <Link to="/frontend-final-3">Guest Mood</Link>
     </Container>
   );
 };
