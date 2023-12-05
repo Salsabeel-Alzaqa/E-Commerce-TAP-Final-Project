@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# E-Commerce React APP
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a front-end project developed using React. The project provides a user-friendly interface for browsing and purchasing products. The website allows users to browse and purchase products,Login, add products to their cart and wishlist, view product details, manage their profile, and place orders.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User Authentication: Users can log in to their accounts.
 
-### `npm start`
+- Home Page: Displays multiple sections, including New Arrivals, Handpicked Collections, Shop By Brand, and more.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Products List Page: Lists all Products by a specific category or brand, Users can search for Products by product or brand name.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Product Details Page: Provides detailed information about the product, Related Products, and Ratings and Reviews. Users can add the product to their wishlist or cart and manage the quantity of each item. from this page.
 
-### `npm test`
+- Cart and checkout page: you can change the order and place order.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Profile Page:
+   - Displays user information, Users can edit their
+     profile information.
+   - show the wishlist.
+   - manage orders.
 
-### `npm run build`
+- Responsive design: The app is designed to be responsive and optimized for different screen sizes and devices.
+  
+## Demo
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Live Demo](https://jsd-0923.github.io/frontend-final-3/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Note to login use:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Email: john.doe@example.com Password: ayham123
 
-### `npm run eject`
+## Technologies Used
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+#### Frontend
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- React.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- React Query.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Material-UI (Mui).
 
-## Learn More
+- React Form Hook.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- React Image Gallery.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React Router DOM.
 
-### Code Splitting
+- React Multi Carousel.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### Networking
+- Axios.
 
-### Analyzing the Bundle Size
+#### Development Tools
+- JavaScript (ES6+).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Installation
 
-### Making a Progressive Web App
+1- Clone the repository.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+git clone https://github.com/JSD-0923/frontend-final-3/
+```
 
-### Advanced Configuration
+2- Install dependencies.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```bash
+  npm install 
+```
+3- Start the development server.
 
-### Deployment
+```bash
+  npm start 
+```
+4- Access the website in your browser at http://localhost:3000.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Figma Resource
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Click here to access the Figma resource](https://www.figma.com/fileEDGvMVyaFqsF6fSCN321umPWA-eCommerce-Theme-(Community)-(Copy)?type=design&node-id=184%3A0&mode=design&t=FBimoLOAPYrVyTHa-1)
