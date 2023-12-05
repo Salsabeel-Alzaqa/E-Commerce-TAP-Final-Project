@@ -59,7 +59,7 @@ Email: john.doe@example.com Password: ayham123
 1- Clone the repository.
 
 ```bash
-git clone https://github.com/JSD-0923/frontend-final-3/
+git clone https://github.com/Salsabeel-Alzaqa/E-Commerce-TAP-Final-Project/
 ```
 
 2- Install dependencies.
